@@ -206,7 +206,7 @@ public final static int DOWN = 6, UP = 7;
 /** return the (planer angle of the vector between this --> p, in DEGREES, in a
  * compass order: north 0, east 90, south 180, west 270.
  * @param p is the end point of the vector (z value is ignored). 
- * @return angle in compass styye [0,360).
+ * @return angle in compass style [0,360).
  */
 	public double north_angle(Point3D p) {
 		double ans = 0;
@@ -232,6 +232,7 @@ public final static int DOWN = 6, UP = 7;
 		ans = Math.atan2((p._z+h-_z), this.distance2D(p));
 		return Math.toDegrees(ans);
 	}
+	
 	/** transform from radians to angles */
 	public static double r2d(double a) { return Math.toDegrees(a);}
 	/** transform from radians to angles */
