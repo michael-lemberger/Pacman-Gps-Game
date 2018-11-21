@@ -40,7 +40,18 @@ public class CoordsFunctions implements coords_converter {
 	 * @return
 	 */
 	public boolean isValid_GPS_Point(Point3D p) {
-	
+		
+		if(p.x()>180||p.x()<-180) 
+			return false;
+		
+		if(p.y()>90||p.y()<-90)
+			return false;
+		
+		if(p.z()>8848||p.z()<-450) 
+			return false;
+					
+		return true;
+		
 	}
 	/**
 	 * by the function in the excel file
