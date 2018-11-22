@@ -8,7 +8,8 @@ import Geom.Point3D;
 public class CoordsFunctions implements coords_converter {
 	/** computes a new point which is the gps point transformed by a 3D vector (in meters)*/
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {//לללכת מספר מסוים של צעדים צפונה או דרומה ומספר צעדים מסויים מזרחה או מערבה ולהחזיר את המיקום החדש בנקודת ג'יפיאס
-		Point3D p=new Point3D (0,0,0);
+		
+		Point3D p=new Point3D (0,0,0);//new point converted to meters
 		try {
 			p = new Point3D (D2M(gps));
 		} catch (Exception e) {
@@ -18,8 +19,16 @@ public class CoordsFunctions implements coords_converter {
 		double x=p.x()+local_vector_in_meter.x();
 		double y=p.y()+local_vector_in_meter.y();
 		double z=p.z()+local_vector_in_meter.z();
-		Point3D p1=new Point3D (x,y,z);
+		p=new Point3D (x,y,z);
 		
+		Point3D p1=new Point3D(0,0,0);//new point converted back to degree
+		try {
+			p1 = new Point3D(M2D(p));
+		}
+		catch (Exception e) {
+			System.out.println("worng output");
+			e.printStackTrace();
+		}
 		return p1;
 	}
 	
@@ -61,8 +70,7 @@ public class CoordsFunctions implements coords_converter {
 		
 	}
 	/**
-	 * by the function in the excel file
-	 * we convert the 
+	 * from polar to cartesian
 	 * @param gps
 	 * @param y
 	 * @return
@@ -72,13 +80,21 @@ public class CoordsFunctions implements coords_converter {
 		if(isValid_GPS_Point(gps)==false) {
 			throw new Exception ("gps point incorrect!");
 		}
+		
 		double x=Math.sin(Point3D.d2r(gps.x()))*Math.cos(Point3D.d2r(gps.y()))*EarthR;
 		double y=Math.sin(Point3D.d2r(gps.x()))*Math.sin(Point3D.d2r(gps.y()))*EarthR;
 		double z=Math.cos(Point3D.d2r(gps.x()))*EarthR;
 		Point3D p=new Point3D(x,y,z);
 		return p;
 	}
+	/**
+	 * from cartesian to polar(https://brilliant.org/wiki/convert-cartesian-coordinates-to-polar/)
+	 * @param gps
+	 * @return
+	 * @throws Exception
+	 */
 	public	Point3D M2D(Point3D gps) throws Exception {
+		//לבדוק עם מיכל
 		double x=Math.sqrt((gps.x()*gps.x())+(gps.y()*gps.y()));
 		x=Point3D.r2d(x);
 		
@@ -99,8 +115,6 @@ public class CoordsFunctions implements coords_converter {
 		}
 		
 		return p;
-		
-		
 	}
 	
 	private List GpsList=new ArrayList();
