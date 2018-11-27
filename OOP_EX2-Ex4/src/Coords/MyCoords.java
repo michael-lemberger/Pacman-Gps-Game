@@ -5,7 +5,7 @@ import java.util.List;
 
 import Geom.Point3D;
 
-public class CoordsFunctions implements coords_converter {
+public class MyCoords implements coords_converter {
 	/** computes a new point which is the gps point transformed by a 3D vector (in meters)*/
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {//לללכת מספר מסוים של צעדים צפונה או דרומה ומספר צעדים מסויים מזרחה או מערבה ולהחזיר את המיקום החדש בנקודת ג'יפיאס
 		
