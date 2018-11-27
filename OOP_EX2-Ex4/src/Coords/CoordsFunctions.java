@@ -93,7 +93,7 @@ public class CoordsFunctions implements coords_converter {
 	 * @throws Exception
 	 */
 	public	Point3D M2D(Point3D gps,double num) throws Exception {
-		//לבדוק עם מיכל
+		
 		double x=((gps.x()/(2*Math.PI*EarthR)))*360;
 		double y=((gps.y()/(2*Math.PI*EarthR))*360)/Math.cos(num*Math.PI/180);
 		double z=gps.z();
