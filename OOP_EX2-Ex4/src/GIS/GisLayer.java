@@ -2,7 +2,7 @@ package GIS;
 
 import java.util.Collection;
 import java.util.Iterator;
-
+//GisLayer
 public class GisLayer implements GIS_layer {
 
 	@Override
