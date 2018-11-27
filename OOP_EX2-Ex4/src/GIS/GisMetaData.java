@@ -19,8 +19,10 @@ public class GisMetaData implements Meta_data {
 	 * @return the orientation: yaw, pitch and roll associated with this data;
 	 */
 	public Point3D get_Orientation() {
-		// TODO Auto-generated method stub
+		//don't do
 		return null;
 	}
+	
+	private String color;
 
 }
