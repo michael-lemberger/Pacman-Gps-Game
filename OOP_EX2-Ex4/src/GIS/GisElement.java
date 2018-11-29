@@ -14,28 +14,21 @@ import Geom.Point3D;
  *
  */
 public class GisElement implements GIS_element {
-	String[] Data = null;
 	Point3D _p;
 	GisMetaData _metaData;
 
 	public GisElement (Point3D p, GisMetaData metaData) throws Exception {
-
-			
-		
+		this._p = p;
+		this._metaData = metaData;
 	}
-
-
-
 
 	@Override
 	public Geom_element getGeom() {
-
 		return _p;
 	}
 
 	@Override
 	public Meta_data getData() {
-
 		return _metaData;
 	}
 

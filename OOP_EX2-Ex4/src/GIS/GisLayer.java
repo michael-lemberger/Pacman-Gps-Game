@@ -1,5 +1,9 @@
 package GIS;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -8,18 +12,35 @@ import java.util.List;
 import java.util.Set;
 
 import File_format.CsvParser;
+import Geom.Point3D;
 public class GisLayer implements GIS_layer {
-	CsvParser csv=new CsvParser();
-	Set<GIS_element> Elements=new HashSet<GIS_element>();
+	public CsvParser csv=new CsvParser();
+	public static Set<GIS_element> Elements=new HashSet<GIS_element>();
+	public static Set<GisElement> se =new HashSet<GisElement>();
+
 	public  GisLayer(String directory) throws Exception {
-		String s=csv.csvmaker(directory);
-		
-		
+		String s[][]=csv.csvmaker(directory);
+		for (int i = 1; i < s.length-1; i++) {		
+			GisMetaData metadata =new GisMetaData(s[i]);
+			String point=""+s[i][6]+","+s[i][7]+","+s[i][8]+"";
+			Point3D p=new Point3D (point);		
+			GisElement element= new GisElement(p, metadata);
+			add(element);			
+		}
+
+
 	}
-			
+
 	@Override
 	public boolean add(GIS_element arg0) {
-		return false;
+		try {
+			se.add((GisElement) arg0);
+			Elements.add(arg0);
+		}
+		catch(Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -99,9 +120,61 @@ public class GisLayer implements GIS_layer {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	private void ToElement(String csv) {
-		
+
+	private void Tokml() {
+
+
+	}
+	public static void writeFileKML( String output) {
+		ArrayList<String> content = new ArrayList<String>();
+		String kmlstart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+				"<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n";
+		content.add(kmlstart);
+
+		String kmlend = "</kml>";
+		try{
+			FileWriter fw = new FileWriter(output);
+			BufferedWriter bw = new BufferedWriter(fw);
+			//			Iterator<GisElement> it = se.iterator();
+			//			GisElement ge=it.next();
+			//			System.out.println(ge);
+			//			while(it.hasNext()) {
+			//				 ge=it.next();
+			//			for(Object se : GisLayer) {
+			//				GisMetaData m=(GisMetaData) ge.getData();
+			//					String[] s=m.getData();
+			//					//Point3D p1=new Point3D(element)
+			//
+			//					// for (int i = 0; i < Elements.size(); i++) {
+			//					//String[] s = Elements.get(i);
+			for(GisElement e : se) {
+				String[] s = e._metaData.getData();
+				String kmlelement ="<Placemark>\n" 
+						+"<name>"+s[1]+"</name>\n" 
+						+"<description>\n"
+						+"<MAC>"+s[0]+"</MAC>\n"
+						+"<AuthMode>"+s[2]+"</AuthMode>\n"
+						+"<FirstSeen>"+s[3]+"</FirstSeen>\n"
+						+"<Channel>"+s[4]+"</Channel>\n"
+						+"<RSSI>"+s[5]+"</RSSI>\n"
+						+"<AccuracyMeters>"+s[9]+"</AccuracyMeters>\n"
+						+"<Type>"+s[10]+"</Type>\n"
+						+"</description>\n" 
+						+"<Point>\n" +
+						"<coordinates>"+""+s[6]+","+s[7]+","+s[8]+"</coordinates>" +
+						"</Point>\n" +
+						"</Placemark>\n";
+				content.add(kmlelement);
+			}
+			content.add(kmlend);
+			System.out.println(content.toString());
+			String csv = content.toString().replaceAll(", <", "  <").replace("[", "").replace("]", "");
+			bw.write(csv);
+			bw.close();
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
