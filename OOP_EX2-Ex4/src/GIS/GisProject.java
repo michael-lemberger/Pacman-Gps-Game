@@ -74,7 +74,7 @@ public class GisProject implements GIS_project {
 	@Override
 	public Object[] toArray() {
 		
-		return null;
+		return layers.toArray();
 	}
 
 	@Override
