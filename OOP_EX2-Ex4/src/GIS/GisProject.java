@@ -91,9 +91,9 @@ public class GisProject implements GIS_project {
 		int num=1;
 		String send="---project---\n\n";
 		for(GisLayer l : setProject) {
-//			send+= "layer"+num+"\n"+l+"\n ";
-			send+=""+l.size()+"\n";
-			//num++;
+		send+= "layer"+num+"\n"+l+"\n ";
+//			send+=""+l.size()+"\n";
+			num++;
 		}
 		return send;
 	}
