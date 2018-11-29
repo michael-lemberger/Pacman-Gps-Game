@@ -84,7 +84,7 @@ public class GisProject implements GIS_project {
 
 	@Override
 	public Meta_data get_Meta_data() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	public String toString() {
