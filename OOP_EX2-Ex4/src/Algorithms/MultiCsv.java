@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import GIS.GisLayer;
+import GIS.GisProject;
 
 public class MultiCsv {
 	public static void main(String[] args) throws Exception {
@@ -11,33 +12,11 @@ public class MultiCsv {
 		
 	}
 
-//	public static void displayDirectoryContents(File dir) throws Exception {
-//		try {
-//			
-//			File[] files = dir.listFiles();
-//			for (File file : files) {
-//				if (file.isDirectory()) {
-//					System.out.println("directory:" + file.getCanonicalPath());
-//					
-//					displayDirectoryContents(file);
-//				} else {
-//					System.out.println("     file:" + file.getCanonicalPath());
-//					String temp= ""+file.getCanonicalPath();
-//					
-//					String s=temp.replace("\\", "\\\\");
-//					System.out.println("kelev"+s);
-//					GisLayer g = new GisLayer(s);
-//					
-//					g.writeFileKML(temp);
-//				}
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
 	public static void listFile(String pathname) throws Exception {
 	    File f = new File(pathname);
 	    File[] listfiles = f.listFiles();
+	    GisLayer gis;
+	    GisProject project= new GisProject();
 	    for (int i = 0; i < listfiles.length; i++) {
 	        if (listfiles[i].isDirectory()) {
 	            File[] internalFile = listfiles[i].listFiles();
@@ -55,9 +34,10 @@ public class MultiCsv {
 	            s=s.replace("\\", "\\\\");
 				System.out.println("kelev: "+s);
 				try {
-					GisLayer g = new GisLayer(s);
-		g.writeFileKML("C:\\Users\\user\\Desktop\\BoazKelev.kml");
-		System.out.println(g.size());
+					 gis = new GisLayer(s);
+//		gis.writeFileKML("C:\\Users\\user\\Desktop\\MyCoordination.kml");
+		project.add(new GisLayer(s));
+		System.out.println(project);
 				} catch (Exception e) {
 					
 				}

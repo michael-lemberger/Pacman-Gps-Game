@@ -14,10 +14,12 @@ import java.util.Set;
 import File_format.CsvParser;
 import Geom.Point3D;
 public class GisLayer implements GIS_layer {
-	public CsvParser csv=new CsvParser();
-	public static Set<GIS_element> Elements=new HashSet<GIS_element>();
+	private CsvParser csv=new CsvParser();
+	private static Set<GIS_element> Elements=new HashSet<GIS_element>();
 	public static Set<GisElement> se =new HashSet<GisElement>();
 
+	
+	
 	public  GisLayer(String directory) throws Exception {
 		String s[][]=csv.csvmaker(directory);
 		for (int i = 1; i < s.length-1; i++) {		
@@ -45,12 +47,14 @@ public class GisLayer implements GIS_layer {
 
 	@Override
 	public boolean addAll(Collection<? extends GIS_element> arg0) {
+		se.addAll((Collection<? extends GisElement>) arg0);
 		return Elements.addAll(arg0);
 		
 	}
 
 	@Override
 	public void clear() {
+		se.clear();
 		Elements.clear();
 
 	}
@@ -78,11 +82,13 @@ public class GisLayer implements GIS_layer {
 
 	@Override
 	public boolean remove(Object arg0) {
+		se.remove(arg0);
 		return Elements.remove(arg0);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> arg0) {
+		se.removeAll(arg0);
 		return Elements.removeAll(arg0);
 	}
 
@@ -120,7 +126,7 @@ public class GisLayer implements GIS_layer {
 	}
 	
 
-	public static void writeFileKML( String output) {
+	public  void writeFileKML( String output) {
 		ArrayList<String> content = new ArrayList<String>();
 		String kmlstart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 				"<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n" + "<Document>";

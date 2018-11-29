@@ -9,11 +9,9 @@ import Geom.Point3D;
 
 public class CsvParser {
 	
-	public CsvParser() {
-		
-	}
+	
 
-	public static String[][] csvmaker (String adress) throws Exception 
+	public  String[][] csvmaker (String adress) throws Exception 
 	{
 		
 		String line = "";
