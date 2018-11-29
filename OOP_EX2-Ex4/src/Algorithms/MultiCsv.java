@@ -57,6 +57,7 @@ public class MultiCsv {
 				try {
 					GisLayer g = new GisLayer(s);
 		g.writeFileKML("C:\\Users\\user\\Desktop\\BoazKelev.kml");
+		System.out.println(g.size());
 				} catch (Exception e) {
 					
 				}

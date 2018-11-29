@@ -111,6 +111,14 @@ public class GisLayer implements GIS_layer {
 	public Meta_data get_Meta_data() {
 		return null;
 	}
+	public String toString() {
+		String send="";
+		for(GisElement e : se) {
+			send+= ""+e+"\n ";
+		}
+		return send;
+	}
+	
 
 	public static void writeFileKML( String output) {
 		ArrayList<String> content = new ArrayList<String>();
