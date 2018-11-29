@@ -1,13 +1,24 @@
 package GIS;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 //GisLayer
-public class GisLayer implements GIS_layer {
+import java.util.Set;
 
+import File_format.CsvParser;
+public class GisLayer implements GIS_layer {
+	CsvParser csv=new CsvParser();
+	Set<GIS_element> Elements=new HashSet<GIS_element>();
+	public  GisLayer(String directory) throws Exception {
+		String s=csv.csvmaker(directory);
+		
+		
+	}
+			
 	@Override
 	public boolean add(GIS_element arg0) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -87,6 +98,10 @@ public class GisLayer implements GIS_layer {
 	public Meta_data get_Meta_data() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private void ToElement(String csv) {
+		
 	}
 
 }
