@@ -35,7 +35,10 @@ public class GisElement implements GIS_element {
 	@Override
 	public void translate(Point3D vec) {
 	}
-
+   public String toString() {
+	return this._metaData.toString()+""+this._p;
+	   
+   }
 
 
 

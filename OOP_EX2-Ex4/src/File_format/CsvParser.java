@@ -47,12 +47,12 @@ public class CsvParser {
 		{
 			e.printStackTrace();
 		}
-		for (int i=0;i<Matrix.length-1;i++) {
-			for (int j = 0; j < Matrix[i].length; j++) {
-				System.out.print(Matrix[i][j]+",");
-			}
-			System.out.println();
-		}
+//		for (int i=0;i<Matrix.length-1;i++) {
+//			for (int j = 0; j < Matrix[i].length; j++) {
+//				System.out.print(Matrix[i][j]+",");
+//			}
+//			System.out.println();
+//		}
 		return Matrix;
 		} 
 		

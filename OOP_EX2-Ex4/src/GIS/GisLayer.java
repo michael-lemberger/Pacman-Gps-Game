@@ -45,86 +45,73 @@ public class GisLayer implements GIS_layer {
 
 	@Override
 	public boolean addAll(Collection<? extends GIS_element> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return Elements.addAll(arg0);
+		
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		Elements.clear();
 
 	}
 
 	@Override
 	public boolean contains(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return Elements.contains(arg0);
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+	return Elements.containsAll(arg0);
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return Elements.isEmpty();
+		
 	}
 
 	@Override
 	public Iterator<GIS_element> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return Elements.iterator();
 	}
 
 	@Override
 	public boolean remove(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return Elements.remove(arg0);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return Elements.removeAll(arg0);
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return Elements.retainAll(arg0);
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Elements.size();
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return Elements.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return Elements.toArray(arg0);
 	}
 
 	@Override
 	public Meta_data get_Meta_data() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private void Tokml() {
-
-
-	}
 	public static void writeFileKML( String output) {
 		ArrayList<String> content = new ArrayList<String>();
 		String kmlstart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -155,7 +142,7 @@ public class GisLayer implements GIS_layer {
 				content.add(kmlelement);
 			}
 			content.add(kmlend);
-			System.out.println(content.toString());
+//			System.out.println(content.toString());
 			String csv = content.toString().replaceAll(", <", "  <").replace("[", "").replace("]", "");
 			bw.write(csv);
 			bw.close();
