@@ -128,25 +128,13 @@ public class GisLayer implements GIS_layer {
 	public static void writeFileKML( String output) {
 		ArrayList<String> content = new ArrayList<String>();
 		String kmlstart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-				"<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n";
+				"<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n" + "<Document>";
 		content.add(kmlstart);
 
-		String kmlend = "</kml>";
+		String kmlend = "</Document>\n"+"</kml>";
 		try{
 			FileWriter fw = new FileWriter(output);
 			BufferedWriter bw = new BufferedWriter(fw);
-			//			Iterator<GisElement> it = se.iterator();
-			//			GisElement ge=it.next();
-			//			System.out.println(ge);
-			//			while(it.hasNext()) {
-			//				 ge=it.next();
-			//			for(Object se : GisLayer) {
-			//				GisMetaData m=(GisMetaData) ge.getData();
-			//					String[] s=m.getData();
-			//					//Point3D p1=new Point3D(element)
-			//
-			//					// for (int i = 0; i < Elements.size(); i++) {
-			//					//String[] s = Elements.get(i);
 			for(GisElement e : se) {
 				String[] s = e._metaData.getData();
 				String kmlelement ="<Placemark>\n" 
@@ -161,7 +149,7 @@ public class GisLayer implements GIS_layer {
 						+"<Type>"+s[10]+"</Type>\n"
 						+"</description>\n" 
 						+"<Point>\n" +
-						"<coordinates>"+""+s[6]+","+s[7]+","+s[8]+"</coordinates>" +
+						"<coordinates>"+""+s[7]+","+s[6]+","+s[8]+"</coordinates>" +
 						"</Point>\n" +
 						"</Placemark>\n";
 				content.add(kmlelement);
