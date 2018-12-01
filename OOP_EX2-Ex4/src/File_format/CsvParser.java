@@ -8,12 +8,12 @@ import GIS.GisMetaData;
 import Geom.Point3D;
 
 public class CsvParser {
-	
-	
+
+
 
 	public  String[][] csvmaker (String adress) throws Exception 
 	{
-		
+
 		String line = "";
 		String cvsSplitBy = ",";
 		int counter = 0;
@@ -25,11 +25,11 @@ public class CsvParser {
 			{
 				counter++;
 				if(counter>=1)
-				line += br.readLine()+",";
-				
+					line += br.readLine()+",";
 
-					
-				}
+
+
+			}
 			String[] data = line.split(cvsSplitBy);
 			Matrix=new String [counter-1][11];
 			counter=0;
@@ -38,21 +38,16 @@ public class CsvParser {
 					Matrix[i][j]=data[counter++];
 				}
 			}
-			
-			
-			}
+
+
+		}
 		catch (IOException e) 
 		{
 			e.printStackTrace();
 		}
-//		for (int i=0;i<Matrix.length-1;i++) {
-//			for (int j = 0; j < Matrix[i].length; j++) {
-//				System.out.print(Matrix[i][j]+",");
-//			}
-//			System.out.println();
-//		}
+
 		return Matrix;
-		} 
-		
-	}
+	} 
+
+}
 

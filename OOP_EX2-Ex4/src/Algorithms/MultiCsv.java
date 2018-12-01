@@ -38,8 +38,10 @@ public class MultiCsv {
 				if (file.isDirectory()) {
 					RecursiveCsvSerch(file);
 				} else {
-					GisLayer layer = new GisLayer(file.getCanonicalPath());
-					project.add(layer);
+					//GisLayer layer = new GisLayer(file.getCanonicalPath());
+					//System.out.println(layer.size());
+					project.add(new GisLayer(file.getCanonicalPath()));
+					
 				}
 			}
 		} catch (IOException e) {

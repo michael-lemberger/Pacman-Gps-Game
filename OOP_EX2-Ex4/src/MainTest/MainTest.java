@@ -16,16 +16,19 @@ public class MainTest {
 		//create the kml file from the MultiCsv, save it on this path.
 		m.getProject().ProjectToKml("C:\\kmlProject.kml");
 		
+		
+		
 		/**************************************************************************************/
-		
-		//enter a adress to create a kml layer from the directories csv file.
-		String adress2 ="C:\\Users\\liron\\Downloads\\Ex2-1\\Ex2\\data\\WigleWifi_20171201110209.csv";
-		
-		//create GisLayer object.
-		GisLayer layer = new GisLayer(adress2);
-		
-		//create the kml file from the GisLayer, save it on this path.
-		layer.LeyerToKML("C:\\kmlLayer.kml");
+//		
+//		//enter a adress to create a kml layer from the directories csv file.
+//		String adress2 ="C:\\Users\\liron\\Downloads\\Ex2-1\\Ex2\\data\\WigleWifi_20171201110209.csv";
+//		
+//		//create GisLayer object.
+//		GisLayer layer = new GisLayer(adress2);
+//		System.out.println(layer);
+//		
+//		//create the kml file from the GisLayer, save it on this path.
+//		layer.LeyerToKML("C:\\kmlLayer.kml");
 		
 		
 

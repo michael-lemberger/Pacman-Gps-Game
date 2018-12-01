@@ -31,6 +31,7 @@ public class GisLayer implements GIS_layer {
 	 * @throws Exception
 	 */
 	public  GisLayer(String directory) throws Exception {
+
 		String s[][]=csv.csvmaker(directory);
 		for (int i = 1; i < s.length-1; i++) {		
 			GisMetaData metadata =new GisMetaData(s[i]);
