@@ -8,8 +8,9 @@ import Geom.Geom_element;
 import Geom.Point3D;
 
 /**
- * This interface represents a GIS element with geometric representation and meta data such as:
+ * This class represents a GIS element with geometric representation and meta data such as:
  * color, string, timing...
+ * 
  * @author Michael Lemberger, Liron Arad, Maoz Grossman.
  *
  */

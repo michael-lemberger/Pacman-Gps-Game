@@ -7,19 +7,29 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-//GisLayer
 import java.util.Set;
-
 import File_format.CsvParser;
 import Geom.Point3D;
+
+/**
+ * this class represent a GIS layer, the class implement the Gis_layer interface.
+ *  the layer contains GIS elements, it implemented as a set structure and support all set functions.
+ * in addition, the class support the LayerToKml function to create a kml file from this layer.
+ * 
+ *  @author Michael Lemberger, Liron Arad, Maoz Grossman.
+ *
+ */
 public class GisLayer implements GIS_layer {
 	private CsvParser csv=new CsvParser();
 	private static Set<GIS_element> Elements=new HashSet<GIS_element>();
 	public static Set<GisElement> se =new HashSet<GisElement>();
 
-	
-	
+	/**
+	 * GisLayer constructor. get a string directory (csv file) and create GisLayer object.
+	 * this layer object contains GisElements objects.
+	 * @param directory a csv directory path.
+	 * @throws Exception
+	 */
 	public  GisLayer(String directory) throws Exception {
 		String s[][]=csv.csvmaker(directory);
 		for (int i = 1; i < s.length-1; i++) {		
@@ -48,15 +58,13 @@ public class GisLayer implements GIS_layer {
 	@Override
 	public boolean addAll(Collection<? extends GIS_element> arg0) {
 		se.addAll((Collection<? extends GisElement>) arg0);
-		return Elements.addAll(arg0);
-		
+		return Elements.addAll(arg0);	
 	}
 
 	@Override
 	public void clear() {
 		se.clear();
 		Elements.clear();
-
 	}
 
 	@Override
@@ -71,8 +79,7 @@ public class GisLayer implements GIS_layer {
 
 	@Override
 	public boolean isEmpty() {
-		return Elements.isEmpty();
-		
+		return Elements.isEmpty();	
 	}
 
 	@Override
@@ -117,6 +124,10 @@ public class GisLayer implements GIS_layer {
 	public Meta_data get_Meta_data() {
 		return null;
 	}
+	
+	/**
+	 * toString function to print the layer details.
+	 */
 	public String toString() {
 		String send="";
 		for(GisElement e : se) {
@@ -125,8 +136,11 @@ public class GisLayer implements GIS_layer {
 		return send;
 	}
 	
-
-	public  void writeFileKML( String output) {
+	/**
+	 * this function get a output directory string and make a kml file from this layer.
+	 * @param output output directory.
+	 */
+	public  void LeyerToKML( String output) {
 		ArrayList<String> content = new ArrayList<String>();
 		String kmlstart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 				"<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n" + "<Document>";
@@ -156,7 +170,6 @@ public class GisLayer implements GIS_layer {
 				content.add(kmlelement);
 			}
 			content.add(kmlend);
-//			System.out.println(content.toString());
 			String csv = content.toString().replaceAll(", <", "  <").replace("[", "").replace("]", "");
 			bw.write(csv);
 			bw.close();
