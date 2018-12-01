@@ -2,6 +2,8 @@ package Algorithms;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import GIS.GisLayer;
 import GIS.GisProject;
@@ -14,7 +16,8 @@ import GIS.GisProject;
  *
  */
 public class MultiCsv {
-	private static GisProject project = new GisProject();
+	public static GisProject project = new GisProject();
+	public static Set<File> fileset =new HashSet<File>();
 
 	/**
 	 * this constructor get directory address and call the RecursiveCsvSerch function.
@@ -24,6 +27,7 @@ public class MultiCsv {
 	public MultiCsv(String adress) throws Exception {
 		File currentDir = new File(adress);
 		RecursiveCsvSerch(currentDir);
+		add2project();
 	}
 
 	/**
@@ -38,14 +42,25 @@ public class MultiCsv {
 				if (file.isDirectory()) {
 					RecursiveCsvSerch(file);
 				} else {
-					//GisLayer layer = new GisLayer(file.getCanonicalPath());
-					//System.out.println(layer.size());
-					project.add(new GisLayer(file.getCanonicalPath()));
-					
+					GisLayer layer = new GisLayer(file.getCanonicalPath());
+					System.out.println(file.getCanonicalPath());
+					fileset.add(file);
+//					System.out.println(layer.size());
+//					project.add(layer);
+//					System.out.println(project.size());
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+
+	}
+	
+	public void add2project() throws IOException, Exception {
+		for(File f: fileset) {
+			System.out.println(fileset.size());
+			project.add(new GisLayer(f.getCanonicalPath()));
+			System.out.println(project);
 		}
 	}
 	

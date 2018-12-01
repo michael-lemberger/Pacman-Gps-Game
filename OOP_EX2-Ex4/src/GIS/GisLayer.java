@@ -19,7 +19,7 @@ import Geom.Point3D;
  *  @author Michael Lemberger, Liron Arad, Maoz Grossman.
  *
  */
-public class GisLayer implements GIS_layer {
+public class GisLayer extends HashSet<GIS_element> implements GIS_layer {
 	private CsvParser csv=new CsvParser();
 	private static Set<GIS_element> Elements=new HashSet<GIS_element>();
 	public static Set<GisElement> se =new HashSet<GisElement>();
@@ -38,88 +38,12 @@ public class GisLayer implements GIS_layer {
 			String point=""+s[i][6]+","+s[i][7]+","+s[i][8]+"";
 			Point3D p=new Point3D (point);		
 			GisElement element= new GisElement(p, metadata);
-			add(element);			
+			this.add(element);			
 		}
 
 
 	}
 
-	@Override
-	public boolean add(GIS_element arg0) {
-		try {
-			se.add((GisElement) arg0);
-			Elements.add(arg0);
-		}
-		catch(Exception e) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean addAll(Collection<? extends GIS_element> arg0) {
-		se.addAll((Collection<? extends GisElement>) arg0);
-		return Elements.addAll(arg0);	
-	}
-
-	@Override
-	public void clear() {
-		se.clear();
-		Elements.clear();
-	}
-
-	@Override
-	public boolean contains(Object arg0) {
-		return Elements.contains(arg0);
-	}
-
-	@Override
-	public boolean containsAll(Collection<?> arg0) {
-	return Elements.containsAll(arg0);
-	}
-
-	@Override
-	public boolean isEmpty() {
-		return Elements.isEmpty();	
-	}
-
-	@Override
-	public Iterator<GIS_element> iterator() {
-		return Elements.iterator();
-	}
-
-	@Override
-	public boolean remove(Object arg0) {
-		se.remove(arg0);
-		return Elements.remove(arg0);
-	}
-
-	@Override
-	public boolean removeAll(Collection<?> arg0) {
-		se.removeAll(arg0);
-		return Elements.removeAll(arg0);
-	}
-
-	@Override
-	public boolean retainAll(Collection<?> arg0) {
-		return Elements.retainAll(arg0);
-	}
-
-	@Override
-	public int size() {
-		return Elements.size();
-	}
-
-	@Override
-	public Object[] toArray() {
-		
-		return Elements.toArray();
-	}
-
-	@Override
-	public <T> T[] toArray(T[] arg0) {
-		return Elements.toArray(arg0);
-	}
 
 	@Override
 	public Meta_data get_Meta_data() {

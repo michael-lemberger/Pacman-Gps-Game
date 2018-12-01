@@ -1,5 +1,6 @@
 package GIS;
 
+import java.awt.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,113 +18,27 @@ import java.util.Set;
  *  @author Michael Lemberger, Liron Arad, Maoz Grossman.
  *
  */
-public class GisProject implements GIS_project {
-	private static Set<GIS_layer> layers;
-	public static Set<GisLayer> setProject;
+public class GisProject extends HashSet<GIS_layer> implements GIS_project {
+	
 
 	/**
 	 * GisProject constructor.
 	 * this project object contains GisLayers objects.
 	 */
-	public GisProject() {
-		layers=new HashSet<GIS_layer>();
-		setProject =new HashSet<GisLayer>();
-	}
-
-	public boolean add(GIS_layer layer) {
-		try {
-			setProject.add((GisLayer) layer);
-			layers.add(layer);
-		}
-		catch(Exception e) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean addAll(Collection<? extends GIS_layer> c) {
-		setProject.addAll((Collection<? extends GisLayer>) c);
-		return layers.addAll(c);
-	}
-
-	@Override
-	public void clear() {
-		setProject.clear();
-		layers.clear();
-
-	}
-
-	@Override
-	public boolean contains(Object o) {
-
-		return layers.contains(o);
-	}
-
-	@Override
-	public boolean containsAll(Collection<?> c) {
-		return layers.containsAll(c);
-	}
-
-	@Override
-	public boolean isEmpty() {
-		return layers.isEmpty();
-	}
-
-	@Override
-	public Iterator<GIS_layer> iterator() {
-		return layers.iterator();
-	}
-
-	@Override
-	public boolean remove(Object o) {
-		setProject.remove(o);
-		return layers.remove(o);
-	}
-
-	@Override
-	public boolean removeAll(Collection<?> c) {
-		setProject.removeAll(c);
-		return layers.removeAll(c);
-	}
-
-	@Override
-	public boolean retainAll(Collection<?> c) {
-		setProject.retainAll(c);
-		return layers.retainAll(c);
-	}
-
-	@Override
-	public int size() {
-		return layers.size();
-	}
-
-	@Override
-	public Object[] toArray() {
-
-		return layers.toArray();
-	}
-
-	@Override
-	public <T> T[] toArray(T[] a) {
-		return layers.toArray(a);
-	}
-
-	@Override
-	public Meta_data get_Meta_data() {
-
-		return null;
-	}
 
 	public String toString() {
+     String send="";
+     Iterator <GIS_layer> it= this.iterator();
 		int num=1;
-		String send="---project---\n\n";
-		for(GisLayer l : setProject) {
-			send+= "layer"+num+"\n"+l+"\n ";
-			//			send+=""+l.size()+"\n";
+     while(it.hasNext()) {
+			GisLayer g=(GisLayer) it.next();
+			System.out.println(g.size());
+//			send="\nlayer "+num+"\n"+g.toString();
 			num++;
 		}
-		return send;
+    
+     return send;
+     
 	}
 
 	/**
@@ -141,8 +56,12 @@ public class GisProject implements GIS_project {
 		try{
 			FileWriter fw = new FileWriter(output);
 			BufferedWriter bw = new BufferedWriter(fw);
-			for(GisLayer l : this.setProject) {
-				for(GisElement e : l.se) {
+			Iterator <GIS_layer> it= this.iterator();
+			while(it.hasNext()) {
+				GisLayer g=(GisLayer) it.next();
+				Iterator <GIS_element> it1= g.iterator();
+				while(it1.hasNext()) {
+					GisElement e=(GisElement) it1.next();
 					String[] s = e._metaData.getData();
 					String kmlelement ="<Placemark>\n" 
 							+"<name>"+s[1]+"</name>\n" 
@@ -172,4 +91,14 @@ public class GisProject implements GIS_project {
 		}
 	}
 
+
+
+
+
+
+	@Override
+	public Meta_data get_Meta_data() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
