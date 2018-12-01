@@ -28,7 +28,7 @@ public class GisLayer extends HashSet<GIS_element> implements GIS_layer {
 	 * GisLayer constructor. get a string directory (csv file) and create GisLayer object.
 	 * this layer object contains GisElements objects.
 	 * @param directory a csv directory path.
-	 * @throws Exception
+	 * @throws Exception if there is any problem
 	 */
 	public  GisLayer(String directory) throws Exception {
 

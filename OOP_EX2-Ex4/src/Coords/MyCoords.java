@@ -6,8 +6,11 @@ import java.util.List;
 import Geom.Point3D;
 
 public class MyCoords implements coords_converter {
-	/** computes a new point which is the gps point transformed by a 3D vector (in meters)*/
-	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {//לללכת מספר מסוים של צעדים צפונה או דרומה ומספר צעדים מסויים מזרחה או מערבה ולהחזיר את המיקום החדש בנקודת ג'יפיאס
+	/**
+	 * computes a new point which is the gps point transformed by a 3D vector (in meters)
+	 * @return point3d that represents the sum 
+	 */
+	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
 		
 		Point3D p=new Point3D (0,0,0);//new point converted to meters
 		try {
@@ -24,7 +27,11 @@ public class MyCoords implements coords_converter {
 	}
 	
 	
-	/** computes the 3D distance (in meters) between the two gps like points */
+	/** 
+	 * computes the 3D distance (in meters) between the two gps like points
+	 *@return the distance in Double 
+	 *
+	 */
 	public double distance3d(Point3D gps0, Point3D gps1) {
 		double x=D2M(gps0,gps1.x()-gps0.x());
 		double y=(D2M(gps0,gps1.y()-gps0.y()))*(Math.cos((gps0.x()*Math.PI)/180));
@@ -32,7 +39,10 @@ public class MyCoords implements coords_converter {
 		return distance;
 	}
 	
-	/** computes the 3D vector (in meters) between two gps like points */
+	/** computes the 3D vector (in meters) between two gps like points 
+	 * 
+	 * @return point3d vector 
+	 */
 	public Point3D vector3D(Point3D gps0, Point3D gps1) {
 		double deltaX = Math.toRadians(gps1.x() - gps0.x());
 		double deltaY = Math.toRadians(gps1.y() - gps0.y());
@@ -47,9 +57,12 @@ public class MyCoords implements coords_converter {
 
 		return p;	
 	}
-	/** computes the polar representation of the 3D vector be gps0-->gps1 
+	/** 
+	 * computes the polar representation of the 3D vector be gps0 to gps1 
 	 * Code based on "https://stackoverflow.com/questions/9457988/bearing-from-one-coordinate-to-another";
-	 * Note: this method should return an azimuth (aka yaw), elevation (pitch), and distance*/
+	 * Note: this method should return an azimuth (aka yaw), elevation (pitch), and distance
+	 * @return Double array of azimuth elevation
+	 */
 	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
 		double distance=this.distance3d(gps0,gps1);
 		double z=(gps1.z()-gps0.z());
@@ -68,8 +81,8 @@ public class MyCoords implements coords_converter {
 	}
 	/**
 	 * return true iff this point is a valid lat, lon , lat coordinate: [-180,+180],[-90,+90],[-450, +inf]
-	 * @param p
-	 * @return
+	 * @param p point3d
+	 * @return boolean if true
 	 */
 	public boolean isValid_GPS_Point(Point3D p) {
 		
@@ -88,9 +101,10 @@ public class MyCoords implements coords_converter {
 	
 	/**
 	 * from cartesian to polar(https://brilliant.org/wiki/convert-cartesian-coordinates-to-polar/)
-	 * @param gps
-	 * @return
-	 * @throws Exception
+	 * @param gps point3d vector
+	 * @param num Double to compute
+	 * @return point3d vector
+	 * @throws Exception if their is a problem
 	 */
 	public	Point3D M2D(Point3D gps,double num) throws Exception {
 		
@@ -106,7 +120,12 @@ public class MyCoords implements coords_converter {
 		
 		return p;
 	}
-	
+	/**
+	 * from degree to meters converter 
+	 * @param gps point3d
+	 * @param a Double meter
+	 * @return x value in meter
+	 */
 	public	double D2M(Point3D gps,double a) {
 		double x=(Math.sin(gps.d2r(a)))*EarthR;
 		return x;

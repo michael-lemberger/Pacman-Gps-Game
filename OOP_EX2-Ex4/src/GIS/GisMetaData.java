@@ -19,7 +19,8 @@ public class GisMetaData implements Meta_data {
 		this.data = data2.getData(); 
 	}
 	@Override
-	/** returns the Universal Time Clock associated with this data; */
+	/** @returns the Universal Time Clock associated with this data;
+	 */
 	public long getUTC() {
 		
 		String temp= data[3];
@@ -42,7 +43,8 @@ public class GisMetaData implements Meta_data {
 		return data;
 	}
 	@Override
-	/** return a String representing this data */
+	/** return a String representing this data 
+	 */
 	public String toString(){
 		try {
 			return "MAC: "+data[0]+", SSID: "+data[1]+", AuthMode: "+data[2]+", FirstSeen: "+data[3]+", Channel: "+data[4]+", RSSI: "+data[5]+", AccuracyMeters: "+data[9]+", Type: "+data[10];

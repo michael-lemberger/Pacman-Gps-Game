@@ -6,10 +6,16 @@ import java.io.IOException;
 import GIS.GisElement;
 import GIS.GisMetaData;
 import Geom.Point3D;
+import javafx.scene.transform.MatrixType;
 
 public class CsvParser {
 	
-	
+	/**
+	 * makes an array of string to convert to Gis-class 
+	 * @param adress String from where to convert
+	 * @return  Matrix of Strings
+	 * @throws Exception if there is a problem
+	 */
 
 	public  String[][] csvmaker (String adress) throws Exception 
 	{

@@ -13,7 +13,7 @@ public class pointest {
 		String csv ="C:\\Users\\user\\Desktop\\test";
      	MultiCsv mult= new MultiCsv(csv);
 		GisProject project = mult.getProject();
-		project.ProjectToKml("C:\\Users\\user\\Desktop\\test\\tese.kml");
+		project.ProjectToKml("C:\\Users\\user\\Desktop\\test\\test.kml");
     	System.out.println(project);
 //		GisLayer layer_1= new GisLayer("C:\\Users\\Simple Man\\Desktop\\test\\123.csv");
 //		GisLayer layer_2= new GisLayer("C:\\Users\\Simple Man\\Desktop\\ex2\\WigleWifi_20171201110209.csv");

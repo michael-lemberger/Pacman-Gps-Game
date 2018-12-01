@@ -17,7 +17,12 @@ import Geom.Point3D;
 public class GisElement implements GIS_element {
 	Point3D _p;
 	GisMetaData _metaData;
-
+/**
+ *  elements constructor
+ * @param p point3d 
+ * @param metaData GisMetaData metadata 
+ * @throws Exception if there is a problem
+ */
 	public GisElement (Point3D p, GisMetaData metaData) throws Exception {
 		this._p = p;
 		this._metaData = metaData;

@@ -44,7 +44,7 @@ public class GisProject extends HashSet<GIS_layer> implements GIS_project {
 	/**
 	 * this function get a output directory string and make a kml file from this project.
 	 * @param output output directory.
-	 * @throws Exception
+	 * @throws Exception if there is any
 	 */
 	public void ProjectToKml(String output) throws Exception {
 		ArrayList<String> content = new ArrayList<String>();
@@ -58,12 +58,18 @@ public class GisProject extends HashSet<GIS_layer> implements GIS_project {
 			BufferedWriter bw = new BufferedWriter(fw);
 			Iterator <GIS_layer> it= this.iterator();
 			while(it.hasNext()) {
+				String icon= getIcon();
 				GisLayer g=(GisLayer) it.next();
 				Iterator <GIS_element> it1= g.iterator();
 				while(it1.hasNext()) {
 					GisElement e=(GisElement) it1.next();
 					String[] s = e._metaData.getData();
-					String kmlelement ="<Placemark>\n" 
+					String kmlelement ="<Placemark>\n"
+							+"<Style>\n<IconStyle>\n<scale>1.3</scale>\n<Icon>\n"
+						     +" <href>"+icon+"</href>\n"
+						    +"</Icon>\n"
+						+" </IconStyle>\n"
+						+"</Style>"
 							+"<name>"+s[1]+"</name>\n" 
 							+"<description>\n"
 							+"<MAC>"+s[0]+"</MAC>\n"
@@ -98,7 +104,21 @@ public class GisProject extends HashSet<GIS_layer> implements GIS_project {
 
 	@Override
 	public Meta_data get_Meta_data() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+	public String getIcon() {
+		int i= (int) (Math.random()*8);
+		String[]icon= {
+				"http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png"
+				,"http://maps.google.com/mapfiles/kml/pushpin/wht-pushpin.png"
+				,"http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png"
+				,"http://maps.google.com/mapfiles/kml/pushpin/purple-pushpin.png"
+				,"http://maps.google.com/mapfiles/kml/pushpin/pink-pushpin.png"
+				,"http://maps.google.com/mapfiles/kml/pushpin/ltblu-pushpin.png"
+				,"http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png"
+				,"http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png"
+		};
+			System.out.println(i);
+		return icon[i];
 	}
 }
