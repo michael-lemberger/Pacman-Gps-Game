@@ -26,7 +26,7 @@ public class MainTest {
 		
 		//create the kml file from the GisLayer, save it on this path.
 		layer.LeyerToKML("C:\\Users\\Simple Man\\Desktop\\ex2\\kmlProject.kml");
-		
+		//
 		
 
 	}
