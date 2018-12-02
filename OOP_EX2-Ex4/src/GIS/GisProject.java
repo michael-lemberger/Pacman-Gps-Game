@@ -19,7 +19,7 @@ import java.util.Set;
  *
  */
 public class GisProject extends HashSet<GIS_layer> implements GIS_project {
-	
+
 
 	/**
 	 * GisProject constructor.
@@ -27,18 +27,17 @@ public class GisProject extends HashSet<GIS_layer> implements GIS_project {
 	 */
 
 	public String toString() {
-     String send="";
-     Iterator <GIS_layer> it= this.iterator();
+		String send="project\n----------\n";
+		Iterator <GIS_layer> it= this.iterator();
 		int num=1;
-     while(it.hasNext()) {
+		while(it.hasNext()) {
 			GisLayer g=(GisLayer) it.next();
-			System.out.println(g.size());
-//			send="\nlayer "+num+"\n"+g.toString();
+			send+="\nlayer "+num+":\n"+g.toString();
 			num++;
 		}
-    
-     return send;
-     
+
+		return send;
+
 	}
 
 	/**
@@ -66,10 +65,10 @@ public class GisProject extends HashSet<GIS_layer> implements GIS_project {
 					String[] s = e._metaData.getData();
 					String kmlelement ="<Placemark>\n"
 							+"<Style>\n<IconStyle>\n<scale>1.3</scale>\n<Icon>\n"
-						     +" <href>"+data.color+"</href>\n"
-						    +"</Icon>\n"
-						+" </IconStyle>\n"
-						+"</Style>"
+							+" <href>"+data.color+"</href>\n"
+							+"</Icon>\n"
+							+" </IconStyle>\n"
+							+"</Style>"
 							+"<name>"+s[1]+"</name>\n" 
 							+"<description>\n"
 							+"<MAC>"+s[0]+"</MAC>\n"
@@ -99,7 +98,6 @@ public class GisProject extends HashSet<GIS_layer> implements GIS_project {
 	@Override
 	public Meta_data get_Meta_data() {
 		GisMetaData data=new GisMetaData();
-		System.out.println("UTC= "+ data.getUTC());
 		data.color=getIcon();
 		return data;
 	}

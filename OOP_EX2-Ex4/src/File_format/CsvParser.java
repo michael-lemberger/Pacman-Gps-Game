@@ -30,14 +30,13 @@ public class CsvParser {
 			while ((check=br.readLine()) != null) 
 			{
 				counter++;
-				if(counter>=1)
-				line += br.readLine()+",";
-				
-
-					
+				if(counter>1)
+				line += check+",";
 				}
+			
+			
 			String[] data = line.split(cvsSplitBy);
-			Matrix=new String [counter-1][11];
+			Matrix=new String [counter][11];
 			counter=0;
 			for (int i=0;i<Matrix.length-1;i++) {
 				for (int j = 0; j < Matrix[i].length; j++) {
@@ -51,12 +50,6 @@ public class CsvParser {
 		{
 			e.printStackTrace();
 		}
-//		for (int i=0;i<Matrix.length-1;i++) {
-//			for (int j = 0; j < Matrix[i].length; j++) {
-//				System.out.print(Matrix[i][j]+",");
-//			}
-//			System.out.println();
-//		}
 		return Matrix;
 		} 
 		

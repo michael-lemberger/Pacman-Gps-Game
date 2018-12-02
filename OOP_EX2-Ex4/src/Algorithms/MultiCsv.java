@@ -42,7 +42,6 @@ public class MultiCsv {
 				if (file.isDirectory()) {
 					RecursiveCsvSerch(file);
 				} else {
-					System.out.println(file.getCanonicalPath());
 					if(file.getCanonicalPath().endsWith(".csv")) 
 					fileset.add(file);
 
@@ -56,9 +55,7 @@ public class MultiCsv {
 	
 	public void add2project() throws IOException, Exception {
 		for(File f: fileset) {
-			System.out.println("\n"+f.getPath());
 			project.add(new GisLayer(f.getPath()));
-			System.out.println(project);
 		}
 	}
 	

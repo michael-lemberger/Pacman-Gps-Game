@@ -56,7 +56,9 @@ public class GisLayer extends HashSet<GIS_element> implements GIS_layer {
 	 */
 	public String toString() {
 		String send="";
-		for(GIS_element e : Elements) {
+		Iterator <GIS_element> it1= this.iterator();
+		while(it1.hasNext()) {
+			GisElement e=(GisElement) it1.next();
 			send+= ""+e+"\n ";
 		}
 		return send;
