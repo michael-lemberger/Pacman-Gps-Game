@@ -47,7 +47,8 @@ public class GisLayer extends HashSet<GIS_element> implements GIS_layer {
 
 	@Override
 	public Meta_data get_Meta_data() {
-		return null;
+		GisMetaData data=new GisMetaData();	
+		return data;
 	}
 	
 	/**

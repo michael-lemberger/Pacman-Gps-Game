@@ -58,7 +58,7 @@ public class GisProject extends HashSet<GIS_layer> implements GIS_project {
 			BufferedWriter bw = new BufferedWriter(fw);
 			Iterator <GIS_layer> it= this.iterator();
 			while(it.hasNext()) {
-				String icon= getIcon();
+				GisMetaData data=(GisMetaData) get_Meta_data();
 				GisLayer g=(GisLayer) it.next();
 				Iterator <GIS_element> it1= g.iterator();
 				while(it1.hasNext()) {
@@ -66,7 +66,7 @@ public class GisProject extends HashSet<GIS_layer> implements GIS_project {
 					String[] s = e._metaData.getData();
 					String kmlelement ="<Placemark>\n"
 							+"<Style>\n<IconStyle>\n<scale>1.3</scale>\n<Icon>\n"
-						     +" <href>"+icon+"</href>\n"
+						     +" <href>"+data.color+"</href>\n"
 						    +"</Icon>\n"
 						+" </IconStyle>\n"
 						+"</Style>"
@@ -96,15 +96,12 @@ public class GisProject extends HashSet<GIS_layer> implements GIS_project {
 			exp.printStackTrace();
 		}
 	}
-
-
-
-
-
-
 	@Override
 	public Meta_data get_Meta_data() {
-		return null;
+		GisMetaData data=new GisMetaData();
+		System.out.println("UTC= "+ data.getUTC());
+		data.color=getIcon();
+		return data;
 	}
 	public String getIcon() {
 		int i= (int) (Math.random()*8);
@@ -118,7 +115,6 @@ public class GisProject extends HashSet<GIS_layer> implements GIS_project {
 				,"http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png"
 				,"http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png"
 		};
-			System.out.println(i);
 		return icon[i];
 	}
 }

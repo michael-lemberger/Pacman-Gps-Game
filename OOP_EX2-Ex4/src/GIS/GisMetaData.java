@@ -7,9 +7,14 @@ import java.util.Date;
 import Geom.Point3D;
 
 public class GisMetaData implements Meta_data {
-	private long utc = 0;
+	private static long utc;
 	public String[] data;
-	private String color;
+	public String color;
+	
+	public GisMetaData() {
+		data=null;
+		utc=getUTC();
+		}
 
 	public GisMetaData(String[] data) {
 		this.data=data;
@@ -22,19 +27,22 @@ public class GisMetaData implements Meta_data {
 	/** @returns the Universal Time Clock associated with this data;
 	 */
 	public long getUTC() {
-		
+		try {
+			if(data!=null) {
 		String temp= data[3];
 		temp=temp.replace('/', '-');
 		SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-		try {
+		
 		    Date d = f.parse(temp);
 		   utc = d.getTime();
-		    
-		} catch (ParseException e) {
-		    e.printStackTrace();
+			}
+			else {
+		 utc =System.currentTimeMillis()/1000;
 		}
-		
-		//long utc =System.currentTimeMillis()/1000;
+		}
+		catch(Exception E){
+			 utc =System.currentTimeMillis()/1000;	
+		}
 		return utc;
 	}
 	
