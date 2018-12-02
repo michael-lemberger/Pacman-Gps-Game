@@ -6,7 +6,7 @@ import java.io.IOException;
 import GIS.GisElement;
 import GIS.GisMetaData;
 import Geom.Point3D;
-import javafx.scene.transform.MatrixType;
+
 
 public class CsvParser {
 	

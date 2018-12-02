@@ -56,7 +56,7 @@ public class GisLayer extends HashSet<GIS_element> implements GIS_layer {
 	 */
 	public String toString() {
 		String send="";
-		for(GisElement e : se) {
+		for(GIS_element e : Elements) {
 			send+= ""+e+"\n ";
 		}
 		return send;
@@ -76,7 +76,9 @@ public class GisLayer extends HashSet<GIS_element> implements GIS_layer {
 		try{
 			FileWriter fw = new FileWriter(output);
 			BufferedWriter bw = new BufferedWriter(fw);
-			for(GisElement e : se) {
+			Iterator <GIS_element> it1= this.iterator();
+			while(it1.hasNext()) {
+				GisElement e=(GisElement) it1.next();
 				String[] s = e._metaData.getData();
 				String kmlelement ="<Placemark>\n" 
 						+"<name>"+s[1]+"</name>\n" 
