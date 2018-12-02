@@ -30,20 +30,28 @@ public class MyCoords implements coords_converter {
 	/** 
 	 * computes the 3D distance (in meters) between the two gps like points
 	 *@return the distance in Double 
-	 *
+	 *@throws RuntimeException isValid
 	 */
-	public double distance3d(Point3D gps0, Point3D gps1) {
+	public double distance3d(Point3D gps0, Point3D gps1) throws RuntimeException {
+		if(!isValid_GPS_Point(gps0)||!isValid_GPS_Point(gps1)) {
+			throw new RuntimeException("Invalid Point!");
+			}
 		double x=D2M(gps0,gps1.x()-gps0.x());
 		double y=(D2M(gps0,gps1.y()-gps0.y()))*(Math.cos((gps0.x()*Math.PI)/180));
-		double distance=Math.sqrt((x*x)+(y*y));
+		double z= gps1.z()-gps0.z();
+		double distance=Math.sqrt((x*x)+(y*y)+(z*z));
 		return distance;
 	}
 	
 	/** computes the 3D vector (in meters) between two gps like points 
 	 * 
 	 * @return point3d vector 
+	 * @throws RuntimeException isValid
 	 */
-	public Point3D vector3D(Point3D gps0, Point3D gps1) {
+	public Point3D vector3D(Point3D gps0, Point3D gps1) throws RuntimeException {
+		if(!isValid_GPS_Point(gps0)||!isValid_GPS_Point(gps1)) {
+			throw new RuntimeException("Invalid Point!");
+			}
 		double deltaX = Math.toRadians(gps1.x() - gps0.x());
 		double deltaY = Math.toRadians(gps1.y() - gps0.y());
 		double deltaZ = gps1.z() - gps0.z();
@@ -62,8 +70,14 @@ public class MyCoords implements coords_converter {
 	 * Code based on "https://stackoverflow.com/questions/9457988/bearing-from-one-coordinate-to-another";
 	 * Note: this method should return an azimuth (aka yaw), elevation (pitch), and distance
 	 * @return Double array of azimuth elevation
+	 * @throws RuntimeException isValid
 	 */
-	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
+public double[] azimuth_elevation_dist (Point3D gps0, Point3D gps1) throws RuntimeException {
+		
+		if(!isValid_GPS_Point(gps0)||!isValid_GPS_Point(gps1)) {
+		throw new RuntimeException("Invalid Point!");
+		}
+		
 		double distance=this.distance3d(gps0,gps1);
 		double z=(gps1.z()-gps0.z());
 		double elevation=Point3D.r2d(Math.asin(z/distance3d(gps0,gps1)));

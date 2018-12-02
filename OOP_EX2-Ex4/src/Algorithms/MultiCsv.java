@@ -22,7 +22,7 @@ public class MultiCsv {
 	/**
 	 * this constructor get directory address and call the RecursiveCsvSerch function.
 	 * @param adress directory address to search for csv files.
-	 * @throws Exception
+	 * @throws Exception runtime
 	 */
 	public MultiCsv(String adress) throws Exception {
 		File currentDir = new File(adress);
@@ -32,8 +32,8 @@ public class MultiCsv {
 
 	/**
 	 * this function get adrress directory and add all the csv files in this path to the GisProject field in recursive way: if it is directory step into, else - add the csv file to the GisProject .
-	 * @param dir
-	 * @throws Exception
+	 * @param dir files
+	 * @throws Exception e
 	 */
 	public static void RecursiveCsvSerch(File dir) throws Exception {
 		try {
@@ -64,7 +64,7 @@ public class MultiCsv {
 	
 	/**
 	 * this function return the GisProject that contain all the layers (csv files).
-	 * @return 
+	 * @return project
 	 */
 	public GisProject getProject() {
 		return project;
