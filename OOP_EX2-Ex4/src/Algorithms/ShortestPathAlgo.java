@@ -21,6 +21,7 @@ public class ShortestPathAlgo {
 	public ShortestPathAlgo(Game game) {
 		this.game=game;
 		this.fruits=game.fruits;
+		pacmanPath();
 	}
 	
 	public int pacmanPath() {
@@ -28,7 +29,7 @@ public class ShortestPathAlgo {
 			return 0;
 		}
 		
-		PointDis[]pd=new PointDis[this.fruits.size()];
+		PointDis[]pd=new PointDis[game.pacmans.size()];
 		Iterator<GIS_element> it = game.pacmans.iterator();
 		int counter=0;
 		while(it.hasNext()) {
@@ -45,11 +46,11 @@ public class ShortestPathAlgo {
 					f=f1;
 			}
 		}
-			pd[counter]=new PointDis(f,dis/p.get_speed(),counter+1);
+			pd[counter]=new PointDis(f,dis/p.get_speed(),p.get_id());
 		counter++;
 	}
 		for (int i = 0; i < pd.length-1; i++) {
-			if(pd[i].getDistance()<pd[i+1].getDistance()) {
+			if(pd[i].getTime()<pd[i+1].getTime()) {
 				Pacman p=(Pacman)(game.pacmans.get(pd[i].getId()));
 				p.path.add(pd[i].getFe().get_p());
 				this.fruits.remove(pd[i].getFe().get_id());
@@ -59,10 +60,7 @@ public class ShortestPathAlgo {
 }
 	
 	public double getScore(Pacman pac) {
-		double score=0;
-		score=pac.get_p().distance3D(pac.path.get(0));
-		score+=pac.path.calc_distnce();
-		
+		double score=pac.path.points.size();
 		return score;
 	}
 }

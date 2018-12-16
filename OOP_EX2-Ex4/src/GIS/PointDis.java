@@ -3,14 +3,13 @@ package GIS;
 import Geom.Point3D;
 
 public class PointDis {
-	public Point3D p;
-	double distance;
+	double time;
 	Fruit fe;
 	int id;
 
-	public PointDis(Fruit fe, double distance,int pacman_id) {
+	public PointDis(Fruit fe, double time,int pacman_id) {
 		this.fe=fe;
-		this.distance=distance;
+		this.time=time;
 		id=pacman_id;
 	}
 
@@ -23,8 +22,8 @@ public class PointDis {
 		return id;
 	}
 
-	public double getDistance() {
-		return distance;
+	public double getTime() {
+		return time;
 	}
 
 }
