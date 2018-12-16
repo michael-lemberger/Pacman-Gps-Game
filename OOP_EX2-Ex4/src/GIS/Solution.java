@@ -21,7 +21,6 @@ public class Solution extends ArrayList<Path> {
 			System.out.println("Fruit Points: "+p.path.points.toString());
 			System.out.println("Fruit's Eaten: "+ p.path.points.size());
 			System.out.println("Time: "+time(p));
-		
 		}
 	}
 	

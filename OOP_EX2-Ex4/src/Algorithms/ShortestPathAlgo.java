@@ -20,12 +20,12 @@ public class ShortestPathAlgo {
 	
 	public ShortestPathAlgo(Game game) {
 		this.game=game;
-		this.fruits=game.fruits;
+		this.fruits=game.getFruits();
 		pacmanPath();
 	}
 	
 	public int pacmanPath() {
-		if(this.fruits.isEmpty()) {
+		if(game.getFruits().isEmpty()) {
 			return 0;
 		}
 		

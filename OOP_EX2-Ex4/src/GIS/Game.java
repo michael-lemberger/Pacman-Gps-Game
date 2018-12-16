@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import File_format.CsvGameReader;
 import File_format.CsvParser;
 import Geom.Point3D;
 
@@ -19,8 +21,8 @@ import Geom.Point3D;
  *  @author Michael Lemberger, Liron Arad, Maoz Grossman.
  *
  */
-public class Game extends HashSet<GIS_element> {
-	private CsvParser csv=new CsvParser();
+public class Game extends ArrayList<GIS_element> {
+	private CsvGameReader csv=new CsvGameReader();
 	public static ArrayList<GIS_element> fruits=new ArrayList<GIS_element>();
 	public static ArrayList<GIS_element> pacmans =new ArrayList<GIS_element>();
 
@@ -31,11 +33,16 @@ public class Game extends HashSet<GIS_element> {
 	 * @throws Exception if there is any problem
 	 */
 	public  Game(String directory) throws Exception {
-
-		String s[][]=csv.csvmaker(directory);
-		for (int i = 1; i < s.length-1; i++) {	
-
+ 		String s[][]=csv.csvmaker(directory);
+		for (int i = 1; i < s.length-1; i++) {		
+			GisMetaData metadata =new GisMetaData(s[i]);
 			String point=""+s[i][2]+","+s[i][3]+","+s[i][4]+"";
+			Point3D p=new Point3D (point);		
+			GisElement element= new GisElement(p, metadata);
+			this.add(element);			
+		}
+		for (int i = 1; i < s.length-1; i++) {	
+ 			String point=""+s[i][2]+","+s[i][3]+","+s[i][4]+"";
 			Point3D p = new Point3D (point);	
 			int id = Integer.parseInt(s[i][1]);
 			if(s[i][0] == "p") {
@@ -44,35 +51,24 @@ public class Game extends HashSet<GIS_element> {
 				Pacman pacman = new  Pacman(p, id, speed, radius);
 				this.pacmans.add(pacman);
 			}
-			else {
+			else if(s[i][0] == "f") {
 				Fruit fruit = new Fruit(p, id);
 				this.fruits.add(fruit);
 			}
-			
+			else {
+ 			}			
 		}
-	}
-	public Game(ArrayList<GIS_element> pacmans,ArrayList<GIS_element> fruits) {
-		this.pacmans=pacmans;
-		this.fruits=fruits;
-	}
+		System.out.println();
+	}	
 
 
-	public Meta_data get_Meta_data() {
-		GisMetaData data=new GisMetaData();	
-		return data;
+	public static ArrayList<GIS_element> getFruits() {
+		return fruits;
 	}
 
-	/**
-	 * toString function to print the layer details.
-	 */
-	public String toString() {
-		String send="";
-		Iterator <GIS_element> it1= this.iterator();
-		while(it1.hasNext()) {
-			GisElement e=(GisElement) it1.next();
-			send+= ""+e+"\n ";
-		}
-		return send;
+
+	public static ArrayList<GIS_element> getPacmans() {
+		return pacmans;
 	}
 
 

@@ -2,21 +2,16 @@ package File_format;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
-
-public class CsvGameReader {
-
-	/**
+ public class CsvGameReader {
+ 	/**
 	 * makes an array of string to convert to Gis-class 
 	 * @param adress String from where to convert
 	 * @return  Matrix of Strings
 	 * @throws Exception if there is a problem
 	 */
-
-	public  String[][] csvmaker (String adress) throws Exception 
+ 	public  String[][] csvmaker (String adress) throws Exception 
 	{
-
-		String line = "";
+ 		String line = "";
 		String cvsSplitBy = ",";
 		int lineCounter = 0;
 		String [][] Matrix=new String[0][7];
@@ -50,6 +45,3 @@ public class CsvGameReader {
 		return Matrix;
 	} 
 }
-
-
-

@@ -22,24 +22,26 @@ public class CsvParser {
 		
 		String line = "";
 		String cvsSplitBy = ",";
-		int counter = 0;
+		int counterLine = 0;
 		String [][] Matrix=new String[0][11];
 		try (BufferedReader br = new BufferedReader(new FileReader(adress))) 
 		{ 
 			String check="";
 			while ((check=br.readLine()) != null) 
 			{
-				counter++;
-				if(counter>1)
+				counterLine++;
+				if(counterLine>1)
 				line += check+",";
 				}
 			
 			
 			String[] data = line.split(cvsSplitBy);
-			Matrix=new String [counter][11];
-			counter=0;
+			Matrix=new String [counterLine][11];
+			int counter=0;
 			for (int i=0;i<Matrix.length-1;i++) {
 				for (int j = 0; j < Matrix[i].length; j++) {
+					if(counter>data.length)
+						break;
 					Matrix[i][j]=data[counter++];
 				}
 			}
