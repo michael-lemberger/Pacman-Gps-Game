@@ -15,22 +15,22 @@ import Geom.Point3D;
 
 public class ShortestPathAlgo {
 
-	public static ArrayList<GIS_element> fruits=new ArrayList<GIS_element>();
+	public ArrayList<GIS_element> fruits=new ArrayList<GIS_element>();
 	public Game game;
 	
 	public ShortestPathAlgo(Game game) {
 		this.game=game;
-		this.fruits=game.getFruits();
+		this.fruits=game.fruits;
 		pacmanPath();
 	}
 	
 	public int pacmanPath() {
-		if(game.getFruits().isEmpty()) {
+		if(game.fruits.isEmpty()) {
 			return 0;
 		}
 		
 		PointDis[]pd=new PointDis[game.pacmans.size()];
-		Iterator<GIS_element> it = game.pacmans.iterator();
+		Iterator<Pacman> it = game.pacmans.iterator();
 		int counter=0;
 		while(it.hasNext()) {
 			Pacman p=(Pacman) it.next();
@@ -40,7 +40,7 @@ public class ShortestPathAlgo {
 			Iterator<GIS_element> it1 = this.fruits.iterator();
 			while(it1.hasNext()) {
 				Fruit f1=(Fruit) it1.next();
-				dishort=p.get_p().distance3D(f.get_p());
+				dishort=p.get_p().distance3D(f1.get_p());
 				if(dishort<dis) {
 					dis=dishort;
 					f=f1;
@@ -51,9 +51,16 @@ public class ShortestPathAlgo {
 	}
 		for (int i = 0; i < pd.length-1; i++) {
 			if(pd[i].getTime()<pd[i+1].getTime()) {
-				Pacman p=(Pacman)(game.pacmans.get(pd[i].getId()));
-				p.path.add(pd[i].getFe().get_p());
-				this.fruits.remove(pd[i].getFe().get_id());
+				Point3D x=pd[i].getFe().get_p();
+				Pacman p=game.pacmans.get(pd[i].getId());
+				p.path.add(x);
+				fruits.remove(pd[i].getFe());
+			}
+			if(pd[i].getTime()>=pd[i+1].getTime()) {
+				Point3D x=pd[i+1].getFe().get_p();
+				Pacman p=game.pacmans.get(pd[i+1].getId());
+				p.path.add(x);
+				fruits.remove(pd[i+1].getFe());
 			}
 		}
 		return pacmanPath();

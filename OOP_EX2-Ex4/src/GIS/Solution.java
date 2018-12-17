@@ -14,7 +14,7 @@ public class Solution extends ArrayList<Path> {
 		gameConsole();
 	}
 	public void gameConsole(){
-		Iterator<GIS_element> it=game.pacmans.iterator();
+		Iterator<Pacman> it=game.pacmans.iterator();
 		while(it.hasNext()) {
 			Pacman p=(Pacman)(it.next());
 			System.out.println("-Pacman "+p.get_id()+"-");

@@ -7,8 +7,8 @@ import java.util.Set;
 
 import Geom.Point3D;
 
-public class Path extends HashSet<Point3D>{
-	public static Set<Point3D> points=new HashSet<Point3D>();
+public class Path{
+	public Set<Point3D> points=new HashSet<Point3D>();
 
 	public Path(Set<Point3D> p) {
 		this.points =p;
@@ -41,6 +41,14 @@ public class Path extends HashSet<Point3D>{
 		}
 		return p;
 	}
-	
+	public void add(Point3D point) {
+		this.points.add(point);
+	}
 
+	@Override
+	public String toString() {
+		return "Path (size:"+points.size()+") [points=" + points + "]";
+	}
+	
+	
 }

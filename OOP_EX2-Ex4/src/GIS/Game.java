@@ -21,10 +21,10 @@ import Geom.Point3D;
  *  @author Michael Lemberger, Liron Arad, Maoz Grossman.
  *
  */
-public class Game extends ArrayList<GIS_element> {
+public class Game{
 	private CsvGameReader csv=new CsvGameReader();
-	public static ArrayList<GIS_element> fruits=new ArrayList<GIS_element>();
-	public static ArrayList<GIS_element> pacmans =new ArrayList<GIS_element>();
+	public ArrayList<GIS_element> fruits=new ArrayList<GIS_element>();
+	public ArrayList<Pacman> pacmans =new ArrayList<Pacman>();
 
 	/**
 	 * Game constructor. get a string directory (csv file) and create Game object.
@@ -34,24 +34,18 @@ public class Game extends ArrayList<GIS_element> {
 	 */
 	public  Game(String directory) throws Exception {
  		String s[][]=csv.csvmaker(directory);
-		for (int i = 1; i < s.length-1; i++) {		
-			GisMetaData metadata =new GisMetaData(s[i]);
-			String point=""+s[i][2]+","+s[i][3]+","+s[i][4]+"";
-			Point3D p=new Point3D (point);		
-			GisElement element= new GisElement(p, metadata);
-			this.add(element);			
-		}
-		for (int i = 1; i < s.length-1; i++) {	
+	
+		for (int i = 0; i < s.length-1; i++) {	
  			String point=""+s[i][2]+","+s[i][3]+","+s[i][4]+"";
 			Point3D p = new Point3D (point);	
 			int id = Integer.parseInt(s[i][1]);
-			if(s[i][0] == "p") {
+			if(s[i][0].charAt(0) == 80) {
 				double speed = Double.parseDouble(s[i][5]);
 				double radius = Double.parseDouble(s[i][6]);
 				Pacman pacman = new  Pacman(p, id, speed, radius);
 				this.pacmans.add(pacman);
 			}
-			else if(s[i][0] == "f") {
+			else if(s[i][0].charAt(0) == 70) {
 				Fruit fruit = new Fruit(p, id);
 				this.fruits.add(fruit);
 			}
@@ -61,19 +55,16 @@ public class Game extends ArrayList<GIS_element> {
 		System.out.println();
 	}	
 
-
-	public static ArrayList<GIS_element> getFruits() {
-		return fruits;
-	}
-
-
-	public static ArrayList<GIS_element> getPacmans() {
-		return pacmans;
-	}
-
-
-	public  void GameToCsv( String output) {
-		
+	public  void remove(Fruit f) {
+		Iterator<GIS_element>it=fruits.iterator();
+		int counter=0;
+		while(it.hasNext()) {
+			Fruit f1=(Fruit) it.next();
+			if(f1.get_id()==f.get_id()) {
+				this.fruits.remove(counter);
+			}
+			counter++;
+		}
 	}
 	
 	
