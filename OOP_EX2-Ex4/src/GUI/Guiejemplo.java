@@ -20,8 +20,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import Algorithms.PpConvertor;
 
@@ -29,6 +32,8 @@ import Algorithms.PpConvertor;
 
 
 public class Guiejemplo extends JFrame implements MouseListener{
+	 private JTextField filename = new JTextField(), dir = new JTextField();
+	 private JButton open = new JButton("Open"), save = new JButton("Save");
 	BufferedImage image = null;
 	PpConvertor pp=new PpConvertor();
 	int h;
@@ -47,12 +52,55 @@ public class Guiejemplo extends JFrame implements MouseListener{
 		/***********************menu bar ******************************/
 		MenuBar menubar = new MenuBar();
 		Menu menu=new Menu("file");
-		MenuItem m1 =new MenuItem("open");
-		MenuItem m2 =new MenuItem("save");
+		MenuItem open =new MenuItem("open");
+		MenuItem save =new MenuItem("save");
 		Menu menu2=new Menu("game");
 		MenuItem pacman =new MenuItem("add pacman");
 		MenuItem fruit =new MenuItem("add fruit");
 
+		/*******************Labels and buttons******************************************/
+		/*open label */
+		open.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			      JFileChooser c = new JFileChooser();
+			      // Demonstrate "Open" dialog:
+			      int rVal = c.showOpenDialog(dir);
+			      if (rVal == JFileChooser.APPROVE_OPTION) {
+			        filename.setText(c.getSelectedFile().getName());
+			        dir.setText(c.getCurrentDirectory().toString());
+			       String openFile= c.getCurrentDirectory().toString()+"\\"+c.getSelectedFile().getName();
+			        System.out.println(openFile);
+			      }
+			      if (rVal == JFileChooser.CANCEL_OPTION) {
+			        filename.setText("You pressed cancel");
+			        dir.setText("");
+			      }
+			    }
+		});
+		
+		/*save label*/
+	save.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		      JFileChooser c = new JFileChooser();
+		      // Demonstrate "save" dialog:
+		      int rVal = c.showSaveDialog(dir);
+		      if (rVal == JFileChooser.APPROVE_OPTION) {
+		        filename.setText(c.getSelectedFile().getName());
+		        dir.setText(c.getCurrentDirectory().toString());
+		       String openFile= c.getCurrentDirectory().toString()+"\\"+c.getSelectedFile().getName();
+		        System.out.println(openFile);
+		      }
+		      if (rVal == JFileChooser.CANCEL_OPTION) {
+		        filename.setText("You pressed cancel");
+		        dir.setText("");
+		      }
+		    }
+	});
+		
+		
+		
 		/*add pacman to screen*/
 		pacman.addActionListener( new ActionListener() {
 
@@ -79,8 +127,8 @@ public class Guiejemplo extends JFrame implements MouseListener{
 
 
 		/************************additions******************************/
-		menu.add(m1);
-		menu.add(m2);
+		menu.add(open);
+		menu.add(save);
 		menu2.add(pacman);
 		menu2.add(fruit);
 		menubar.add(menu);
@@ -119,14 +167,17 @@ public class Guiejemplo extends JFrame implements MouseListener{
 	int y;
 	Image scaledImage;
 	String randomFruit="res\\bananagif.gif";
-	//paint 
+	
+	
+	
+	/*****************************paint ********************************************************/
 	public void paint(Graphics g) {
 
 		if (image != null) {
 			scaledImage = image.getScaledInstance(this.getWidth(),this.getHeight(),Image.SCALE_SMOOTH);
 			g.drawImage(scaledImage, 0, 0, this);
 			
-			/*******************************fruit*********************************************/
+			/**fruit**/
 
 			Image  fruit=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 			try {
@@ -138,7 +189,7 @@ public class Guiejemplo extends JFrame implements MouseListener{
 			}
 			if (status==2) {
 				if(reput==false) {
-					x=-1; y=-1;
+					x=-8; y=-8;
 				}
 				Image  strawbarry=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 				try {
@@ -155,7 +206,6 @@ public class Guiejemplo extends JFrame implements MouseListener{
 
 
 
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
@@ -167,7 +217,6 @@ public class Guiejemplo extends JFrame implements MouseListener{
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 	@Override
@@ -228,7 +277,7 @@ public class Guiejemplo extends JFrame implements MouseListener{
 		Guiejemplo ejemplo= new Guiejemplo(); 
 		ejemplo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ejemplo.setVisible(true);
-		System.out.println(ejemplo.getWidth()+"X"+ejemplo.getHeight());
+//		System.out.println(ejemplo.getWidth()+"X"+ejemplo.getHeight());
 	
 	}
 
