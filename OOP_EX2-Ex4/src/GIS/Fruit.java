@@ -1,5 +1,7 @@
 package GIS;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import Geom.Geom_element;
@@ -9,7 +11,7 @@ public class Fruit implements GIS_element{
 	
 	private Point3D _p;
 	private int _id;
-	public BufferedImage _img= null;
+	public Image _img= null;
 
 
 	public Fruit(Point3D p, int id) {
@@ -17,22 +19,28 @@ public class Fruit implements GIS_element{
 		this._p = p;	
 	}
 	
-	public Fruit(Point3D p, int id, BufferedImage img) {
+	public Fruit(Point3D p, int id, Image img) {
 		this._id = id;
 		this._p = p;
 		this._img = img;
 	}
 	
-	public Fruit(Fruit fruit, BufferedImage img) {
+	public Fruit(Fruit fruit, Image img) {
 		this._id = fruit.get_id();
 		this._p = fruit.get_p();
 		this._img = img;
 	}
 	
-	public BufferedImage get_img() {
+	public Fruit(Fruit fr) {
+		this._id = fr.get_id();
+		this._img = fr.get_img();
+		this._p = fr.get_p();
+	}
+
+	public Image get_img() {
 		return _img;
 	}
-	public void set_img(BufferedImage _img) {
+	public void set_img(Image _img) {
 		this._img = _img;
 	}
 	public Point3D get_p() {
@@ -61,8 +69,15 @@ public class Fruit implements GIS_element{
 		
 	}
 	
+	
+	
 	@Override
 	public String toString() {
 		return "Fruit [_p=" + _p + ", _id=" + _id + "]";
 	}
+	 public void drawFuits(Graphics g,int x,int y) {
+         g.drawImage(_img, x, y, 60, 60, null);
+     }
+	
+
 }

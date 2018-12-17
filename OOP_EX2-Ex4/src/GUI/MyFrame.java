@@ -17,6 +17,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -26,16 +27,20 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import Algorithms.PpConvertor;
+import GIS.Fruit;
+import GIS.GIS_element;
+import GIS.Game;
+import GIS.Map;
 
 
 
 
-public class Guiejemplo extends JFrame implements MouseListener{
-	 private JTextField filename = new JTextField(), dir = new JTextField();
-	 private JButton open = new JButton("Open"), save = new JButton("Save");
+
+
+public class MyFrame extends JFrame implements MouseListener{
+	private JTextField filename = new JTextField(), dir = new JTextField();
+	private JButton open = new JButton("Open"), save = new JButton("Save");
 	BufferedImage image = null;
-	PpConvertor pp=new PpConvertor();
 	int h;
 	int w;
 	double ratioh;
@@ -45,10 +50,12 @@ public class Guiejemplo extends JFrame implements MouseListener{
 	int status=0;
 	//to add fruits or Pacmen.
 	boolean reput=false;
-	
-	
+	Game game;
+	Map map;
 
-	public Guiejemplo() {
+
+
+	public MyFrame() {
 		/***********************menu bar ******************************/
 		MenuBar menubar = new MenuBar();
 		Menu menu=new Menu("file");
@@ -63,44 +70,52 @@ public class Guiejemplo extends JFrame implements MouseListener{
 		open.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			      JFileChooser c = new JFileChooser();
-			      // Demonstrate "Open" dialog:
-			      int rVal = c.showOpenDialog(dir);
-			      if (rVal == JFileChooser.APPROVE_OPTION) {
-			        filename.setText(c.getSelectedFile().getName());
-			        dir.setText(c.getCurrentDirectory().toString());
-			       String openFile= c.getCurrentDirectory().toString()+"\\"+c.getSelectedFile().getName();
-			        System.out.println(openFile);
-			      }
-			      if (rVal == JFileChooser.CANCEL_OPTION) {
-			        filename.setText("You pressed cancel");
-			        dir.setText("");
-			      }
-			    }
+				JFileChooser c = new JFileChooser();
+				// Demonstrate "Open" dialog:
+				int rVal = c.showOpenDialog(dir);
+				if (rVal == JFileChooser.APPROVE_OPTION) {
+					filename.setText(c.getSelectedFile().getName());
+					dir.setText(c.getCurrentDirectory().toString());
+					String openFile= c.getCurrentDirectory().toString()+"\\"+c.getSelectedFile().getName();
+					System.out.println(openFile);
+					try {
+						game = new Game(openFile);
+						System.out.println(game);
+						repaint();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, "not a csv file!");
+					}
+				}
+				if (rVal == JFileChooser.CANCEL_OPTION) {
+					filename.setText("You pressed cancel");
+					dir.setText("");
+				}
+			}
 		});
-		
+
 		/*save label*/
-	save.addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		      JFileChooser c = new JFileChooser();
-		      // Demonstrate "save" dialog:
-		      int rVal = c.showSaveDialog(dir);
-		      if (rVal == JFileChooser.APPROVE_OPTION) {
-		        filename.setText(c.getSelectedFile().getName());
-		        dir.setText(c.getCurrentDirectory().toString());
-		       String openFile= c.getCurrentDirectory().toString()+"\\"+c.getSelectedFile().getName();
-		        System.out.println(openFile);
-		      }
-		      if (rVal == JFileChooser.CANCEL_OPTION) {
-		        filename.setText("You pressed cancel");
-		        dir.setText("");
-		      }
-		    }
-	});
-		
-		
-		
+		save.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser c = new JFileChooser();
+				// Demonstrate "save" dialog:
+				int rVal = c.showSaveDialog(dir);
+				if (rVal == JFileChooser.APPROVE_OPTION) {
+					filename.setText(c.getSelectedFile().getName());
+					dir.setText(c.getCurrentDirectory().toString());
+					String openFile= c.getCurrentDirectory().toString()+"\\"+c.getSelectedFile().getName();
+					System.out.println(openFile);
+				}
+				if (rVal == JFileChooser.CANCEL_OPTION) {
+					filename.setText("You pressed cancel");
+					dir.setText("");
+				}
+			}
+		});
+
+
+
 		/*add pacman to screen*/
 		pacman.addActionListener( new ActionListener() {
 
@@ -146,7 +161,7 @@ public class Guiejemplo extends JFrame implements MouseListener{
 		w=image.getWidth();
 		/****************************mouse listener*************************/
 		addMouseListener(this);
-		
+
 
 		/***************************reads when the frame was changed************************************/
 		this.getRootPane().addComponentListener(new ComponentAdapter() {
@@ -167,16 +182,17 @@ public class Guiejemplo extends JFrame implements MouseListener{
 	int y;
 	Image scaledImage;
 	String randomFruit="res\\bananagif.gif";
-	
-	
-	
+
+
+
 	/*****************************paint ********************************************************/
 	public void paint(Graphics g) {
 
 		if (image != null) {
+			//Background image  
 			scaledImage = image.getScaledInstance(this.getWidth(),this.getHeight(),Image.SCALE_SMOOTH);
 			g.drawImage(scaledImage, 0, 0, this);
-			
+
 			/**fruit**/
 
 			Image  fruit=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -186,6 +202,17 @@ public class Guiejemplo extends JFrame implements MouseListener{
 
 			} catch (Exception e) {
 
+			}
+			if(this.game!=null) {
+				Iterator<GIS_element> it = game.fruits.iterator();
+				while(it.hasNext()) {
+					Fruit fruitCsv = (Fruit) it.next();
+					map = new Map(this.getWidth(),this.getHeight());
+					int[] pixel = map.gpsToPixel(fruitCsv.get_p().x(), fruitCsv.get_p().y());
+					System.out.println(pixel[0]+", "+pixel[1]);
+					g.drawImage(fruitCsv.get_img(), pixel[0],pixel[1],60,60,this);
+					repaint();
+				}
 			}
 			if (status==2) {
 				if(reput==false) {
@@ -203,6 +230,29 @@ public class Guiejemplo extends JFrame implements MouseListener{
 			}
 		}
 	}
+	
+	
+	
+	
+	
+	 private class Fruity {
+
+	        Image fruity;
+	        int x = 150;
+	        int y = 125;
+
+	        public Fruity(Image image) {
+	            fruity = image;
+	        }
+
+	        public void drawFireball(Graphics g) {
+	            g.drawImage(fruity, x, y, 75, 50, null);
+	        }
+	    }
+	
+	
+	
+	
 
 
 
@@ -212,7 +262,7 @@ public class Guiejemplo extends JFrame implements MouseListener{
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		 
+
 
 	}
 	@Override
@@ -227,20 +277,20 @@ public class Guiejemplo extends JFrame implements MouseListener{
 			x=e.getX();
 			y= e.getY();
 			if (status==2)
-			randomFruit=getIcon();
+				randomFruit=getIcon();
 		}
 		repaint();
 
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-//		System.out.println(e.getPoint());
-//        Point point = e.getPoint();
-//         repaint();
+		//		System.out.println(e.getPoint());
+		//        Point point = e.getPoint();
+		//         repaint();
 
 	}
-	
-	
+
+
 	public  void getXYfromLatLon(double latitude, double longitude) {
 		// get x value
 		int mapWidth = image.getWidth(), mapHeight = image.getHeight();
@@ -267,18 +317,20 @@ public class Guiejemplo extends JFrame implements MouseListener{
 		};
 		return icon[i];
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	/********************main************************/
 	public static void main(String[] args) {
-		Guiejemplo ejemplo= new Guiejemplo(); 
+		MyFrame ejemplo= new MyFrame(); 
 		ejemplo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ejemplo.setVisible(true);
-//		System.out.println(ejemplo.getWidth()+"X"+ejemplo.getHeight());
-	
+		//		System.out.println(ejemplo.getWidth()+"X"+ejemplo.getHeight());
+
 	}
 
 }

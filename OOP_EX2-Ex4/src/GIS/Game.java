@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
+
 import File_format.CsvGameReader;
 import File_format.CsvParser;
 import Geom.Point3D;
@@ -46,7 +48,7 @@ public class Game{
 				this.pacmans.add(pacman);
 			}
 			else if(s[i][0].charAt(0) == 70) {
-				Fruit fruit = new Fruit(p, id);
+				Fruit fruit = new Fruit(p, id,new ImageIcon(getFruitIcon()).getImage());
 				this.fruits.add(fruit);
 			}
 			else {
@@ -55,16 +57,18 @@ public class Game{
 		System.out.println();
 	}	
 
-	public  void remove(Fruit f) {
-		Iterator<GIS_element>it=fruits.iterator();
-		int counter=0;
-		while(it.hasNext()) {
-			Fruit f1=(Fruit) it.next();
-			if(f1.get_id()==f.get_id()) {
-				this.fruits.remove(counter);
-			}
-			counter++;
-		}
+	/*****************************get a random fruit icon*************************************/
+	public String getFruitIcon() {
+		int i= (int) (Math.random()*6);
+		String[]icon= {
+				"res\\bananagif.gif"
+				,"res\\pinapple.gif"
+				,"res\\strawbery.gif"
+				,"res\\orange.gif"
+				,"res\\apple.gif"
+				,"res\\pera.gif"
+		};
+		return icon[i];
 	}
 	
 	
