@@ -43,7 +43,7 @@ public class Guiejemplo extends JFrame implements MouseListener{
 	int xl=910;
 	int yl=396;
 	int status=0;
-	//to add fruits or pacmen
+	//to add fruits or Pacmen.
 	boolean reput=false;
 	
 	
