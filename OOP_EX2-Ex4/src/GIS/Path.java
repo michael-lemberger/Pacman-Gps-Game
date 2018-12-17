@@ -14,6 +14,10 @@ public class Path{
 		this.points =p;
 	}
 	
+	public Path() {
+		
+	}
+
 	public double calc_distnce(){
 		Iterator <Point3D> it=points.iterator();
 		Point3D p0=null;

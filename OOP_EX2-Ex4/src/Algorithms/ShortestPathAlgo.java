@@ -17,18 +17,18 @@ public class ShortestPathAlgo {
 
 	public ArrayList<GIS_element> fruits=new ArrayList<GIS_element>();
 	public Game game;
-	
+
 	public ShortestPathAlgo(Game game) {
 		this.game=game;
 		this.fruits=game.fruits;
 		pacmanPath();
 	}
-	
+
 	public int pacmanPath() {
 		if(game.fruits.isEmpty()) {
 			return 0;
 		}
-		
+
 		PointDis[]pd=new PointDis[game.pacmans.size()];
 		Iterator<Pacman> it = game.pacmans.iterator();
 		int counter=0;
@@ -44,11 +44,11 @@ public class ShortestPathAlgo {
 				if(dishort<dis) {
 					dis=dishort;
 					f=f1;
+				}
 			}
-		}
 			pd[counter]=new PointDis(f,dis/p.get_speed(),p.get_id());
-		counter++;
-	}
+			counter++;
+		}
 		for (int i = 0; i < pd.length-1; i++) {
 			if(pd[i].getTime()<pd[i+1].getTime()) {
 				Point3D x=pd[i].getFe().get_p();
@@ -64,8 +64,8 @@ public class ShortestPathAlgo {
 			}
 		}
 		return pacmanPath();
-}
-	
+	}
+
 	public double getScore(Pacman pac) {
 		double score=pac.path.points.size();
 		return score;

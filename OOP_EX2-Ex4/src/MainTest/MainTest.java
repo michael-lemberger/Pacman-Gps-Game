@@ -12,7 +12,7 @@ public class MainTest {
 
 	public static void main(String[] args) throws Exception {
 		
-		Game game=new Game ("res\\game_1543684662657.csv");
+		Game game=new Game ("res/game_1543684662657.csv");
 		ShortestPathAlgo s=new ShortestPathAlgo(game);
 		Iterator<Pacman>pacmans=game.pacmans.iterator();
 		int i=1;
