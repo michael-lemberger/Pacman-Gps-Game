@@ -1,7 +1,5 @@
 package Threads;
 
-import File_format.SimplePlayer;
-
 public class Soundtrack {
 	static String path = "res/Pac-man theme remix - By Arsenic1987.mp3";
 	

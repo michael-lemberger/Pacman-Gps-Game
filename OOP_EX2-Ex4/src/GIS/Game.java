@@ -34,6 +34,11 @@ public class Game{
 	 * @param directory a csv directory path.
 	 * @throws Exception if there is any problem
 	 */
+	
+	public Game(){
+		
+	}
+	
 	public  Game(String directory) throws Exception {
  		String s[][]=csv.csvmaker(directory);
 	

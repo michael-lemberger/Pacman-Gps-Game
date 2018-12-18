@@ -26,11 +26,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import GIS.Fruit;
 import GIS.GIS_element;
 import GIS.Game;
 import GIS.Map;
+import Geom.Point3D;
+import Threads.SimplePlayer;
 
 
 
@@ -45,13 +46,11 @@ public class MyFrame extends JFrame implements MouseListener{
 	int w;
 	double ratioh;
 	double ratiow;
-	int xl=910;
-	int yl=396;
 	int status=0;
 	//to add fruits or Pacmen.
 	boolean reput=false;
-	Game game;
-	Map map;
+	Game game= new Game();
+	Map map;;
 
 
 
@@ -80,10 +79,8 @@ public class MyFrame extends JFrame implements MouseListener{
 					System.out.println(openFile);
 					try {
 						game = new Game(openFile);
-						System.out.println(game);
 						repaint();
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null, "not a csv file!");
 					}
 				}
@@ -164,19 +161,21 @@ public class MyFrame extends JFrame implements MouseListener{
 
 
 		/***************************reads when the frame was changed************************************/
-		this.getRootPane().addComponentListener(new ComponentAdapter() {
-			public void componentResized(ComponentEvent e) {
-				// This is only called when the user releases the mouse button.
-				ratioh= (double)h/(double)getHeight();
-				ratiow=(double)w/(double)getWidth();
-				xl= (int) (xl/ratiow);
-				yl= (int) (yl/ratioh);
-				h=getHeight(); w=getWidth();
 
 
-
-			}
-		});
+		//		this.getRootPane().addComponentListener(new ComponentAdapter() {
+		//			public void componentResized(ComponentEvent e) {
+		//				// This is only called when the user releases the mouse button.
+		//				ratioh= (double)h/(double)getHeight();
+		//				ratiow=(double)w/(double)getWidth();
+		//				xl= (int) (xl/ratiow);
+		//				yl= (int) (yl/ratioh);
+		//				h=getHeight(); w=getWidth();
+		//
+		//
+		//
+		//			}
+		//		});
 	}
 	int x;
 	int y;
@@ -195,25 +194,19 @@ public class MyFrame extends JFrame implements MouseListener{
 
 			/**fruit**/
 
-			Image  fruit=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-			try {
-				fruit = new ImageIcon("res\\strawbery.gif").getImage();
-				g.drawImage(fruit, xl,yl,60,60,this);
-
-			} catch (Exception e) {
-
+			//			if(this.game!=null) {
+			Iterator<GIS_element> it = game.fruits.iterator();
+			while(it.hasNext()) {
+				Fruit fruitCsv = (Fruit) it.next();
+				map = new Map(this.getWidth(),this.getHeight());
+				int[] pixel = map.gpsToPixel(fruitCsv.get_p().y(), fruitCsv.get_p().x());
+				//					System.out.println(pixel[0]+", "+pixel[1]);
+				g.drawImage(fruitCsv.get_img(), pixel[0]-30,pixel[1]-30,60,60,this);
+				repaint();
 			}
-			if(this.game!=null) {
-				Iterator<GIS_element> it = game.fruits.iterator();
-				while(it.hasNext()) {
-					Fruit fruitCsv = (Fruit) it.next();
-					map = new Map(this.getWidth(),this.getHeight());
-					int[] pixel = map.gpsToPixel(fruitCsv.get_p().x(), fruitCsv.get_p().y());
-					System.out.println(pixel[0]+", "+pixel[1]);
-					g.drawImage(fruitCsv.get_img(), pixel[0],pixel[1],60,60,this);
-					repaint();
-				}
-			}
+
+
+			//			}
 			if (status==2) {
 				if(reput==false) {
 					x=-8; y=-8;
@@ -221,7 +214,8 @@ public class MyFrame extends JFrame implements MouseListener{
 				Image  strawbarry=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 				try {
 					strawbarry = new ImageIcon(randomFruit).getImage();
-					g.drawImage(strawbarry, x,y,60,60,this);
+					g.drawImage(strawbarry, x-30,y-30,60,60,this);
+
 
 				} catch (Exception e) {
 					System.out.println("no fruit");
@@ -230,34 +224,22 @@ public class MyFrame extends JFrame implements MouseListener{
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	 private class Fruity {
 
-	        Image fruity;
-	        int x = 150;
-	        int y = 125;
 
-	        public Fruity(Image image) {
-	            fruity = image;
-	        }
 
-	        public void drawFireball(Graphics g) {
-	            g.drawImage(fruity, x, y, 75, 50, null);
-	        }
-	    }
-	
-	
-	
-	
+
+
 
 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if (status==2) {
+
+			if(e.getClickCount()==2)
+				AddFruit(e.getX(), e.getY());
+
+		}
 
 	}
 	@Override
@@ -276,10 +258,12 @@ public class MyFrame extends JFrame implements MouseListener{
 		if(reput==true) {
 			x=e.getX();
 			y= e.getY();
-			if (status==2)
-				randomFruit=getIcon();
+			if (status==2) {
+				if(e.getClickCount()!=2)
+					randomFruit=getIcon();
+
+			}
 		}
-		repaint();
 
 	}
 	@Override
@@ -291,19 +275,6 @@ public class MyFrame extends JFrame implements MouseListener{
 	}
 
 
-	public  void getXYfromLatLon(double latitude, double longitude) {
-		// get x value
-		int mapWidth = image.getWidth(), mapHeight = image.getHeight();
-		int pX = (int)((longitude+180.)*(mapWidth/360.));
-
-		// convert from degrees to radians
-		double latRad = Math.toRadians(latitude);
-
-		// get y value
-		double mercN = Math.log(1+(latRad/2.));
-		int pY = (int)((mapHeight/2.)-(mapHeight*mercN/(2.*Math.PI)));
-		System.out.println("x = "+pX+", y = "+pY);
-	}
 	/*****************************get a random fruit icon*************************************/
 	public String getIcon() {
 		int i= (int) (Math.random()*6);
@@ -317,8 +288,15 @@ public class MyFrame extends JFrame implements MouseListener{
 		};
 		return icon[i];
 	}
+	private void AddFruit(int x,int y) {
+		map = new Map(this.getWidth(),this.getHeight());
+		double[]gps=map.pixelToGps(x, y);
+		Image temp= new ImageIcon(randomFruit).getImage();
+		Fruit F= new Fruit(new Point3D(gps[0],gps[1]),game.fruits.size(),temp );
+		game.fruits.add(F);
+		System.out.println(game.fruits.size());
 
-
+	}
 
 
 
@@ -326,9 +304,14 @@ public class MyFrame extends JFrame implements MouseListener{
 
 	/********************main************************/
 	public static void main(String[] args) {
+		String path = "res/Pac-man theme remix - By Arsenic1987.mp3";
+		SimplePlayer player = new SimplePlayer(path);
+		Thread t = new Thread(player);
+		t.start();
 		MyFrame ejemplo= new MyFrame(); 
 		ejemplo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ejemplo.setVisible(true);
+
 		//		System.out.println(ejemplo.getWidth()+"X"+ejemplo.getHeight());
 
 	}
