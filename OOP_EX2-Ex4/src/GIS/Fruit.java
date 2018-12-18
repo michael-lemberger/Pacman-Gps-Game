@@ -69,15 +69,11 @@ public class Fruit implements GIS_element{
 		
 	}
 	
-	
-	
 	@Override
 	public String toString() {
 		return "Fruit [_p=" + _p + ", _id=" + _id + "]";
 	}
-	 public void drawFuits(Graphics g,int x,int y) {
-         g.drawImage(_img, x, y, 60, 60, null);
-     }
+
 	
 
 }

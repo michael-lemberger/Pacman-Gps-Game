@@ -1,5 +1,6 @@
 package GIS;
 
+import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -49,7 +50,8 @@ public class Game{
 			if(s[i][0].charAt(0) == 80) {
 				double speed = Double.parseDouble(s[i][5]);
 				double radius = Double.parseDouble(s[i][6]);
-				Pacman pacman = new  Pacman(p, id, speed, radius);
+				Image poimg = new ImageIcon("res\\pacman1.gif").getImage();
+				Pacman pacman = new  Pacman(p, id, speed, radius,poimg);
 				this.pacmans.add(pacman);
 			}
 			else if(s[i][0].charAt(0) == 70) {

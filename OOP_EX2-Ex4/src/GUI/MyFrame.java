@@ -30,6 +30,7 @@ import GIS.Fruit;
 import GIS.GIS_element;
 import GIS.Game;
 import GIS.Map;
+import GIS.Pacman;
 import Geom.Point3D;
 import Threads.SimplePlayer;
 
@@ -115,7 +116,7 @@ public class MyFrame extends JFrame implements MouseListener{
 			public void actionPerformed(ActionEvent e) {
 				status=1;
 				reput=false;
-				JOptionPane.showMessageDialog(null, "you chose to add pacmans");
+				JOptionPane.showMessageDialog(null, "a click to change location \n double click to add a pacman");
 			}
 		});
 		/*add fruit to the screen*/
@@ -186,36 +187,59 @@ public class MyFrame extends JFrame implements MouseListener{
 			//Background image  
 			scaledImage = image.getScaledInstance(this.getWidth(),this.getHeight(),Image.SCALE_SMOOTH);
 			g.drawImage(scaledImage, 0, 0, this);
+			map = new Map(this.getWidth(),this.getHeight());
 
 			/**fruit**/
 
-			//			if(this.game!=null) {
-			Iterator<GIS_element> it = game.fruits.iterator();
-			while(it.hasNext()) {
-				Fruit fruitCsv = (Fruit) it.next();
-				map = new Map(this.getWidth(),this.getHeight());
+			
+			Iterator<GIS_element> itFruits = game.fruits.iterator();
+			while(itFruits.hasNext()) {
+				Fruit fruitCsv = (Fruit) itFruits.next();
 				int[] pixel = map.gpsToPixel(fruitCsv.get_p().y(), fruitCsv.get_p().x());
 				//					System.out.println(pixel[0]+", "+pixel[1]);
-				g.drawImage(fruitCsv.get_img(), pixel[0]-30,pixel[1]-30,60,60,this);
-				repaint();
+				g.drawImage(fruitCsv.get_img(), pixel[0]-20,pixel[1]-20,40,40,this);
 			}
+			
+//			repaint();
 
-
-			//			}
 			if (status==2) {
 				if(reput==false) {
 					x=-8; y=-8;
 				}
-				Image  strawbarry=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+				Image  fruty=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 				try {
-					strawbarry = new ImageIcon(randomFruit).getImage();
-					g.drawImage(strawbarry, x-30,y-30,60,60,this);
+					fruty = new ImageIcon(randomFruit).getImage();
+					g.drawImage(fruty, x-20,y-20,40,40,this);
 
 
 				} catch (Exception e) {
 					System.out.println("no fruit");
 				}
 
+			}
+			
+			/**pacmans**/
+			Iterator<Pacman> itPacmans = game.pacmans.iterator();
+			while(itPacmans.hasNext()) {
+				Pacman pacmanCsv = itPacmans.next();
+				int[] pixel = map.gpsToPixel(pacmanCsv.get_p().y(), pacmanCsv.get_p().x());
+				//System.out.println(pixel[0]+", "+pixel[1]);
+				g.drawImage(pacmanCsv.get_img(), pixel[0]-30,pixel[1]-30,60,60,this);
+			}
+			if(status==1) {
+				if(reput==false) {
+					x=-8; y=-8;
+				}
+				Image pacy=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+				try {
+					pacy = new ImageIcon("res\\pacman1.gif").getImage();
+					g.drawImage(pacy, x-30,y-30,60,60,this);
+
+
+				} catch (Exception e) {
+					System.out.println("no pacman");
+				}
+				
 			}
 		}
 	}
@@ -230,13 +254,23 @@ public class MyFrame extends JFrame implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (status==2) {
-
 			if(e.getClickCount()==2)
 				AddFruit(e.getX(), e.getY());
-
+		}
+		if(status==1) {
+			if(e.getClickCount()==2)
+				Addpacman(e.getX(), e.getY());
 		}
 
 	}
+
+
+
+
+
+
+
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 
@@ -255,7 +289,12 @@ public class MyFrame extends JFrame implements MouseListener{
 			y= e.getY();
 			if (status==2) {
 				if(e.getClickCount()!=2) {
-					randomFruit=getIcon();
+					randomFruit=getFIcon();
+					repaint();
+				}
+			}
+			if (status==1) {
+				if(e.getClickCount()!=2) {
 					repaint();
 				}
 			}
@@ -270,9 +309,11 @@ public class MyFrame extends JFrame implements MouseListener{
 
 	}
 
+	
+	
 
 	/*****************************get a random fruit icon*************************************/
-	public String getIcon() {
+	public String getFIcon() {
 		int i= (int) (Math.random()*6);
 		String[]icon= {
 				"res\\bananagif.gif"
@@ -292,6 +333,17 @@ public class MyFrame extends JFrame implements MouseListener{
 		game.fruits.add(F);
 		System.out.println(game.fruits.size());
 		repaint();
+	}
+	
+	private void Addpacman(int x2, int y2) {
+		map = new Map(this.getWidth(),this.getHeight());
+		double[]gps=map.pixelToGps(x, y);
+		Image temp= new ImageIcon("res//pacman1.gif").getImage();
+		                                           //point  //id  //speed //radius//image
+		Pacman P= new Pacman(new Point3D(gps[0],gps[1]),game.pacmans.size(),1,1,temp );
+		game.pacmans.add(P);
+		System.out.println(game.pacmans.size());
+		
 	}
 
 
