@@ -259,9 +259,10 @@ public class MyFrame extends JFrame implements MouseListener{
 			x=e.getX();
 			y= e.getY();
 			if (status==2) {
-				if(e.getClickCount()!=2)
+				if(e.getClickCount()!=2) {
 					randomFruit=getIcon();
-
+					repaint();
+				}
 			}
 		}
 
@@ -295,7 +296,7 @@ public class MyFrame extends JFrame implements MouseListener{
 		Fruit F= new Fruit(new Point3D(gps[0],gps[1]),game.fruits.size(),temp );
 		game.fruits.add(F);
 		System.out.println(game.fruits.size());
-
+		repaint();
 	}
 
 
