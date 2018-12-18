@@ -25,10 +25,7 @@ public class Solution extends ArrayList<Path> {
 	}
 	
 	public double time(Pacman p) {
-		Set<Point3D> points=p.path.points;
-		double time=0;
-		time+=p._p.distance3D(p.path.get(0))/p.get_speed();
-		time+=p.path.calc_distnce()/p.get_speed();
+		double time=p.path.calc_distnce()/p.get_speed();
 		return time;
 	}
 }

@@ -2,6 +2,7 @@ package GIS;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import Geom.Geom_element;
@@ -25,7 +26,7 @@ public class Pacman implements GIS_element{
 		this._p = p;
 		this._radius = radius;
 		this._speed = speed;
-		this.path=new Path(new HashSet<Point3D>());
+		this.path=new Path(new ArrayList<Point3D>());
 		this.path.add(this.get_p());
 	}
 	public Pacman(Point3D p, int id, double speed, double radius,Image img) {
@@ -33,7 +34,7 @@ public class Pacman implements GIS_element{
 		this._p = p;
 		this._radius = radius;
 		this._speed = speed;
-		this.path=new Path(new HashSet<Point3D>());
+		this.path=new Path(new ArrayList<Point3D>());
 		this.path.add(this.get_p());
 		this._img = img;
 	}

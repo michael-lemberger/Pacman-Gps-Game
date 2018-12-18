@@ -8,10 +8,10 @@ import java.util.Set;
 import Geom.Point3D;
 
 public class Path{
-	public Set<Point3D> points=new HashSet<Point3D>();
+	public ArrayList<Point3D> points=new ArrayList<Point3D>();
 
-	public Path(Set<Point3D> p) {
-		this.points =p;
+	public Path(ArrayList<Point3D> p) {
+		this.points =(ArrayList<Point3D>) p;
 	}
 	
 	public Path() {

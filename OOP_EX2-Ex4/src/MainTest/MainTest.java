@@ -3,6 +3,8 @@ package MainTest;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
@@ -44,18 +46,20 @@ public class MainTest {
 		
 //		Sounds sounds=new Sounds();
 //		sounds.crounch();
-//		Game game=new Game ("res\\game_1543684662657.csv");
-//		ShortestPathAlgo s=new ShortestPathAlgo(game);
-//		Iterator<Pacman>pacmans=game.pacmans.iterator();
-//		int i=1;
-//		Pacman p = null;
-//		while (pacmans.hasNext()) {
-//			p= (Pacman) pacmans.next();
-//			System.out.println("-p"+i+"-");
-//			System.out.println(p.path.toString()+"\n");
-//			i++;
-//		}
-//		Path2KML p2m=new Path2KML(p.path,"C:\\Users\\Liron\\Desktop\\Path2Kml.kml");
+		Game game=new Game ("res\\game_1543684662657.csv");
+		ShortestPathAlgo s=new ShortestPathAlgo(game);
+		Iterator<Pacman>pacmans=game.pacmans.iterator();
+		int i=1;
+		Pacman p = null;
+		while (pacmans.hasNext()) {
+			p= (Pacman) pacmans.next();
+			System.out.println("-p"+i+"-");
+			System.out.println(p.path.toString()+"\n");
+			i++;
+		}
+//		Path2KML p2m=new Path2KML(p.path,"C:\\Users\\Simple Man\\Desktop\\Path2Kml.kml");
+		String timeStamp = new SimpleDateFormat("yyyy-dd-MMHH:mm:ss").format(Calendar.getInstance().getTime());
+		System.out.println(timeStamp);
 	}
 
 

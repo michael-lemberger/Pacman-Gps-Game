@@ -34,8 +34,17 @@ public class Path2KML {
 			while(it1.hasNext()) {
 				Point3D p=it1.next();
 				
-				String kmlelement ="<Placemark>\n"+ 
-						"<coordinates>"+p.toString()+"</coordinates>" +
+				String kmlelement ="<Placemark>\n" 
+						+"<name>"+"Point"+"</name>\n" +
+						"<gx:TimeStamp>\n"+
+		                "<when>"+""+"</when>\n"
+		                +"</gx:TimeStamp>"
+						+"<description>\n"
+						+"<source>"+"Path"+"</source>\n"
+						+"</description>\n" 
+						+"<Point>\n" +
+						"<coordinates>"+p.y()+","+p.x()+","+p.z()+"</coordinates>\n" +
+						"</Point>\n" +
 						"</Placemark>\n";
 				content.add(kmlelement);
 			}
