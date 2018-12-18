@@ -33,11 +33,6 @@ import GIS.Map;
 import Geom.Point3D;
 import Threads.SimplePlayer;
 
-
-
-
-
-
 public class MyFrame extends JFrame implements MouseListener{
 	private JTextField filename = new JTextField(), dir = new JTextField();
 	private JButton open = new JButton("Open"), save = new JButton("Save");
