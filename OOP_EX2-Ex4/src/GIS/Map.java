@@ -22,11 +22,12 @@ public class Map {
 
 		double proportionX = this._rangeX.proportion(xLon);
 		double percentageLon = this._rangeLon.percentge(proportionX);
-		ans[1] = percentageLon;
+		ans[0] = percentageLon;
+	
 
 		yLat = this._rangeY.getMax() - yLat; 
-		ans[0] = (this._rangeY.getMax() *32.101658 + yLat*(32.106046-32.101658))/this._rangeY.getMax() ;
-
+		ans[1] = (this._rangeY.getMax() *32.101658 + yLat*(32.106046-32.101658))/this._rangeY.getMax() ;
+		System.out.println(ans[0]+","+ans[1]);
 		return ans;
 	}
 
@@ -38,6 +39,7 @@ public class Map {
 		ans[0] = (int) percentageX;
 
 		ans[1] = (int) ((this._rangeY.getMax() *yLat - this._rangeY.getMax() *32.106046)/(32.101658-32.106046));
+		
 		return ans;
 	}
 

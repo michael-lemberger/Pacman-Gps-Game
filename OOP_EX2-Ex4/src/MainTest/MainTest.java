@@ -18,7 +18,9 @@ import GIS.Game;
 import GIS.GisLayer;
 import GIS.Map;
 import GIS.Pacman;
+import Geom.Point3D;
 import Threads.Sounds;
+import sun.security.pkcs11.P11TlsKeyMaterialGenerator;
 
 public class MainTest {
 
@@ -50,10 +52,32 @@ public class MainTest {
 		ShortestPathAlgo s=new ShortestPathAlgo(game);
 	
 		Path2KML p2m=new Path2KML(game,"C:\\Users\\Simple Man\\Desktop\\test.kml");
-		
+		Iterator<Point3D>it = game.pacmans.get(0).path.points.iterator();
+		int counter=0;
+		while(it.hasNext()) {
+			Point3D f= it.next();
+			counter++;
+			Point3D a=new Point3D (game.pacmans.get(0).get_p());
+			double distance=a.distance2D(f);
+			double steps=0;
+			if(counter>1) {
+				Point3D move= movment(game.pacmans.get(0).get_p(),f);
+				while(steps<=distance&&Math.abs(steps-distance)>0.000001) {
+					game.pacmans.get(0).get_p().add(move);
+					steps+=game.pacmans.get(0).get_p().distance2D(a);
+					a=new Point3D (game.pacmans.get(0).get_p());
+				}
+			}
+		}
 	}
 
-
+	private static Point3D movment(Point3D pac,Point3D fruit) {
+		double x =((fruit.x()-pac.x())/10);
+		double y =(fruit.y()-pac.y())/10;
+		double z= (fruit.z()-pac.z())/10;
+		Point3D move= new Point3D(y,x,z);
+		return move;
+	}
 
 
 

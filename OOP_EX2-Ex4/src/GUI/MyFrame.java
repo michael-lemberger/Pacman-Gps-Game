@@ -148,7 +148,8 @@ public class MyFrame extends JFrame implements MouseListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				player.start();
+				status=0;
+				playGame();
 			}
 		});
 		
@@ -217,10 +218,10 @@ public class MyFrame extends JFrame implements MouseListener{
 			
 			Iterator<GIS_element> itFruits = game.fruits.iterator();
 			while(itFruits.hasNext()) {
-				Fruit fruitCsv = (Fruit) itFruits.next();
-				int[] pixel = map.gpsToPixel(fruitCsv.get_p().y(), fruitCsv.get_p().x());
+				Fruit fruit = (Fruit) itFruits.next();
+				int[] pixel = map.gpsToPixel(fruit.get_p().x(), fruit.get_p().y());
 				//					System.out.println(pixel[0]+", "+pixel[1]);
-				g.drawImage(fruitCsv.get_img(), pixel[0]-20,pixel[1]-20,40,40,this);
+				g.drawImage(fruit.get_img(), pixel[0]-20,pixel[1]-20,40,40,this);
 			}
 			
 //			repaint();
@@ -244,10 +245,10 @@ public class MyFrame extends JFrame implements MouseListener{
 			/**pacmans**/
 			Iterator<Pacman> itPacmans = game.pacmans.iterator();
 			while(itPacmans.hasNext()) {
-				Pacman pacmanCsv = itPacmans.next();
-				int[] pixel = map.gpsToPixel(pacmanCsv.get_p().y(), pacmanCsv.get_p().x());
+				Pacman pacman = itPacmans.next();
+				int[] pixel = map.gpsToPixel(pacman.get_p().x(), pacman.get_p().y());
 				//System.out.println(pixel[0]+", "+pixel[1]);
-				g.drawImage(pacmanCsv.get_img(), pixel[0]-30,pixel[1]-30,60,60,this);
+				g.drawImage(pacman.get_img(), pixel[0]-30,pixel[1]-30,60,60,this);
 			}
 			if(status==1) {
 				if(reput==false) {
@@ -369,7 +370,13 @@ public class MyFrame extends JFrame implements MouseListener{
 		
 	}
 
-
+	private void playGame() {
+		if(player.isAlive()) {
+			player.close();
+		}
+		player=new playThread(this);
+		player.start();
+	}
 
 
 

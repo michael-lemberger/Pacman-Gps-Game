@@ -12,11 +12,13 @@ import GUI.MyFrame;
 public class playThread extends Thread {
 	MyFrame mf;
 	ArrayList<SinglePacman>thr=new ArrayList<>();
+	boolean runnig=true;
 	public playThread(MyFrame mf) {
 	this.mf=mf;
 	}
 	@Override
 	public void run() {
+		while(runnig) {
 		//would be in the main thread
 		if(!mf.game.pacmans.isEmpty()) {
 		ShortestPathAlgo algo= new ShortestPathAlgo(mf.game);
@@ -32,7 +34,10 @@ public class playThread extends Thread {
 			sp.start();
 		}
 		}
-		
+		runnig=false;
+		}
 	}
-
+	public void close() {
+		runnig=false;
+	}
 }
