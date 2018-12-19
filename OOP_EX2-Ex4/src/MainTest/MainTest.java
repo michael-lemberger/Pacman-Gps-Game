@@ -46,20 +46,11 @@ public class MainTest {
 		
 //		Sounds sounds=new Sounds();
 //		sounds.crounch();
-		Game game=new Game ("res\\game_1543684662657.csv");
+		Game game=new Game ("res\\game_1543693822377.csv");
 		ShortestPathAlgo s=new ShortestPathAlgo(game);
-		Iterator<Pacman>pacmans=game.pacmans.iterator();
-		int i=1;
-		Pacman p = null;
-		while (pacmans.hasNext()) {
-			p= (Pacman) pacmans.next();
-			System.out.println("-p"+i+"-");
-			System.out.println(p.path.toString()+"\n");
-			i++;
-		}
-//		Path2KML p2m=new Path2KML(p.path,"C:\\Users\\Simple Man\\Desktop\\Path2Kml.kml");
-		String timeStamp = new SimpleDateFormat("yyyy-dd-MMHH:mm:ss").format(Calendar.getInstance().getTime());
-		System.out.println(timeStamp);
+	
+		Path2KML p2m=new Path2KML(game,"C:\\Users\\Simple Man\\Desktop\\test.kml");
+		
 	}
 
 

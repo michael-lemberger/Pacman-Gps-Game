@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 
+import javax.swing.JOptionPane;
+
 import GIS.Fruit;
 import GIS.GIS_element;
 import GIS.Game;
@@ -13,7 +15,7 @@ import GIS.Pacman;
 public class CsvGameWriter 
 {
 	public CsvGameWriter(Game game,String name) {
-		String fileName = name+".csv";
+		String fileName = name;
 		PrintWriter pw = null;
 		
 		try 
@@ -22,7 +24,7 @@ public class CsvGameWriter
 		} 
 		catch (FileNotFoundException e) 
 		{
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "File with the same name is open\n please close it and try again");
 			return;
 		}
 
@@ -54,9 +56,9 @@ public class CsvGameWriter
 			sb.append(',');
 			sb.append(pacman.get_id());
 			sb.append(',');
-			sb.append(pacman.get_p().y());
-			sb.append(',');
 			sb.append(pacman.get_p().x());
+			sb.append(',');
+			sb.append(pacman.get_p().y());
 			sb.append(',');
 			sb.append(pacman.get_p().z());
 			sb.append(',');
@@ -74,9 +76,9 @@ public class CsvGameWriter
 			sb.append(',');
 			sb.append(fruit.get_id());
 			sb.append(',');
-			sb.append(fruit.get_p().y());
-			sb.append(',');
 			sb.append(fruit.get_p().x());
+			sb.append(',');
+			sb.append(fruit.get_p().y());
 			sb.append(',');
 			sb.append(fruit.get_p().z());
 			sb.append('\n');

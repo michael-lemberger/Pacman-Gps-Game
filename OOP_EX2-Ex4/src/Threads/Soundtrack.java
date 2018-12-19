@@ -1,5 +1,9 @@
 package Threads;
-
+/**
+ * Thread for the game's Soundtrack.
+ * @author Liron Arad, Michael Lemberger, Maoz Grossman.
+ *
+ */
 public class Soundtrack {
 	static String path = "res/Pac-man theme remix - By Arsenic1987.mp3";
 	

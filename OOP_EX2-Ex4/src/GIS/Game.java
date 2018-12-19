@@ -44,7 +44,7 @@ public class Game{
  		String s[][]=csv.csvmaker(directory);
 	
 		for (int i = 0; i < s.length-1; i++) {	
- 			String point=""+s[i][2]+","+s[i][3]+","+s[i][4]+"";
+ 			String point=""+s[i][3]+","+s[i][2]+","+s[i][4]+"";
 			Point3D p = new Point3D (point);	
 			int id = Integer.parseInt(s[i][1]);
 			if(s[i][0].charAt(0) == 80) {
@@ -78,5 +78,14 @@ public class Game{
 		return icon[i];
 	}
 	
-	
+	public Pacman getPac(int id){
+		Iterator<Pacman> it = this.pacmans.iterator();
+		while(it.hasNext()) {
+			Pacman pac=it.next();
+			if(pac.get_id()==id) {
+				return pac;
+			}
+		}
+		return null;
+	}
 }

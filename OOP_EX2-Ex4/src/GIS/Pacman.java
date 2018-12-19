@@ -7,7 +7,17 @@ import java.util.HashSet;
 
 import Geom.Geom_element;
 import Geom.Point3D;
-
+/**
+ * Pacman class, holds data:
+ * point
+ * id
+ * speed
+ * radius
+ * path
+ * icon (img)
+ * @author Liron Arad,Michael Lemberger,Maoz Grossman.
+ *
+ */
 public class Pacman implements GIS_element{
 	
 	public Point3D _p;
@@ -27,7 +37,7 @@ public class Pacman implements GIS_element{
 		this._radius = radius;
 		this._speed = speed;
 		this.path=new Path(new ArrayList<Point3D>());
-		this.path.add(this.get_p());
+		this.path.points.add(this.get_p());
 	}
 	public Pacman(Point3D p, int id, double speed, double radius,Image img) {
 		this._id = id;
@@ -35,7 +45,7 @@ public class Pacman implements GIS_element{
 		this._radius = radius;
 		this._speed = speed;
 		this.path=new Path(new ArrayList<Point3D>());
-		this.path.add(this.get_p());
+		this.path.points.add(this.get_p());
 		this._img = img;
 	}
 	public Pacman(Pacman pacman, Image img) {
@@ -44,7 +54,7 @@ public class Pacman implements GIS_element{
 		this._radius = pacman.get_radius();
 		this._speed = pacman.get_speed();
 		this.path=pacman.path;
-		this.path.add(pacman.get_p());
+		this.path.points.add(pacman.get_p());
 		this._img = img;
 	}
 

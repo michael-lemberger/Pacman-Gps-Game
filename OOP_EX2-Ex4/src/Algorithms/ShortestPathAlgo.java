@@ -11,17 +11,29 @@ import GIS.GIS_element;
 import GIS.Game;
 import GIS.Pacman;
 import GIS.PointDis;
+import GIS.Solution;
 import Geom.Point3D;
-
+/**
+ * Main algorithm That computes the path every pacman should travel on in relation to time. 
+ * @author Liron Arad, Michael Lemberger, Maoz Grossman.
+ *
+ */
 public class ShortestPathAlgo extends ArrayList<GIS_element> {
 	public Game game;
-	
+	/**
+	 * Constructor for "ShortestPathAlgo"
+	 * @param game
+	 */
 	public ShortestPathAlgo(Game game) {
 		this.game=game;
 		this.addAll(game.fruits);
 		Algorithm();
 	}
-
+	/**
+	 * Greedy Algorithm, algorithm That computes the path every pacman should travel on. 
+	 * @param ClosestFruit the closest fruit to every pacman.
+	 * @return a stop condition.
+	 */
 	public int Algorithm() {
 		if(this.isEmpty()) {
 			return 0;
@@ -36,21 +48,25 @@ public class ShortestPathAlgo extends ArrayList<GIS_element> {
 			PointDis p1=it1.next();
 			if(p0.getTime()<p1.getTime()) {
 				x=p0.getFe().get_p();
-				p=game.pacmans.get(p0.getId());
+				p=game.getPac(p0.getId());
 			}
 			else if(p0.getTime()>=p1.getTime()) {
 				x=p1.getFe().get_p();
-				p=game.pacmans.get(p1.getId());
+				p=game.getPac(p1.getId());
 				p0=p1;
 			}
 		}
-		p.path.add(x);
+		p.path.points.add(x);
 		int index=this.lastIndexOf(p0.getFe());
 		this.remove(index);
 
 		return Algorithm();
 	}
 
+	/**
+	 * Computes the closest fruit to every pacman.
+	 * @param pd a list of PointDis.
+	 */
 	public void ClosestFruit(ArrayList <PointDis> pd) {
 		Iterator<Pacman> it = game.pacmans.iterator();
 		while(it.hasNext()) {
@@ -61,18 +77,25 @@ public class ShortestPathAlgo extends ArrayList<GIS_element> {
 			Iterator<GIS_element> it1 = this.iterator();
 			while(it1.hasNext()) {
 				Fruit f1=(Fruit) it1.next();
-				dishort=p.get_p().distance3D(f1.get_p());
+				dishort=Math.abs(p.get_p().distance3D(f1.get_p()));
 				if(dishort<dis) {
 					dis=dishort;
 					f=f1;
 				}
 			}
-			pd.add(new PointDis(f,(dis-p.get_radius())/p.get_speed(),p.get_id()));
+			pd.add(new PointDis(f,(Math.abs(dis*1000)-p.get_radius())/p.get_speed(),p.get_id()));
+			
 		}
 	}
-
-	public double getScore(Pacman pac) {
-		double score=pac.path.points.size()-1;
+	
+	/**
+	 * Computes the number of fruits eaten by a lone pacman.
+	 * @param pac Pacman
+	 * @return number of fruits eaten.
+	 */
+	public int getScore(Pacman pac) {
+		int score=pac.path.points.size()-1;
+		Solution s=new Solution (game,score);
 		return score;
 	}
 	

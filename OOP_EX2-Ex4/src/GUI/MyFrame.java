@@ -26,6 +26,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import File_format.CsvGameWriter;
 import GIS.Fruit;
 import GIS.GIS_element;
 import GIS.Game;
@@ -33,11 +35,13 @@ import GIS.Map;
 import GIS.Pacman;
 import Geom.Point3D;
 import Threads.SimplePlayer;
+import Threads.playThread;
 
 public class MyFrame extends JFrame implements MouseListener{
 	private JTextField filename = new JTextField(), dir = new JTextField();
 	private JButton open = new JButton("Open"), save = new JButton("Save");
 	BufferedImage image = null;
+	playThread player = new playThread(this);
 	int h;
 	int w;
 	double ratioh;
@@ -45,7 +49,7 @@ public class MyFrame extends JFrame implements MouseListener{
 	int status=0;
 	//to add fruits or Pacmen.
 	boolean reput=false;
-	Game game= new Game();
+	public Game game= new Game();
 	Map map;;
 
 
@@ -59,7 +63,7 @@ public class MyFrame extends JFrame implements MouseListener{
 		Menu menu2=new Menu("game");
 		MenuItem pacman =new MenuItem("add pacman");
 		MenuItem fruit =new MenuItem("add fruit");
-
+		MenuItem play =new MenuItem("play");
 		/*******************Labels and buttons******************************************/
 		/*open label */
 		open.addActionListener(new ActionListener() {
@@ -97,8 +101,17 @@ public class MyFrame extends JFrame implements MouseListener{
 				if (rVal == JFileChooser.APPROVE_OPTION) {
 					filename.setText(c.getSelectedFile().getName());
 					dir.setText(c.getCurrentDirectory().toString());
-					String openFile= c.getCurrentDirectory().toString()+"\\"+c.getSelectedFile().getName();
-					System.out.println(openFile);
+					String saveFile= c.getCurrentDirectory().toString()+"\\"+c.getSelectedFile().getName();
+					System.out.println(saveFile);
+					if(saveFile.endsWith(".csv")) {
+						CsvGameWriter csv = new CsvGameWriter(game, saveFile);
+					}
+					else if(saveFile.endsWith(".kml")) {
+						
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "name of file must end with '.csv' or '.kml'!");
+					}
 				}
 				if (rVal == JFileChooser.CANCEL_OPTION) {
 					filename.setText("You pressed cancel");
@@ -129,7 +142,16 @@ public class MyFrame extends JFrame implements MouseListener{
 				JOptionPane.showMessageDialog(null, "a click to change location \n double click to add a fruits ");
 			}
 		});
+		
+		
+		play.addActionListener( new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				player.start();
+			}
+		});
+		
 
 
 
@@ -139,6 +161,7 @@ public class MyFrame extends JFrame implements MouseListener{
 		menu.add(save);
 		menu2.add(pacman);
 		menu2.add(fruit);
+		menu2.add(play);
 		menubar.add(menu);
 		menubar.add(menu2);
 		setMenuBar(menubar);
