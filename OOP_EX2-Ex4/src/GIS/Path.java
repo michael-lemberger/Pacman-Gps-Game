@@ -42,7 +42,7 @@ public class Path{
 		double distance=0;
 		while(it.hasNext()&&counter<to) {
 			Point3D p1=it.next();
-			distance+=Math.abs(p0.distance3D(p1));
+			distance+=Math.abs(p0.distance2D(p1));
 		}
 		
 		return distance;

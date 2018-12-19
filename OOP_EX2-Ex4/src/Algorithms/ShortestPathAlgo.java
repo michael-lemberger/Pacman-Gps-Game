@@ -77,7 +77,7 @@ public class ShortestPathAlgo extends ArrayList<GIS_element> {
 			Iterator<GIS_element> it1 = this.iterator();
 			while(it1.hasNext()) {
 				Fruit f1=(Fruit) it1.next();
-				dishort=Math.abs(p.get_p().distance3D(f1.get_p()));
+				dishort=Math.abs(p.get_p().distance2D(f1.get_p()));
 				if(dishort<dis) {
 					dis=dishort;
 					f=f1;
