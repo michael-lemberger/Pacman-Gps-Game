@@ -35,33 +35,35 @@ public class Game{
 	 * @param directory a csv directory path.
 	 * @throws Exception if there is any problem
 	 */
-	
+
 	public Game(){
-		
+
 	}
-	
+
 	public  Game(String directory) throws Exception {
- 		String s[][]=csv.csvmaker(directory);
-	
+		String s[][]=csv.csvmaker(directory);
+		
 		for (int i = 0; i < s.length-1; i++) {	
- 			String point=""+s[i][3]+","+s[i][2]+","+s[i][4]+"";
-			Point3D p = new Point3D (point);	
-			int id = Integer.parseInt(s[i][1]);
-			if(s[i][0].charAt(0) == 80) {
-				double speed = Double.parseDouble(s[i][5]);
-				double radius = Double.parseDouble(s[i][6]);
-				Image poimg = new ImageIcon("res\\pacman1.gif").getImage();
-				Pacman pacman = new  Pacman(p, id, speed, radius,poimg);
-				this.pacmans.add(pacman);
+			String point=""+s[i][3]+","+s[i][2]+","+s[i][4]+"";
+			Point3D p = new Point3D (point);
+
+				int id = Integer.parseInt(s[i][1]);
+				if(s[i][0].charAt(0) == 80) {
+					double speed = Double.parseDouble(s[i][5]);
+					double radius = Double.parseDouble(s[i][6]);
+					Image poimg = new ImageIcon("res\\pacman1.gif").getImage();
+					Pacman pacman = new  Pacman(p, id, speed, radius,poimg);
+					this.pacmans.add(pacman);
+				}
+				else if(s[i][0].charAt(0) == 70) {
+					Fruit fruit = new Fruit(p, id,new ImageIcon(getFruitIcon()).getImage());
+					this.fruits.add(fruit);
+				}
+				else {
+				}			
 			}
-			else if(s[i][0].charAt(0) == 70) {
-				Fruit fruit = new Fruit(p, id,new ImageIcon(getFruitIcon()).getImage());
-				this.fruits.add(fruit);
-			}
-			else {
- 			}			
-		}
-		System.out.println();
+		
+
 	}	
 
 	/*****************************get a random fruit icon*************************************/
@@ -77,7 +79,7 @@ public class Game{
 		};
 		return icon[i];
 	}
-	
+
 	public Pacman getPac(int id){
 		Iterator<Pacman> it = this.pacmans.iterator();
 		while(it.hasNext()) {

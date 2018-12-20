@@ -1,22 +1,15 @@
 package GIS;
 
-import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import Geom.Geom_element;
 import Geom.Point3D;
+
 /**
- * Pacman class, holds data:
- * point
- * id
- * speed
- * radius
- * path
- * icon (img)
- * @author Liron Arad,Michael Lemberger,Maoz Grossman.
- *
+ * this class represent a pacman object in the pacman game.
+ * each pacman as the following fields: point3D, id, speed, radius, path of points and image to show on the game screen.
+ * @author Michael Lemberger, Liron Arad, Maoz Grossman.
  */
 public class Pacman implements GIS_element{
 	
@@ -31,6 +24,13 @@ public class Pacman implements GIS_element{
 		return path;
 	}
 
+	/**
+	 * This constructor gets point, id, speed and radius as arguments and build an pacman object.
+	 * @param p Point3D.
+	 * @param id id number.
+	 * @param speed speed progress.
+	 * @param radius radius eating.
+	 */
 	public Pacman(Point3D p, int id, double speed, double radius) {
 		this._id = id;
 		this._p = p;
@@ -39,6 +39,15 @@ public class Pacman implements GIS_element{
 		this.path=new Path(new ArrayList<Point3D>());
 		this.path.points.add(this.get_p());
 	}
+	
+	/**
+	 * This constructor gets point, id, speed, radius and image as arguments and build an pacman object.
+	 * @param p Point3D.
+	 * @param id id number.
+	 * @param speed speed progress.
+	 * @param radius radius eating.
+	 * @param img image of a pacman.
+	 */
 	public Pacman(Point3D p, int id, double speed, double radius,Image img) {
 		this._id = id;
 		this._p = p;
@@ -48,6 +57,17 @@ public class Pacman implements GIS_element{
 		this.path.points.add(this.get_p());
 		this._img = img;
 	}
+	
+	/**
+	 * This constructor is a copy constructor. 
+	 * the pacman gets point, id, speed, radius and path of another pacman and image.
+	 * the constructor build an pacman object with the same fields with new image.
+	 * @param p Point3D.
+	 * @param id id number.
+	 * @param speed speed progress.
+	 * @param radius radius eating.
+	 * @param img image of a pacman.
+	 */
 	public Pacman(Pacman pacman, Image img) {
 		this._id = pacman.get_id();
 		this._p = pacman.get_p();

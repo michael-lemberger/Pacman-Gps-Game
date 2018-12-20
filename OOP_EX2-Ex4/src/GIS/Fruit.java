@@ -7,6 +7,11 @@ import java.awt.image.BufferedImage;
 import Geom.Geom_element;
 import Geom.Point3D;
 
+/**
+ * this class represent a fruit object in the pacman game.
+ * each fruit as the following fields: point3D, id, image to show on the game screen.
+ * @author Michael Lemberger, Liron Arad, Maoz Grossman.
+ */
 public class Fruit implements GIS_element{
 	
 	private Point3D _p;

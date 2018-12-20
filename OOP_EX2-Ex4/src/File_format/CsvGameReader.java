@@ -2,12 +2,13 @@ package File_format;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
  public class CsvGameReader {
  	/**
-	 * makes an array of string to convert to Gis-class 
-	 * @param adress String from where to convert
-	 * @return  Matrix of Strings
-	 * @throws Exception if there is a problem
+	 * makes an array of string to convert to game object. 
+	 * @param adress path of csv file.
+	 * @return  Matrix of Strings with the data of the csv file.
+	 * @throws Exception if there is a problem.
 	 */
  	public  String[][] csvmaker (String adress) throws Exception 
 	{

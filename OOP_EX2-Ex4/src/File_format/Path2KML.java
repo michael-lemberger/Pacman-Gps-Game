@@ -12,6 +12,11 @@ import GIS.Game;
 import GIS.Pacman;
 import Geom.Point3D;
 
+/**
+ * This class export game to a kml file.
+ * @author liron
+ *
+ */
 public class Path2KML {
 	
 	Game game;
@@ -20,7 +25,7 @@ public class Path2KML {
 			"04323f","043f21","043f08","3f3904","3f2504",
 			"3f0f04","ea1b16","2fea16","16e8ea","eae716"};
 	/**
-	 * Constructor
+	 * This constructor gets game and output path and make a kml file from the game.
 	 * @param game
 	 * @param output
 	 */
@@ -38,6 +43,7 @@ public class Path2KML {
 		date=timeStamp;
 		return timeStamp;
 	}
+
 
 	/**
 	 * adds the amount of time taken to get to the next point to getTime.
@@ -151,9 +157,9 @@ public class Path2KML {
 				if(counter==0) {
 				String kmlelement ="<Placemark>\n"
 						+"<name>"+"Pacman"+"</name>\n" +
-						"<gx:TimeStamp>\n"+
+						"<TimeStamp>\n"+
 		                "<when>"+time+"</when>\n"
-		                +"</gx:TimeStamp>"
+		                +"</TimeStamp>"
 						+"<description>\n"
 						+"<speed>"+"speed"+pac.get_speed()+"/n"+"</speed>\n"
 						+"<radius>"+"radius"+pac.get_radius()+"</radius>\n"
@@ -167,9 +173,9 @@ public class Path2KML {
 				else {
 					String kmlelement ="<Placemark>\n"
 							+"<name>"+"Fruit"+"</name>\n" +
-							"<gx:TimeStamp>\n"+
+							"<TimeStamp>\n"+
 			                "<when>"+time+"</when>\n"
-			                +"</gx:TimeStamp>"
+			                +"</TimeStamp>"
 							+"<description>\n"
 							+"</description>\n" 
 							+"<Point>\n" +

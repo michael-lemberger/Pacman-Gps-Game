@@ -14,10 +14,13 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -28,11 +31,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import File_format.CsvGameWriter;
+import File_format.Path2KML;
 import GIS.Fruit;
 import GIS.GIS_element;
 import GIS.Game;
 import GIS.Map;
 import GIS.Pacman;
+import GIS.Path;
+import GIS.PointDis;
 import Geom.Point3D;
 import Threads.SimplePlayer;
 import Threads.playThread;
@@ -46,11 +52,13 @@ public class MyFrame extends JFrame implements MouseListener{
 	int w;
 	double ratioh;
 	double ratiow;
-	int status=0;
+	public int status=0;
 	//to add fruits or Pacmen.
 	boolean reput=false;
 	public Game game= new Game();
-	Map map;;
+	Map map;
+	//string score
+	public String s="";
 
 
 
@@ -63,6 +71,7 @@ public class MyFrame extends JFrame implements MouseListener{
 		Menu menu2=new Menu("game");
 		MenuItem pacman =new MenuItem("add pacman");
 		MenuItem fruit =new MenuItem("add fruit");
+		MenuItem nully =new MenuItem("new game");
 		MenuItem play =new MenuItem("play");
 		/*******************Labels and buttons******************************************/
 		/*open label */
@@ -107,7 +116,7 @@ public class MyFrame extends JFrame implements MouseListener{
 						CsvGameWriter csv = new CsvGameWriter(game, saveFile);
 					}
 					else if(saveFile.endsWith(".kml")) {
-						
+					Path2KML kml = new Path2KML(game,saveFile);
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "name of file must end with '.csv' or '.kml'!");
@@ -143,6 +152,15 @@ public class MyFrame extends JFrame implements MouseListener{
 			}
 		});
 		
+		nully.addActionListener( new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				status=0;
+				nullify();
+			}
+		});
+		
 		
 		play.addActionListener( new ActionListener() {
 
@@ -162,6 +180,7 @@ public class MyFrame extends JFrame implements MouseListener{
 		menu.add(save);
 		menu2.add(pacman);
 		menu2.add(fruit);
+		menu2.add(nully);
 		menu2.add(play);
 		menubar.add(menu);
 		menubar.add(menu2);
@@ -218,10 +237,16 @@ public class MyFrame extends JFrame implements MouseListener{
 			
 			Iterator<GIS_element> itFruits = game.fruits.iterator();
 			while(itFruits.hasNext()) {
+				try {
 				Fruit fruit = (Fruit) itFruits.next();
 				int[] pixel = map.gpsToPixel(fruit.get_p().x(), fruit.get_p().y());
 				//					System.out.println(pixel[0]+", "+pixel[1]);
 				g.drawImage(fruit.get_img(), pixel[0]-20,pixel[1]-20,40,40,this);
+				}
+				catch (Exception e) {
+					System.out.println("couldn't find the fruit");
+					break;
+				}
 			}
 			
 //			repaint();
@@ -248,7 +273,22 @@ public class MyFrame extends JFrame implements MouseListener{
 				Pacman pacman = itPacmans.next();
 				int[] pixel = map.gpsToPixel(pacman.get_p().x(), pacman.get_p().y());
 				//System.out.println(pixel[0]+", "+pixel[1]);
-				g.drawImage(pacman.get_img(), pixel[0]-30,pixel[1]-30,60,60,this);
+				
+				
+				if (status==3) {
+					for(int i=0;i<pacman.path.points.size()-1;i++) {
+						Point3D p0=new Point3D(pacman.path.points.get(i));
+						Point3D p1=new Point3D(pacman.path.points.get(i+1));
+						int[] line = map.gpsToPixel(p0.x(), p0.y());
+						int[] line2 = map.gpsToPixel(p1.x(), p1.y());
+				        g.setColor(randomColor());
+						g.drawLine(line[0],line[1], line2[0], line2[1]);
+						
+					} 
+					
+				}
+				g.drawImage(pacman.get_img(), pixel[0]-40,pixel[1]-30,80,60,this);
+				
 			}
 			if(status==1) {
 				if(reput==false) {
@@ -349,33 +389,73 @@ public class MyFrame extends JFrame implements MouseListener{
 		};
 		return icon[i];
 	}
-	private void AddFruit(int x,int y) {
+private void AddFruit(int x,int y) {
+		
 		map = new Map(this.getWidth(),this.getHeight());
 		double[]gps=map.pixelToGps(x, y);
+		
+		boolean fruitExist = false;
+		Iterator<GIS_element> it = this.game.fruits.iterator();
+		while(it.hasNext()) {
+			Fruit prevFruit = (Fruit) it.next();
+			if((gps[0] == prevFruit.get_p().x()) && (gps[1] == prevFruit.get_p().y())) {
+				fruitExist = true;
+				break;
+			}
+		}
+		
+		if(fruitExist == false) {
 		Image temp= new ImageIcon(randomFruit).getImage();
-		Fruit F= new Fruit(new Point3D(gps[0],gps[1]),game.fruits.size(),temp );
+		Fruit F= new Fruit(new Point3D(gps[0],gps[1]),game.fruits.size(),temp);
 		game.fruits.add(F);
-		System.out.println(game.fruits.size());
+		System.out.println("number of pacmans in the game: " + game.fruits.size());
 		repaint();
+		}
 	}
 	
 	private void Addpacman(int x2, int y2) {
 		map = new Map(this.getWidth(),this.getHeight());
 		double[]gps=map.pixelToGps(x, y);
+		
+		boolean pacmanExist = false;
+		Iterator<Pacman> iter = this.game.pacmans.iterator();
+		while(iter.hasNext()) {
+			Pacman prevPacman = iter.next();
+			if((gps[0] == prevPacman.get_p().x()) && (gps[1] == prevPacman.get_p().y())) {
+				pacmanExist = true;
+				break;
+			}
+		}
+		
+		if(pacmanExist == false) {
 		Image temp= new ImageIcon("res//pacman1.gif").getImage();
-		                                           //point  //id  //speed //radius//image
 		Pacman P= new Pacman(new Point3D(gps[0],gps[1]),game.pacmans.size(),1,1,temp );
 		game.pacmans.add(P);
-		System.out.println(game.pacmans.size());
-		
+		System.out.println("number of pacmans in the game: " + game.pacmans.size());
+		}
 	}
 
+	private Color randomColor() {
+		Random rand = new Random();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		return new Color(r, g, b);
+
+	}
+	
+	private void nullify() {
+		game= new Game(); 
+	}
+	
 	private void playGame() {
 		if(player.isAlive()) {
 			player.close();
 		}
+		s="";
 		player=new playThread(this);
-		player.start();
+		player.run();
+		
 	}
 
 

@@ -6,24 +6,26 @@ import java.util.Set;
 
 import Geom.Point3D;
 /**
- * Solution prints relevant data about a pacman. 
+ * This class represent solution of a game.
+ * The class have a function to print relevant data about the result of the game. 
  * @author Liron Arad, Michael Lemberger, Maoz Grossman.
  */
 public class Solution extends ArrayList<Path> {
 	Game game;
 	int score;
+	
 	/**
-	 * Constructor
+	 * Téhis constructor get game and score of fruits that was eaten in the game. 
 	 * @param game
 	 * @param score
 	 */
-	public Solution (Game game,int score) {
+	public Solution (Game game, int score) {
 		this.game=game;
 		this.score=score;
 		gameConsole();
 	}
 	/**
-	 * Prints score and other data
+	 * This function prints score and other data to the console frame.
 	 * @param score
 	 */
 	public void gameConsole(){
@@ -38,7 +40,7 @@ public class Solution extends ArrayList<Path> {
 	}
 	
 	/**
-	 * Computes the time taken to eat all fruits.
+	 *This function computes the time taken to eat all fruits.
 	 * @param time
 	 * @param p
 	 * @return time 

@@ -71,19 +71,21 @@ public class ShortestPathAlgo extends ArrayList<GIS_element> {
 		Iterator<Pacman> it = game.pacmans.iterator();
 		while(it.hasNext()) {
 			Pacman p=(Pacman) it.next();
+			Point3D compare=p.path.get(p.path.points.size()-1);
 			double dis=Integer.MAX_VALUE;
 			double dishort;
 			Fruit f=null;
 			Iterator<GIS_element> it1 = this.iterator();
 			while(it1.hasNext()) {
 				Fruit f1=(Fruit) it1.next();
-				dishort=Math.abs(p.get_p().distance2D(f1.get_p()));
+				dishort=Math.abs(compare.distance2D(f1.get_p()));
 				if(dishort<dis) {
 					dis=dishort;
 					f=f1;
 				}
 			}
-			pd.add(new PointDis(f,(Math.abs(dis*1000)-p.get_radius())/p.get_speed(),p.get_id()));
+			double road=p.path.calc_distnce(0,p.path.points.size());
+			pd.add(new PointDis(f,(((dis*1000)+(road*1000))-p.get_radius())/p.get_speed(),p.get_id()));
 			
 		}
 	}

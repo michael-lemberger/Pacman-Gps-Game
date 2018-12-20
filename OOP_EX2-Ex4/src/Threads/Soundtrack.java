@@ -1,6 +1,6 @@
 package Threads;
 /**
- * Thread for the game's Soundtrack.
+ * This class represent the background music of the game.
  * @author Liron Arad, Michael Lemberger, Maoz Grossman.
  *
  */
