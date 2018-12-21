@@ -44,22 +44,27 @@ import Threads.SimplePlayer;
 import Threads.playThread;
 
 public class MyFrame extends JFrame implements MouseListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 01L;
+	/**************************frame variables **********************************/
 	private JTextField filename = new JTextField(), dir = new JTextField();
-	private JButton open = new JButton("Open"), save = new JButton("Save");
+//	private JButton open = new JButton("Open"), save = new JButton("Save");
 	BufferedImage image = null;
 	playThread player = new playThread(this);
 	int h;
 	int w;
-	double ratioh;
-	double ratiow;
 	public int status=0;
 	//to add fruits or Pacmen.
 	boolean reput=false;
+	// unable the other menu bars while it's running 
+	public boolean unable = true;
 	public Game game= new Game();
 	Map map;
 	//string score
 	public String s="";
-
+	public ArrayList<Point3D[]> LineDraw=new ArrayList<Point3D[]>();
 
 
 	public MyFrame() {
@@ -78,6 +83,7 @@ public class MyFrame extends JFrame implements MouseListener{
 		open.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				unable=true;
 				JFileChooser c = new JFileChooser();
 				// Demonstrate "Open" dialog:
 				int rVal = c.showOpenDialog(dir);
@@ -104,6 +110,7 @@ public class MyFrame extends JFrame implements MouseListener{
 		save.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(unable) {
 				JFileChooser c = new JFileChooser();
 				// Demonstrate "save" dialog:
 				int rVal = c.showSaveDialog(dir);
@@ -127,6 +134,7 @@ public class MyFrame extends JFrame implements MouseListener{
 					dir.setText("");
 				}
 			}
+			}
 		});
 
 
@@ -136,22 +144,26 @@ public class MyFrame extends JFrame implements MouseListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(unable) {
 				status=1;
 				reput=false;
 				JOptionPane.showMessageDialog(null, "a click to change location \n double click to add a pacman");
 			}
+		}
 		});
 		/*add fruit to the screen*/
 		fruit.addActionListener( new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(unable) {
 				status=2;
 				reput=false;
 				JOptionPane.showMessageDialog(null, "a click to change location \n double click to add a fruits ");
 			}
+			}
 		});
-		
+		/*new game*/
 		nully.addActionListener( new ActionListener() {
 
 			@Override
@@ -161,7 +173,7 @@ public class MyFrame extends JFrame implements MouseListener{
 			}
 		});
 		
-		
+		/*run the game*/
 		play.addActionListener( new ActionListener() {
 
 			@Override
@@ -231,7 +243,23 @@ public class MyFrame extends JFrame implements MouseListener{
 			scaledImage = image.getScaledInstance(this.getWidth(),this.getHeight(),Image.SCALE_SMOOTH);
 			g.drawImage(scaledImage, 0, 0, this);
 			map = new Map(this.getWidth(),this.getHeight());
-
+			/**Lines**/
+			if (status==3) {
+				for (Point3D[] path:LineDraw) {
+					for(int i=0;i<path.length-1;i++) {
+						Point3D p0=new Point3D(path[i]);
+						Point3D p1=new Point3D(path[i+1]);
+						
+						int[] line = map.gpsToPixel(p0.x(), p0.y());
+						int[] line2 = map.gpsToPixel(p1.x(), p1.y());
+				        g.setColor(randomColor());
+						g.drawLine(line[0],line[1], line2[0], line2[1]);
+					}
+					
+				}
+			}
+			
+			
 			/**fruit**/
 
 			
@@ -249,7 +277,7 @@ public class MyFrame extends JFrame implements MouseListener{
 				}
 			}
 			
-//			repaint();
+
 
 			if (status==2) {
 				if(reput==false) {
@@ -275,18 +303,18 @@ public class MyFrame extends JFrame implements MouseListener{
 				//System.out.println(pixel[0]+", "+pixel[1]);
 				
 				
-				if (status==3) {
-					for(int i=0;i<pacman.path.points.size()-1;i++) {
-						Point3D p0=new Point3D(pacman.path.points.get(i));
-						Point3D p1=new Point3D(pacman.path.points.get(i+1));
-						int[] line = map.gpsToPixel(p0.x(), p0.y());
-						int[] line2 = map.gpsToPixel(p1.x(), p1.y());
-				        g.setColor(randomColor());
-						g.drawLine(line[0],line[1], line2[0], line2[1]);
-						
-					} 
-					
-				}
+//				if (status==3) {
+//					for(int i=0;i<pacman.path.points.size()-1;i++) {
+//						Point3D p0=new Point3D(pacman.path.points.get(i));
+//						Point3D p1=new Point3D(pacman.path.points.get(i+1));
+//						int[] line = map.gpsToPixel(p0.x(), p0.y());
+//						int[] line2 = map.gpsToPixel(p1.x(), p1.y());
+////				        g.setColor(randomColor());
+//						g.drawLine(line[0],line[1], line2[0], line2[1]);
+//						
+//					} 
+//					
+//				}
 				g.drawImage(pacman.get_img(), pixel[0]-40,pixel[1]-30,80,60,this);
 				
 			}
@@ -367,10 +395,6 @@ public class MyFrame extends JFrame implements MouseListener{
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		//		System.out.println(e.getPoint());
-		//        Point point = e.getPoint();
-		//         repaint();
-
 	}
 
 	
@@ -408,7 +432,7 @@ private void AddFruit(int x,int y) {
 		Image temp= new ImageIcon(randomFruit).getImage();
 		Fruit F= new Fruit(new Point3D(gps[0],gps[1]),game.fruits.size(),temp);
 		game.fruits.add(F);
-		System.out.println("number of pacmans in the game: " + game.fruits.size());
+		System.out.println("number of fruits in the game: " + game.fruits.size());
 		repaint();
 		}
 	}
@@ -453,6 +477,7 @@ private void AddFruit(int x,int y) {
 			player.close();
 		}
 		s="";
+		unable=false;
 		player=new playThread(this);
 		player.run();
 		
@@ -469,8 +494,6 @@ private void AddFruit(int x,int y) {
 		MyFrame ejemplo= new MyFrame(); 
 		ejemplo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ejemplo.setVisible(true);
-
-		//		System.out.println(ejemplo.getWidth()+"X"+ejemplo.getHeight());
 
 	}
 

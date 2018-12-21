@@ -1,6 +1,7 @@
 package Threads;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JOptionPane;
@@ -8,6 +9,7 @@ import javax.swing.JOptionPane;
 import GIS.Fruit;
 import GIS.GIS_element;
 import GIS.Pacman;
+import GIS.Path;
 import GUI.MyFrame;
 import Geom.Point3D;
 import javazoom.jl.player.Player;
@@ -19,11 +21,13 @@ import javazoom.jl.player.Player;
  *
  */
 public class SinglePacman extends Thread {
+	/**/
 	Pacman pacman=null;
 	MyFrame mf;
 	int counter=0;
 	boolean flag=true;
-	
+	int step=0;
+	boolean right=false;
 	/**
 	 * This constructor gets pacman and myFrame objects and build a singlPacman object.
 	 * @param pac
@@ -32,6 +36,9 @@ public class SinglePacman extends Thread {
 	public SinglePacman(Pacman pac,MyFrame mf) {
 		this.pacman=pac;
 		this.mf=mf;
+		AddPath();
+		
+		
 	}
 	/**
 	 * This function calculates the motion of the pecman along the vector until the pacman reach the fruit.
@@ -44,10 +51,13 @@ public class SinglePacman extends Thread {
 		double y =(fruit.y()-pac.y())/10;
 		double z= (fruit.z()-pac.z())/10;
 		Point3D move= new Point3D(x,y,z);
+		if(move.x()<0)
+			right=true;
+			else right=false;
 		return move;
 	}
 
-	@Override
+
 	/**
 	 * This function run the pacman motion.
 	 * For each fruit in the path the function call the movement function.
@@ -55,6 +65,7 @@ public class SinglePacman extends Thread {
 	 * The function move the pacman along the list of fruits in the path.
 	 * the function sleep's the thread to create motion on the screen.
 	 */
+	@Override
 	public void run() {
 		if(flag) {
 		Iterator<Point3D>it = pacman.path.points.iterator();
@@ -68,14 +79,15 @@ public class SinglePacman extends Thread {
 				Point3D move= movment(pacman.get_p(),f);
 				while(steps<=distance&&Math.abs(steps-distance)>0.000001) {
 					pacman.get_p().add(move);
-					
+//					pickachu();
 					steps+=pacman.get_p().distance2D(a);
 					a=new Point3D (pacman.get_p());
 					mf.repaint();
 					try {
 						
-						long speed= (long) (500/pacman.get_speed());
+						long speed= (long) (100/pacman.get_speed());
 						sleep(speed);
+//						System.out.println("dest is here: "+ f.toString()+" but we are here: "+ pacman.get_p()+"\n");
 						}
 					 catch (InterruptedException e) {
 					}
@@ -94,19 +106,22 @@ public class SinglePacman extends Thread {
 
 			}
 			mf.repaint();
-			try {
-				sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-			System.out.println("Error");
-			}
+//			try {
+//				sleep((long) (100/pacman.get_speed()));
+//				System.out.println("pacman number"+pacman.get_id()+" the speed is; " +(long) (100/pacman.get_speed()));
+//			} catch (InterruptedException e) {
+//			System.out.println("Error");
+//			}
 		}
 		}
 		mf.s+=" pacman number "+pacman.get_id()+" ate "+ (counter-1) +" fruits\n";
-		if(mf.game.fruits.isEmpty())
+//		System.out.println("we are here "+pacman.get_p()+" but we need to go here "+last);
 			if(ShowScore()) {
-			JOptionPane.showMessageDialog(null, mf.s);
+				JOptionPane.showMessageDialog(null, mf.s);
+			mf.game.fruits=new ArrayList<>();
 			mf.status=0;
+			mf.unable=true;
+			mf.LineDraw=new ArrayList<Point3D[]>();
 			}
 		flag=false;
 	}
@@ -120,10 +135,11 @@ public class SinglePacman extends Thread {
 			Fruit f =  (Fruit) it.next();
 			
 			if( f.get_p().equalsXY(p)) {
-				mf.game.fruits.remove(f);
+				f._img=null;
 			}
 			}
 			catch (Exception e) {
+
 				return;
 			}
 		}
@@ -136,6 +152,58 @@ public class SinglePacman extends Thread {
 		return lines.length==mf.game.pacmans.size();
 		
 	}
-
+	
+	private void AddPath() {
+		Path path= new Path (pacman.path.points);
+		Point3D[]arr= new Point3D[ pacman.path.points.size()];
+		for(int i=0;i<path.points.size();i++) {
+			arr[i]=new Point3D(path.points.get(i));
+		}
+		mf.LineDraw.add(arr);
+	}
+	
+	
+//	private void pickachu() {
+//		if(right) 
+//		{
+//			if(step==0)
+//				try {
+//					pacman._img=ImageIO.read(new File("res/piickajumpR.gif"));
+//					step++;
+//				} catch (IOException e) {
+//					
+//					e.printStackTrace();
+//				}
+//			else  if(step==1)
+//				try {
+//					pacman._img=ImageIO.read(new File("res/piickaupR.gif"));
+//					step=0;
+//				} catch (IOException e) {
+//					
+//					e.printStackTrace();
+//				}
+//			else step=0;
+//		}
+//		else {
+//		
+//		if(step==0)
+//			try {
+//				pacman._img=ImageIO.read(new File("res/piickajump.gif"));
+//				step++;
+//			} catch (IOException e) {
+//				
+//				e.printStackTrace();
+//			}
+//		else if(step==1) 
+//			try {
+//				pacman._img=ImageIO.read(new File("res/piickaup.gif"));
+//				step=0;
+//			} catch (IOException e) {
+//				
+//				e.printStackTrace();
+//			}
+//		else step=0;
+//	}
+//	}
 
 }
