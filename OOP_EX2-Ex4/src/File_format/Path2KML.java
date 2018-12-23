@@ -14,7 +14,8 @@ import Geom.Point3D;
 
 /**
  * This class export game to a kml file.
- * @author liron
+ * we used https://developers.google.com/kml/documentation/time#gps as a source of information.
+ * @author Michael Lemberger, Liron Arad, Maoz Grossman.
  *
  */
 public class Path2KML {
@@ -135,37 +136,29 @@ public class Path2KML {
 		String kmlstart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + 
 				"<kml xmlns=\"http://www.opengis.net/kml/2.2\">\r\n" + 
 				"  <Document>\r\n" + 
-				"    <name>Points with TimeStamps</name>\r\n" + 
-				"    <Style id=\"paddle-a\">\r\n" + 
+				"    <name>Pacman game</name>\r\n" + 
+				"    <Style id=\"pacman\">\r\n" + 
 				"      <IconStyle>\r\n" + 
 				"        <Icon>\r\n" + 
-				"          <href>http://maps.google.com/mapfiles/kml/paddle/A.png</href>\r\n" + 
+				"          <href>http://maps.google.com/mapfiles/kml/pal5/icon47.png</href>\r\n" + 
 				"        </Icon>\r\n" + 
 				"        <hotSpot x=\"32\" y=\"1\" xunits=\"pixels\" yunits=\"pixels\"/>\r\n" + 
 				"      </IconStyle>\r\n" + 
 				"    </Style>\r\n" + 
-				"    <Style id=\"paddle-b\">\r\n" + 
+				"    <Style id=\"fruit\">\r\n" + 
 				"      <IconStyle>\r\n" + 
 				"        <Icon>\r\n" + 
-				"          <href>http://maps.google.com/mapfiles/kml/paddle/B.png</href>\r\n" + 
+				"          <href>http://maps.google.com/mapfiles/kml/pal5/icon53l.png</href>\r\n" + 
 				"        </Icon>\r\n" + 
 				"        <hotSpot x=\"32\" y=\"1\" xunits=\"pixels\" yunits=\"pixels\"/>\r\n" + 
 				"      </IconStyle>\r\n" + 
 				"    </Style>\r\n" + 
-				"    <Style id=\"hiker-icon\">\r\n" + 
-				"      <IconStyle>\r\n" + 
-				"        <Icon>\r\n" + 
-				"          <href>http://maps.google.com/mapfiles/ms/icons/hiker.png</href>\r\n" + 
-				"        </Icon>\r\n" + 
-				"        <hotSpot x=\"0\" y=\".5\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
-				"      </IconStyle>\r\n" + 
-				"    </Style>\r\n" + 
-				"    <Style id=\"check-hide-children\">\r\n" + 
+				"    <Style id=\"pacman-and-fruits\">\r\n" + 
 				"      <ListStyle>\r\n" + 
-				"        <listItemType>checkHideChildren</listItemType>\r\n" + 
+				"        <listItemType>pacmansAndFruits</listItemType>\r\n" + 
 				"      </ListStyle>\r\n" + 
 				"    </Style>\r\n" + 
-				"    <styleUrl>#check-hide-children</styleUrl>";
+				"    <styleUrl>#pacman-and-fruits</styleUrl>";
 		content.add(kmlstart);
 
 		String kmlend = "</Document>\n"+"</kml>";
@@ -192,6 +185,7 @@ public class Path2KML {
 						"<TimeStamp>\n"+
 		                "<when>"+time+"</when>\n"
 		                +"</TimeStamp>"
+		                +"<styleUrl>#pacman</styleUrl>"
 						+"<description>\n"
 						+"<speed>"+"speed"+pac.get_speed()+"/n"+"</speed>\n"
 						+"<radius>"+"radius"+pac.get_radius()+"</radius>\n"
@@ -208,6 +202,7 @@ public class Path2KML {
 							"<TimeStamp>\n"+
 			                "<when>"+time+"</when>\n"
 			                +"</TimeStamp>"
+			                +"<styleUrl>#fruit</styleUrl>"
 							+"<description>\n"
 							+"</description>\n" 
 							+"<Point>\n" +

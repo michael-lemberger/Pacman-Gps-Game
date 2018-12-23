@@ -17,6 +17,7 @@ public class CsvGameWriter
  * makes a csv file from a game object. 
  * @param game save this game to a csv file.
  * @param name save the csv file in this name.
+ * @author Michael Lemberger, Liron Arad, Maoz Grossman.
  */
 	public CsvGameWriter(Game game,String name) {
 		String fileName = name;

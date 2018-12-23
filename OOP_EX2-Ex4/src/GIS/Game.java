@@ -80,6 +80,11 @@ public class Game{
 		return icon[i];
 	}
 
+	/**
+	 * By id of a Pacman you can find it on a list.
+	 * @param id
+	 * @return Pacman pac
+	 */
 	public Pacman getPac(int id){
 		Iterator<Pacman> it = this.pacmans.iterator();
 		while(it.hasNext()) {

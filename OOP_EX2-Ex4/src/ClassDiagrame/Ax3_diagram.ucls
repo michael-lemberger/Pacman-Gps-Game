@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="File_format.CsvGameReader" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/File_format/CsvGameReader.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="152" x="1694" y="1529"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="GIS.Range" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/GIS/Range.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="225" width="150" x="1352" y="1529"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="GIS.Fruit" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/GIS/Fruit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="151" x="391" y="338"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="Threads.SinglePacman" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/Threads/SinglePacman.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="226" x="1684" y="338"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="GUI.MyFrame" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/GUI/MyFrame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="585" width="193" x="1352" y="711"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="Threads.SimplePlayer" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/Threads/SimplePlayer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="123" x="228" y="127"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="Threads.sounds" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/Threads/sounds.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="97" x="573" y="127"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="GIS.Map" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/GIS/Map.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="195" x="1352" y="1336"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="Threads.Soundtrack" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/Threads/Soundtrack.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="113" x="710" y="127"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="File_format.CsvGameWriter" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/File_format/CsvGameWriter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="169" x="863" y="127"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="GIS.Game" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/GIS/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="173" x="1694" y="1336"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="Threads.MyThread" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/Threads/MyThread.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="110" x="1072" y="127"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="13" language="java" name="ClassDiagrame" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/ClassDiagrame" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="111" x="1222" y="127"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="14" language="java" name="GIS.Solution" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/GIS/Solution.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="126" x="2044" y="1336"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="Algorithms.ShortestPathAlgo" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/Algorithms/ShortestPathAlgo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="209" x="1585" y="711"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="GIS.Path" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/GIS/Path.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="155" x="2004" y="1974"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="GIS.PointDis" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/GIS/PointDis.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="142" x="391" y="127"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="File_format.Path2KML" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/File_format/Path2KML.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="149" x="1834" y="711"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="GIS.Pacman" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/GIS/Pacman.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="405" width="223" x="2004" y="1529"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="Threads.playThread" project="OOP_EX2-EX4-1" 
+    file="/OOP_EX2-EX4-1/OOP_EX2-Ex4/src/Threads/playThread.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="132" x="1373" y="127"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="21">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="22" name="mf"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="24">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="25" name="csv"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="27">    
+    <bendpoint x="2013" y="711"/>    
+    <bendpoint x="2013" y="1336"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="28" name="pacman"/>      
+      <multiplicity id="29" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="30">    
+    <bendpoint x="1382" y="338"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="31" name="player"/>      
+      <multiplicity id="32" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="33">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="34" name="path"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="36">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="37" name="pacmans"/>      
+      <multiplicity id="38" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="39">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="40" name="_rangeY"/>      
+      <multiplicity id="41" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="42">    
+    <bendpoint x="1361" y="338"/>    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="43" name="mf"/>      
+      <multiplicity id="44" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="45">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="46" name="pacman"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="48">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="49" name="game"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="51">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="52" name="fe"/>      
+      <multiplicity id="53" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="54">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="55" name="_rangeX"/>      
+      <multiplicity id="56" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="57">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="58" name="thr"/>      
+      <multiplicity id="59" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="60">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="61" name="game"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="64" name="map"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="66">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="67" name="_rangeLon"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="69">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="70" name="_rangeLat"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="72">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="73" name="game"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
