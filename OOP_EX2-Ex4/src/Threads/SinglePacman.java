@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import GIS.Fruit;
@@ -27,7 +28,7 @@ public class SinglePacman extends Thread {
 	int counter=0;
 	boolean flag=true;
 	int step=0;
-	boolean right=false;
+	boolean left=false;
 	/**
 	 * This constructor gets pacman and myFrame objects and build a singlPacman object.
 	 * @param pac
@@ -47,13 +48,19 @@ public class SinglePacman extends Thread {
 	 * @return new point of the pacman.
 	 */
 	private Point3D movment(Point3D pac,Point3D fruit,double part) {
-		double x =((fruit.x()-pac.x())/(100/part));
-		double y =(fruit.y()-pac.y())/(100/part);
-		double z= (fruit.z()-pac.z())/(100/part);
+		double x =((fruit.x()-pac.x())/(50/part));
+		double y =(fruit.y()-pac.y())/(50/part);
+		double z= (fruit.z()-pac.z())/(50/part);
 		Point3D move= new Point3D(x,y,z);
-		if(move.x()<0)
-			right=true;
-			else right=false;
+		if(move.x()<0) {
+			left=true;
+			pacman._img= new ImageIcon("res\\pacmanleft.gif").getImage();
+		}
+			
+			else {
+				left=false;
+				pacman._img=new ImageIcon("res\\pacman1.gif").getImage();
+			}
 		return move;
 	}
 

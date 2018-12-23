@@ -45,6 +45,10 @@ public class Fruit implements GIS_element{
 	public Image get_img() {
 		return _img;
 	}
+	/**
+	 * Set method for _img.
+	 * @param _img
+	 */
 	public void set_img(Image _img) {
 		this._img = _img;
 	}

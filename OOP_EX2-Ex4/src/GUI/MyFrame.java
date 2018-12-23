@@ -7,14 +7,10 @@ import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +20,6 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -37,8 +32,6 @@ import GIS.GIS_element;
 import GIS.Game;
 import GIS.Map;
 import GIS.Pacman;
-import GIS.Path;
-import GIS.PointDis;
 import Geom.Point3D;
 import Threads.SimplePlayer;
 import Threads.playThread;
@@ -288,7 +281,7 @@ public class MyFrame extends JFrame implements MouseListener{
 				Pacman pacman = itPacmans.next();
 				int[] pixel = map.gpsToPixel(pacman.get_p().x(), pacman.get_p().y());
 				
-				g.drawImage(pacman.get_img(), pixel[0]-40,pixel[1]-30,80,60,this);
+				g.drawImage(pacman.get_img(), pixel[0]-30,pixel[1]-30,60,60,this);
 				
 			}
 			if(status==1) {
