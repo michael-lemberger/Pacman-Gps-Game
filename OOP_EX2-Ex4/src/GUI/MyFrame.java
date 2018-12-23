@@ -214,19 +214,6 @@ public class MyFrame extends JFrame implements MouseListener{
 		/***************************reads when the frame was changed************************************/
 
 
-		//		this.getRootPane().addComponentListener(new ComponentAdapter() {
-		//			public void componentResized(ComponentEvent e) {
-		//				// This is only called when the user releases the mouse button.
-		//				ratioh= (double)h/(double)getHeight();
-		//				ratiow=(double)w/(double)getWidth();
-		//				xl= (int) (xl/ratiow);
-		//				yl= (int) (yl/ratioh);
-		//				h=getHeight(); w=getWidth();
-		//
-		//
-		//
-		//			}
-		//		});
 	}
 	int x;
 	int y;
@@ -300,21 +287,7 @@ public class MyFrame extends JFrame implements MouseListener{
 			while(itPacmans.hasNext()) {
 				Pacman pacman = itPacmans.next();
 				int[] pixel = map.gpsToPixel(pacman.get_p().x(), pacman.get_p().y());
-				//System.out.println(pixel[0]+", "+pixel[1]);
 				
-				
-//				if (status==3) {
-//					for(int i=0;i<pacman.path.points.size()-1;i++) {
-//						Point3D p0=new Point3D(pacman.path.points.get(i));
-//						Point3D p1=new Point3D(pacman.path.points.get(i+1));
-//						int[] line = map.gpsToPixel(p0.x(), p0.y());
-//						int[] line2 = map.gpsToPixel(p1.x(), p1.y());
-////				        g.setColor(randomColor());
-//						g.drawLine(line[0],line[1], line2[0], line2[1]);
-//						
-//					} 
-//					
-//				}
 				g.drawImage(pacman.get_img(), pixel[0]-40,pixel[1]-30,80,60,this);
 				
 			}
@@ -482,7 +455,6 @@ private void AddFruit(int x,int y) {
 		player.run();
 		
 	}
-
 
 
 	/********************main************************/

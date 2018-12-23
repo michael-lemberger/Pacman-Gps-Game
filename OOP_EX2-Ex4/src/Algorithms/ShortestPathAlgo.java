@@ -97,7 +97,7 @@ public class ShortestPathAlgo extends ArrayList<GIS_element> {
 	 */
 	public int getScore(Pacman pac) {
 		int score=pac.path.points.size()-1;
-		Solution s=new Solution (game,score);
+		Solution s=new Solution (pac,score);
 		return score;
 	}
 	

@@ -11,16 +11,16 @@ import Geom.Point3D;
  * @author Liron Arad, Michael Lemberger, Maoz Grossman.
  */
 public class Solution extends ArrayList<Path> {
-	Game game;
+	Pacman pacman;
 	int score;
 	
 	/**
 	 * Téhis constructor get game and score of fruits that was eaten in the game. 
-	 * @param game
+	 * @param pacman
 	 * @param score
 	 */
-	public Solution (Game game, int score) {
-		this.game=game;
+	public Solution (Pacman pacman, int score) {
+		this.pacman=pacman;
 		this.score=score;
 		gameConsole();
 	}
@@ -29,14 +29,10 @@ public class Solution extends ArrayList<Path> {
 	 * @param score
 	 */
 	public void gameConsole(){
-		Iterator<Pacman> it=game.pacmans.iterator();
-		while(it.hasNext()) {
-			Pacman p=(Pacman)(it.next());
-			System.out.println("-Pacman "+p.get_id()+"-");
-			System.out.println("Fruit Points: "+p.path.points.toString());
+			System.out.println("-Pacman "+pacman.get_id()+"-");
+			System.out.println("Fruit Points: "+pacman.path.points.toString());
 			System.out.println("Fruit's Eaten: "+ score);
-			System.out.println("Time: "+time(p));
-		}
+			System.out.println("Time: "+time(pacman));
 	}
 	
 	/**

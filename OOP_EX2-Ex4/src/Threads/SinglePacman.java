@@ -46,10 +46,10 @@ public class SinglePacman extends Thread {
 	 * @param fruit fruit target.
 	 * @return new point of the pacman.
 	 */
-	private Point3D movment(Point3D pac,Point3D fruit) {
-		double x =((fruit.x()-pac.x())/10);
-		double y =(fruit.y()-pac.y())/10;
-		double z= (fruit.z()-pac.z())/10;
+	private Point3D movment(Point3D pac,Point3D fruit,double part) {
+		double x =((fruit.x()-pac.x())/(100/part));
+		double y =(fruit.y()-pac.y())/(100/part);
+		double z= (fruit.z()-pac.z())/(100/part);
 		Point3D move= new Point3D(x,y,z);
 		if(move.x()<0)
 			right=true;
@@ -69,6 +69,7 @@ public class SinglePacman extends Thread {
 	public void run() {
 		if(flag) {
 		Iterator<Point3D>it = pacman.path.points.iterator();
+		double speed=pacman.get_speed();
 		while(it.hasNext()) {
 			Point3D f= it.next();
 			counter++;
@@ -76,18 +77,14 @@ public class SinglePacman extends Thread {
 			double distance=a.distance2D(f);
 			double steps=0;
 			if(counter>1) {
-				Point3D move= movment(pacman.get_p(),f);
+				Point3D move= movment(pacman.get_p(),f,speed);
 				while(steps<=distance&&Math.abs(steps-distance)>0.000001) {
 					pacman.get_p().add(move);
-//					pickachu();
 					steps+=pacman.get_p().distance2D(a);
 					a=new Point3D (pacman.get_p());
 					mf.repaint();
 					try {
-						
-						long speed= (long) (100/pacman.get_speed());
-						sleep(speed);
-//						System.out.println("dest is here: "+ f.toString()+" but we are here: "+ pacman.get_p()+"\n");
+						sleep((long)(80));
 						}
 					 catch (InterruptedException e) {
 					}
@@ -106,16 +103,9 @@ public class SinglePacman extends Thread {
 
 			}
 			mf.repaint();
-//			try {
-//				sleep((long) (100/pacman.get_speed()));
-//				System.out.println("pacman number"+pacman.get_id()+" the speed is; " +(long) (100/pacman.get_speed()));
-//			} catch (InterruptedException e) {
-//			System.out.println("Error");
-//			}
 		}
 		}
 		mf.s+=" pacman number "+pacman.get_id()+" ate "+ (counter-1) +" fruits\n";
-//		System.out.println("we are here "+pacman.get_p()+" but we need to go here "+last);
 			if(ShowScore()) {
 				JOptionPane.showMessageDialog(null, mf.s);
 			mf.game.fruits=new ArrayList<>();
@@ -162,48 +152,4 @@ public class SinglePacman extends Thread {
 		mf.LineDraw.add(arr);
 	}
 	
-	
-//	private void pickachu() {
-//		if(right) 
-//		{
-//			if(step==0)
-//				try {
-//					pacman._img=ImageIO.read(new File("res/piickajumpR.gif"));
-//					step++;
-//				} catch (IOException e) {
-//					
-//					e.printStackTrace();
-//				}
-//			else  if(step==1)
-//				try {
-//					pacman._img=ImageIO.read(new File("res/piickaupR.gif"));
-//					step=0;
-//				} catch (IOException e) {
-//					
-//					e.printStackTrace();
-//				}
-//			else step=0;
-//		}
-//		else {
-//		
-//		if(step==0)
-//			try {
-//				pacman._img=ImageIO.read(new File("res/piickajump.gif"));
-//				step++;
-//			} catch (IOException e) {
-//				
-//				e.printStackTrace();
-//			}
-//		else if(step==1) 
-//			try {
-//				pacman._img=ImageIO.read(new File("res/piickaup.gif"));
-//				step=0;
-//			} catch (IOException e) {
-//				
-//				e.printStackTrace();
-//			}
-//		else step=0;
-//	}
-//	}
-
 }
