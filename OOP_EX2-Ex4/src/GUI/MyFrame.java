@@ -223,7 +223,7 @@ public class MyFrame extends JFrame implements MouseListener{
 			scaledImage = image.getScaledInstance(this.getWidth(),this.getHeight(),Image.SCALE_SMOOTH);
 			g.drawImage(scaledImage, 0, 0, this);
 			map = new Map(this.getWidth(),this.getHeight());
-			/**Lines**/
+			/**-Lines-**/
 			if (status==3) {
 				for (Point3D[] path:LineDraw) {
 					for(int i=0;i<path.length-1;i++) {

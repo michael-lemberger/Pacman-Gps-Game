@@ -3,7 +3,7 @@ This Github project is an educational example for using git & github as part of 
 
 Project content:
 
-1.GIS
+1.GIS-
 
 1.a:
 Game Class-

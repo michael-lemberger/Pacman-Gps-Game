@@ -67,7 +67,7 @@ public class SinglePacman extends Thread {
 
 	/**
 	 * This function run the pacman motion.
-	 * For each fruit in the path the function call the movement function.
+	 * For each fruit in the path, the function call the movement function.
 	 * The function print the pacman in the new point until the pacman reach the fruit.
 	 * The function move the pacman along the list of fruits in the path.
 	 * the function sleep's the thread to create motion on the screen.
