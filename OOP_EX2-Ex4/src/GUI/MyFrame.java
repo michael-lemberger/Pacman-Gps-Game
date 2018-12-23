@@ -84,6 +84,7 @@ public class MyFrame extends JFrame implements MouseListener{
 					filename.setText(c.getSelectedFile().getName());
 					dir.setText(c.getCurrentDirectory().toString());
 					String openFile= c.getCurrentDirectory().toString()+"\\"+c.getSelectedFile().getName();
+					openFile=openFile.replace("\\", "\\\\");
 					System.out.println(openFile);
 					try {
 						game = new Game(openFile);

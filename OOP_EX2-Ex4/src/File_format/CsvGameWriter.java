@@ -85,9 +85,12 @@ public class CsvGameWriter
 			sb.append(',');
 			sb.append(fruit.get_p().x());
 			sb.append(',');
-			sb.append(fruit.get_p().z());
+			sb.append((int)(fruit.get_p().z()));
 			sb.append(',');
-			sb.append(1);
+			sb.append('1');
+			sb.append(',');
+			sb.append(',');
+			sb.append(',');
 			sb.append('\n');
 		}
 
