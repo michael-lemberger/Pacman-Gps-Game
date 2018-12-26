@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import Algorithms.ShortestPathAlgo;
 import GIS.Game;
+import GIS.Ghost;
 
 class AlgoTest {
 
@@ -25,5 +26,4 @@ class AlgoTest {
 		}
 		assertTrue(b);
 	}
-
 }

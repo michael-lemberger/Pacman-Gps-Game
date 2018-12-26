@@ -28,7 +28,9 @@ public class Game{
 	private CsvGameReader csv=new CsvGameReader();
 	public ArrayList<GIS_element> fruits=new ArrayList<GIS_element>();
 	public ArrayList<Pacman> pacmans =new ArrayList<Pacman>();
-
+	public ArrayList<Block> blocks =new ArrayList<Block>();
+	public ArrayList<Ghost> ghosts =new ArrayList<Ghost>();
+	public Player player;
 	/**
 	 * Game constructor. get a string directory (csv file) and create Game object.
 	 * this Gaame object contains  a set of pacman objects and a set Fruit objects.
@@ -59,8 +61,19 @@ public class Game{
 					Fruit fruit = new Fruit(p, id,new ImageIcon(getFruitIcon()).getImage());
 					this.fruits.add(fruit);
 				}
-				else {
-				}			
+				else if(s[i][0].charAt(0) == 71) {
+					double speed = Double.parseDouble(s[i][5]);
+					double radius = Double.parseDouble(s[i][6]);
+					Ghost ghost = new Ghost(p, id,speed,radius,new ImageIcon(getGhostIcon()).getImage());
+					this.ghosts.add(ghost);
+				}
+				else if(s[i][0].charAt(0) == 66) {
+					String point2=""+s[i][6]+","+s[i][5]+","+s[i][7]+"";
+					double radius = Double.parseDouble(s[i][8]);
+					Point3D p2 = new Point3D (point);
+					Block block=new Block(p, p2, id, radius);
+					this.blocks.add(block);
+				}
 			}
 		
 
@@ -80,6 +93,17 @@ public class Game{
 		return icon[i];
 	}
 
+	public String getGhostIcon() {
+		int i= (int) (Math.random()*5);
+		String[]icon= {
+				"res\\gengar.gif"
+				,"res\\ghost.gif"
+				,"res\\ghostRed.gif"
+				,"res\\gostPink.gif"
+				,"res\\gostYellow.gif"
+		};
+		return icon[i];
+	}
 	/**
 	 * By id of a Pacman you can find it on a list.
 	 * @param id

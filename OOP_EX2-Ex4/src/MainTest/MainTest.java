@@ -1,30 +1,36 @@
-package File_format;
+package MainTest;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
- public class CsvGameReader {
- 	/**
-	 * makes an array of string to convert to game object. 
-	 * @param adress path of csv file.
-	 * @return  Matrix of Strings with the data of the csv file.
-	 * @throws Exception if there is a problem.
-	 * @author Michael Lemberger, Liron Arad, Maoz Grossman.
-	 */
- 	public  String[][] csvmaker (String adress) throws Exception 
+public class MainTest {
+	public static void main (String[]args) {
+		try {
+			csvmaker("res\\game_1543693911932_b.csv");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static  String[][] csvmaker (String adress) throws Exception 
 	{
  		String line = "";
 		String cvsSplitBy = ",";
 		int lineCounter = 0;
-		int colCounter=7;
+		int colCounter=0;
 		String [][] Matrix=null;
 		try (BufferedReader br = new BufferedReader(new FileReader(adress))) 
 		{ 
 			String check="";
 			while ((check=br.readLine()) != null) 
-			{
-				if(check.contains("B"))
-				colCounter=9;
+			{	
+				if(lineCounter!=0) {
+				int a=countChar(check, ',')+1;
+				if(a>colCounter) {
+					colCounter=a;
+				}
+				}
 				lineCounter++;
 				if(lineCounter>1) {
 					check=check.substring(0, check.length()-2);
@@ -49,4 +55,16 @@ import java.io.IOException;
 		}
 		return Matrix;
 	} 
+ 	
+ 	public static int countChar(String str, char c)
+ 	{
+ 	    int count = 0;
+
+ 	    for(int i=0; i < str.length(); i++)
+ 	    {    if(str.charAt(i) == c)
+ 	            count++;
+ 	    }
+
+ 	    return count;
+ 	}
 }
