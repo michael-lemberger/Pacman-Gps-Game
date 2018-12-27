@@ -46,7 +46,7 @@ public class Map {
 
 		yLat = this._rangeY.getMax() - yLat; 
 		ans[1] = (this._rangeY.getMax() *32.101658 + yLat*(32.106046-32.101658))/this._rangeY.getMax() ;
-		System.out.println(ans[0]+","+ans[1]);
+//		System.out.println(ans[0]+","+ans[1]);
 		return ans;
 	}
 

@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -43,7 +44,6 @@ public class MyFrame extends JFrame implements MouseListener{
 	private static final long serialVersionUID = 01L;
 	/**************************frame variables **********************************/
 	private JTextField filename = new JTextField(), dir = new JTextField();
-//	private JButton open = new JButton("Open"), save = new JButton("Save");
 	BufferedImage image = null;
 	playThread player = new playThread(this);
 	int h;
@@ -218,7 +218,7 @@ public class MyFrame extends JFrame implements MouseListener{
 
 	/*****************************paint ********************************************************/
 	public void paint(Graphics g) {
-
+		/*********************layer1-background******************************/
 		if (image != null) {
 			//Background image  
 			scaledImage = image.getScaledInstance(this.getWidth(),this.getHeight(),Image.SCALE_SMOOTH);
@@ -239,7 +239,7 @@ public class MyFrame extends JFrame implements MouseListener{
 					
 				}
 			}
-			
+			/******************************layer2- objects*************************8*/
 			
 			/**fruit**/
 

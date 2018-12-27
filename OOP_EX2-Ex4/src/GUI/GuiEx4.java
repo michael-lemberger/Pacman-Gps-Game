@@ -14,7 +14,6 @@
 	import java.io.File;
 	import java.io.IOException;
 	import java.util.Iterator;
-	import java.util.Random;
 
 	import javax.imageio.ImageIO;
 	import javax.swing.ImageIcon;
@@ -44,16 +43,14 @@
 		BufferedImage image = null;
 		int h;
 		int w;
-		public int status=0;
+		// to change position 
+		private int status=0;
 		//to add fruits or Pacmen.
 		boolean reput=false;
 		// unable the other menu bars while it's running 
 		public boolean unable = true;
 		public Game game= new Game();
 		Map map;
-		//string score
-		public String s="";
-//		public ArrayList<Point3D[]> LineDraw=new ArrayList<Point3D[]>();
 
 		 public GuiEx4() {
 			 /***********************menu bar ******************************/
@@ -178,8 +175,8 @@
 				/************************additions******************************/
 				menu.add(open);
 				menu.add(save);
-				menu2.add(pacman);
-				menu2.add(fruit);
+//				menu2.add(pacman);
+//				menu2.add(fruit);
 				menu2.add(nully);
 				menu2.add(play);
 				menubar.add(menu);
@@ -199,15 +196,12 @@
 				addMouseListener(this);
 
 
-				/***************************reads when the frame was changed************************************/
-
 
 		}
 		 int x;
 			int y;
 			Image scaledImage;
 			String randomFruit="res\\bananagif.gif";
-
 
 
 			/*****************************paint ********************************************************/
@@ -217,7 +211,7 @@
 					//Background image  
 					scaledImage = image.getScaledInstance(this.getWidth(),this.getHeight(),Image.SCALE_SMOOTH);
 					g.drawImage(scaledImage, 0, 0, this);
-					map = new Map(this.getWidth(),this.getHeight());
+					map = new Map(1300,this.getHeight());
 					
 					/***************************layer2- blocks*********************************/
 					
@@ -226,11 +220,11 @@
 						try {
 						Block block= itBlocks.next();
 						int dimension[]= block.setDimension(this.map);
-						System.out.println(dimension[0]+","+ dimension[1]+","+ dimension[2]+","+dimension[3]);
-						g.drawRect(dimension[0], dimension[1], dimension[2],dimension[3]);
+						g.setColor(Color.lightGray);
+						g.fillRect(dimension[0], dimension[1], dimension[2],dimension[3]);
 						}
 						catch (Exception e) {
-							System.out.println("the block doesn't exisst");
+							System.out.println("the block doesn't existe");
 							break;
 						}
 					}
@@ -302,7 +296,7 @@
 						Ghost ghost = itGhost.next();
 						int[] pixel = map.gpsToPixel(ghost.get_p().x(),ghost.get_p().y());
 						
-						g.drawImage(ghost.get_img(), pixel[0]-20,pixel[1]-20,40,40,this);
+						g.drawImage(ghost.get_img(), pixel[0]-10,pixel[1]-10,20,20,this);
 						
 					}
 				}
@@ -431,14 +425,6 @@
 				}
 			}
 
-			private Color randomColor() {
-				Random rand = new Random();
-				float r = rand.nextFloat();
-				float g = rand.nextFloat();
-				float b = rand.nextFloat();
-				return new Color(r, g, b);
-
-			}
 			
 			private void nullify() {
 				game= new Game(); 

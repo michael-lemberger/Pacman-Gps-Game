@@ -20,7 +20,7 @@ public class Block  {
 		pixelEnd=map.gpsToPixel(end.x(),end.y());
 		Range rangeX= new Range(pixelStart[0], pixelEnd[0]);
 		Range rangeY= new Range(pixelStart[1], pixelEnd[1]);
-		int Dimension[]= {pixelStart[0],pixelStart[1],(int)(Math.abs(rangeX.dx())),(int)Math.abs(rangeY.dx())};
+		int Dimension[]= {pixelStart[0],pixelEnd[1],(int)(Math.abs(rangeX.dx())),(int)Math.abs(rangeY.dx())};
 		return Dimension;
 	}
 }
