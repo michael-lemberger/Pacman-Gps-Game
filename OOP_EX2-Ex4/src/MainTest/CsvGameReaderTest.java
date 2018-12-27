@@ -2,7 +2,12 @@ package MainTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.junit.jupiter.api.Test;
+
+import com.mysql.fabric.xmlrpc.base.Data;
 
 import File_format.CsvGameReader;
 
@@ -13,8 +18,10 @@ class CsvGameReaderTest {
 		//csv reader test to game_1543684662657.csv
 		String adress ="res\\game_1543684662657.csv";
 		CsvGameReader game1 = new CsvGameReader();
-		String[][] data = game1.csvmaker(adress);
-		assertEquals("32.1045513", data[0][2]);
+		ArrayList<String>data = game1.csvmaker(adress);
+		String s=data.get(0);
+		String[] line=s.split(",");
+		assertEquals("32.1045513",line[2]);
 	}
 	
 	@Test
@@ -22,8 +29,9 @@ class CsvGameReaderTest {
 		//csv reader test to game_1543685769754.csv
 		String adress ="res\\game_1543685769754.csv";
 		CsvGameReader game2 = new CsvGameReader();
-		String[][] data = game2.csvmaker(adress);
-		assertEquals("35.20436658", data[14][3]);
+		ArrayList<String>data = game2.csvmaker(adress);
+		String s=data.get(14);
+		String[] line=s.split(",");
+		assertEquals("35.20436658", line[3]);
 	}
-
 }

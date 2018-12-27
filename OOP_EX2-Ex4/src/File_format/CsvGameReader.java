@@ -2,6 +2,7 @@ package File_format;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
  public class CsvGameReader {
  	/**
@@ -11,42 +12,34 @@ import java.io.IOException;
 	 * @throws Exception if there is a problem.
 	 * @author Michael Lemberger, Liron Arad, Maoz Grossman.
 	 */
- 	public  String[][] csvmaker (String adress) throws Exception 
+ 	public  ArrayList<String> csvmaker (String adress) throws Exception 
 	{
  		String line = "";
-		String cvsSplitBy = ",";
-		int lineCounter = 0;
-		int colCounter=7;
-		String [][] Matrix=null;
+		String cvsSplitBy = "&";
+		boolean flag=false;
+		ArrayList<String> lines=null;
 		try (BufferedReader br = new BufferedReader(new FileReader(adress))) 
 		{ 
 			String check="";
 			while ((check=br.readLine()) != null) 
 			{
-				if(check.contains("B"))
-				colCounter=9;
-				lineCounter++;
-				if(lineCounter>1) {
+				if(flag) {
 					check=check.substring(0, check.length()-2);
-					line += check+",";
+					line += check+"&";
 				}
+				flag=true;
 			}
 		
 			String[] data = line.split(cvsSplitBy);
-			Matrix=new String [lineCounter][colCounter];
-			int StringsCounter=0;
-			for (int i=0;i<Matrix.length-1;i++) {
-				for (int j = 0; j < Matrix[i].length; j++) {
-					if(StringsCounter == data.length)
-						break;
-					Matrix[i][j]=data[StringsCounter++];
-				}
+			lines=new ArrayList<String>();
+			for(int i=0;i<data.length;i++) {
+				lines.add(data[i]);
 			}
 		}
 		catch (IOException e) 
 		{
 			e.printStackTrace();
 		}
-		return Matrix;
+		return lines;
 	} 
 }

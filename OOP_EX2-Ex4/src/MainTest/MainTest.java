@@ -3,6 +3,7 @@ package MainTest;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainTest {
 	public static void main (String[]args) {
@@ -13,58 +14,34 @@ public class MainTest {
 			e.printStackTrace();
 		}
 	}
-	public static  String[][] csvmaker (String adress) throws Exception 
+	public static  ArrayList<String> csvmaker (String adress) throws Exception 
 	{
  		String line = "";
-		String cvsSplitBy = ",";
-		int lineCounter = 0;
-		int colCounter=0;
-		String [][] Matrix=null;
+		String cvsSplitBy = "&";
+		boolean flag=false;
+		ArrayList<String> lines=null;
 		try (BufferedReader br = new BufferedReader(new FileReader(adress))) 
 		{ 
 			String check="";
 			while ((check=br.readLine()) != null) 
-			{	
-				if(lineCounter!=0) {
-				int a=countChar(check, ',')+1;
-				if(a>colCounter) {
-					colCounter=a;
-				}
-				}
-				lineCounter++;
-				if(lineCounter>1) {
+			{
+				if(flag) {
 					check=check.substring(0, check.length()-2);
-					line += check+",";
+					line += check+"&";
 				}
+				flag=true;
 			}
 		
 			String[] data = line.split(cvsSplitBy);
-			Matrix=new String [lineCounter][colCounter];
-			int StringsCounter=0;
-			for (int i=0;i<Matrix.length-1;i++) {
-				for (int j = 0; j < Matrix[i].length; j++) {
-					if(StringsCounter == data.length)
-						break;
-					Matrix[i][j]=data[StringsCounter++];
-				}
+			lines=new ArrayList<String>();
+			for(int i=0;i<data.length;i++) {
+				lines.add(data[i]);
 			}
 		}
 		catch (IOException e) 
 		{
 			e.printStackTrace();
 		}
-		return Matrix;
+		return lines;
 	} 
- 	
- 	public static int countChar(String str, char c)
- 	{
- 	    int count = 0;
-
- 	    for(int i=0; i < str.length(); i++)
- 	    {    if(str.charAt(i) == c)
- 	            count++;
- 	    }
-
- 	    return count;
- 	}
 }
