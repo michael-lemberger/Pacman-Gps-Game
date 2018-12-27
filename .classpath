@@ -9,6 +9,7 @@
 	<classpathentry kind="src" path="OOP_EX2-Ex4/src"/>
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="src" path="ExampleEx4"/>
+	<classpathentry kind="src" path="data"/>
 	<classpathentry kind="lib" path="json-simple-1.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="lib" path="res/jl1.0.1.jar"/>
