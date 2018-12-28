@@ -81,6 +81,7 @@ public class Game{
 			}
 			else if(data[0].equals("M")) {
 				this.player=new Player(point,id,speed,radius,img.playerimg);
+				System.out.println(player.get_p());
 			}
 		}
 		
