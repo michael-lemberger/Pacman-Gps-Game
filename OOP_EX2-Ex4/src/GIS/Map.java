@@ -26,8 +26,8 @@ public class Map {
 	public Map(int x, int y) {
 		this._rangeX = new Range(0, x);
 		this._rangeY = new Range(0, y);
-		this._rangeLat = new Range(32.101658,32.106046);
-		this._rangeLon = new Range(35.20238,35.21236);
+		this._rangeLat = new Range(32.101898,32.105728);
+		this._rangeLon = new Range(35.202369,35.212416);
 	}
 
 	/**
