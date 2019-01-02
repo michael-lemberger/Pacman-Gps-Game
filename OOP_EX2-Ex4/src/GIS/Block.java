@@ -5,13 +5,16 @@ import Geom.Point3D;
 public class Block  {
 	int id;
 	double radius;
-	Point3D start,end;
+	public Point3D start,end,point0,point1;
 	public Block(Point3D start,Point3D end,int id,double radius) {
 		this.start = start;
 		this.end = end;
 		this.id = id;
 		this.radius = radius;
+		this.point0=new Point3D (start.x(),end.y());
+		this.point1=new Point3D (end.x(),start.y());
 	}
+	
 	public int[] setDimension(Map map) {
 		
 		int pixelStart[]=new int[2];

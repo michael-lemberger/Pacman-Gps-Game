@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="res/jl1.0.1.jar"/>
 	<classpathentry kind="lib" path="res/Ex4_v02.jar" sourcepath="res/Ex4_v02.jar"/>
 	<classpathentry kind="lib" path="res/mysql-connector-java-5.1.47.jar"/>
+	<classpathentry kind="lib" path="res/Graph_v0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

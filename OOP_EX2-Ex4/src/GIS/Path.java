@@ -14,7 +14,7 @@ import Geom.Point3D;
  */
 public class Path{
 	public ArrayList<Point3D> points=new ArrayList<Point3D>();
-	
+	private String index;
 	/**
 	 * This constructor gets a list of points to store.
 	 * @param p list of points.
@@ -22,7 +22,7 @@ public class Path{
 	public Path(ArrayList<Point3D> p) {
 		this.points =(ArrayList<Point3D>) p;
 	}
-	
+
 	/**
 	 * This constructor is An empty constructor.
 	 */
@@ -77,6 +77,13 @@ public class Path{
 		return p;
 	}
 	
+	public String getIndex() {
+		return index;
+	}
+
+	public void setIndex(String index) {
+		this.index = index;
+	}
 
 	@Override
 	/**
@@ -85,6 +92,5 @@ public class Path{
 	public String toString() {
 		return "Path (size:"+points.size()+") [points=" + points + "]";
 	}
-	
 	
 }
