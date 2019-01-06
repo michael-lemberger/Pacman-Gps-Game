@@ -10,20 +10,23 @@ public class Line {
 	public void LineEquasion(Point3D inPixel1,Point3D inPixel2) {
 		if(inPixel1.x()==inPixel2.x())
 			ax=inPixel1.x();
-		else
+		else {
 		ax=(inPixel1.y()-inPixel2.y())/(inPixel1.x()-inPixel2.x());
 		b=ax*(-(inPixel1.x()))+inPixel1.y();
+		}
 	}
 	
 	public boolean isCutting(Line line) {
-		double result;
+		double result=0;
 		if(line.ax==0) {
-			result=(line.b+b)/ax;
+			if(this.ax!=0)
+			result=(-line.b+b)/(ax);
+			if(result>line.inPixel1.x()&&result<line.inPixel2.x())
 			return true;
 		}
 		else if(line.ax!=0) {
-			result=line.b+(ax*line.ax);
-			if(result>=line.inPixel1.y()&&result<=line.inPixel2.y()) {
+			result=(ax*line.ax)+b;
+			if(result>line.inPixel1.y()&&result<line.inPixel2.y()) {
 				return true;
 			}
 		}

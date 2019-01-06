@@ -14,7 +14,7 @@ public class Images {
 	/*****************************get icon*************************************/
 	
 	public Image pacimg = new ImageIcon("res\\pacman1.gif").getImage();
-	public Image playerimg = new ImageIcon("res\\player.gif").getImage();
+	public static Image playerimg = new ImageIcon("res\\player.gif").getImage();
 	
 	public Image getFruitIcon() {
 		int i= (int) (Math.random()*6);
