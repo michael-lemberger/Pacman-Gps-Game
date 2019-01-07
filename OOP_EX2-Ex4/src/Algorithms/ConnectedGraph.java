@@ -19,7 +19,7 @@ import Geom.Point3D;
 public class ConnectedGraph {
 		public Game game;
 		Map map;
-		ArrayList<Node>vertexes; ArrayList<Line>lines;
+		public ArrayList<Node>vertexes; public ArrayList<Line>lines;
 		
 		public ConnectedGraph(Game game) {
 			this.game=game;
@@ -75,25 +75,25 @@ public class ConnectedGraph {
 				lines.add(new Line(new Point3D(end[0],end[1]),new Point3D(point1[0],point1[1])));
 			}
 		}
-		
+		//
 		private void BuildList() {
 			ArrayList<Block> blocks =new ArrayList<Block>();
 			blocks.addAll(game.blocks);
 			
 		    int arr[]=map.gpsToPixel(this.game.player._p.x(),this.game.player._p.y());
-		    vertexes.add(new Node(new Point3D(arr[0],arr[1]),"a"));
+		    vertexes.add(new Node(game.player._p,new Point3D(arr[0],arr[1]),"a"));
 			int counter=1;
 			Iterator<Block>it=blocks.iterator();
 			while(it.hasNext()) {
 				Block b_vertex=(Block) it.next();
 				arr=map.gpsToPixel(b_vertex.start.x(),b_vertex.start.y());
-				  vertexes.add(new Node(new Point3D(arr[0],arr[1]),""+counter));
+				  vertexes.add(new Node(b_vertex.start,new Point3D(arr[0],arr[1]),""+counter));
 				arr=map.gpsToPixel(b_vertex.point0.x(),b_vertex.point0.y());
-				  vertexes.add(new Node(new Point3D(arr[0],arr[1]),""+(counter+1)));
+				  vertexes.add(new Node(b_vertex.point0,new Point3D(arr[0],arr[1]),""+(counter+1)));
 				arr=map.gpsToPixel(b_vertex.point1.x(),b_vertex.point1.y());
-				  vertexes.add(new Node(new Point3D(arr[0],arr[1]),""+(counter+2)));
+				  vertexes.add(new Node(b_vertex.point1,new Point3D(arr[0],arr[1]),""+(counter+2)));
 				arr=map.gpsToPixel(b_vertex.end.x(),b_vertex.end.y());
-				  vertexes.add(new Node(new Point3D(arr[0],arr[1]),""+(counter+3)));
+				  vertexes.add(new Node(b_vertex.end,new Point3D(arr[0],arr[1]),""+(counter+3)));
 				counter+=4;
 		}
 		}

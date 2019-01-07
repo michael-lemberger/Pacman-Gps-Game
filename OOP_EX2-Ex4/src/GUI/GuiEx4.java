@@ -36,6 +36,7 @@ import GIS.Player;
 import Geom.Point3D;
 import Robot.Play;
 import Threads.Ex4Thread;
+import Threads.Ex4_Auto;
 import Threads.SimplePlayer;
 
 
@@ -54,7 +55,7 @@ public class GuiEx4 extends JFrame implements MouseListener{
 	public Game game= new Game();
 	public Player player=new Player();
 	public Play GamePlayer;
-	Map map;
+	public Map map;
 	public GuiEx4() {
 		/***********************menu bar ******************************/
 		MenuBar menubar = new MenuBar();
@@ -66,6 +67,7 @@ public class GuiEx4 extends JFrame implements MouseListener{
 		MenuItem fruit =new MenuItem("add fruit");
 		MenuItem nully =new MenuItem("new game");
 		MenuItem play =new MenuItem("play");
+		MenuItem handsfree =new MenuItem("hands-free");
 		/*******************Labels and buttons******************************************/
 		/*open label */
 		open.addActionListener(new ActionListener() {
@@ -171,7 +173,14 @@ public class GuiEx4 extends JFrame implements MouseListener{
 				playGame();
 			}
 		});
+		handsfree.addActionListener( new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				status=0;
+				autoplay();
+			}
+		});
 
 
 
@@ -183,6 +192,7 @@ public class GuiEx4 extends JFrame implements MouseListener{
 		//				menu2.add(fruit);
 		menu2.add(nully);
 		menu2.add(play);
+		menu2.add(handsfree);
 		menubar.add(menu);
 		menubar.add(menu2);
 		setMenuBar(menubar);
@@ -423,8 +433,9 @@ public class GuiEx4 extends JFrame implements MouseListener{
 	
 	
 	public double azimute=0;
-	private void rotate(int x,int y) {
+	public void rotate(int x,int y) {
 		double[]coords=map.pixelToGps(x,y);
+		System.out.println(coords[0]+","+coords[1]);
 		player.setAzimute(coords[0],coords[1]);
 		azimute=player.getAzimute();
 	}
@@ -457,6 +468,11 @@ public class GuiEx4 extends JFrame implements MouseListener{
 		Ex4Thread play=new Ex4Thread(this);
 		play.start();
 
+	}
+	private void autoplay() {
+		status=1;
+		Ex4_Auto auto= new Ex4_Auto(this) ;
+		auto.start();
 	}
 
 	/********************main************************/

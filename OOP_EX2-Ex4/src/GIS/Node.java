@@ -6,13 +6,14 @@ import java.util.Iterator;
 import Geom.Point3D;
 
 public class Node {
-	public Point3D _point;
+	public Point3D _point,inPixel;
 	public String _name;
 	public ArrayList <Node> _neighbors;
 	public Path path;
- public Node(Point3D point,String name) {
+ public Node(Point3D point,Point3D inpixel,String name) {
 	 this._name=name;
 	 this._point=point;
+	 this.inPixel=inpixel;
 	 _neighbors=new ArrayList<Node>();
  }
 

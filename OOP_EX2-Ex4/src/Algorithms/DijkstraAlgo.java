@@ -13,9 +13,9 @@ import graph.Graph_Algo;
 
 public class DijkstraAlgo{
 	Game _game;
-	ConnectedGraph  conGraph;
-	Map map;
-	ArrayList<String>path;
+	public ConnectedGraph  conGraph;
+	Map map;public Fruit fruit;
+	public ArrayList<String>path;
 	ArrayList<GIS_element>fruits;
 	double distance;
 	public DijkstraAlgo(Game game) {
@@ -50,7 +50,7 @@ public class DijkstraAlgo{
 			int arr[]=map.gpsToPixel(f_target.get_p().x(),f_target.get_p().y());
 			graph.Node d=new graph.Node("b");
 			G.add(d);
-			Node b=new Node(new Point3D(arr[0],arr[1]),"b");
+			Node b=new Node(f_target.get_p(),new Point3D(arr[0],arr[1]),"b");
 			conGraph.checkNeighbors(conGraph.vertexes,b);
 			Iterator<Node>neighbors=b._neighbors.iterator();
 			while(neighbors.hasNext()) {
@@ -62,6 +62,7 @@ public class DijkstraAlgo{
 		if(targeted.getDist()<distance) {
 		distance=targeted.getDist();
 		path=targeted.getPath();
+		fruit=f_target;
 		}
 		}	
 	}
