@@ -18,7 +18,7 @@ public void run() {
 	Play play1 = gui.GamePlayer;
 	
 	// 2) Set your ID's - of all the group members
-	play1.setIDs(1111,2222,3333);
+	play1.setIDs(308214105,204514577,3333);
 	
 	// 3)Get the GPS coordinates of the "arena"
 	String map_data = play1.getBoundingBox();

@@ -3,6 +3,7 @@ package Threads;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Algorithms.ConnectedGraph;
 import Algorithms.DijkstraAlgo;
 import GIS.Game;
 import GIS.Node;
@@ -14,6 +15,7 @@ public class Ex4_Auto extends Thread{
 	GuiEx4 gui;
 	boolean play=true;
 	DijkstraAlgo D;
+	ConnectedGraph C;
 	public Ex4_Auto(GuiEx4 guiex4) {
 		this.gui= guiex4;
 		}
@@ -47,6 +49,13 @@ public class Ex4_Auto extends Thread{
 //			for(int i=0;i<10;i++) {
 			int i=0;
 				while(play1.isRuning()) {
+					try {
+					ConnectedGraph  C = new ConnectedGraph(gui.game);
+					D=new DijkstraAlgo(gui.game,C);
+					}
+					catch (Exception e) {
+						// TODO: handle exception
+					}
 					i++;
 			// 7.1) this is the main command to the player (on the server side)	
 				System.out.println("***** "+i+"******");
@@ -57,8 +66,15 @@ public class Ex4_Auto extends Thread{
 			// 7.3) get the game-board current state
 				board_data = play1.getBoard();
 				gui.game=new Game(board_data);
-				D= new DijkstraAlgo(gui.game);
+//				D= new DijkstraAlgo(gui.game);
+				try {
 				rotate(); 
+				}
+				catch (Exception e) {
+//					rotate_null();
+					System.out.println("error!!!");
+					
+				}
 				gui.repaint();
 				try {
 				sleep(100);
@@ -82,13 +98,15 @@ public class Ex4_Auto extends Thread{
 		}
 		
 		private void rotate() {
-//			D=new DijkstraAlgo(gui.game);
 			String vertex="";
+			for(String s:D.path) {
+				System.out.print(s+", ");
+			}
 			if(D.path.size()>=2) {
 			vertex=D.path.get(1);
 			System.out.println(D);
 			Node n=null;
-			Iterator<Node>vertexes=D.conGraph.vertexes.iterator();
+			Iterator<Node>vertexes=C.vertexes.iterator();
 			while(vertexes.hasNext()) {
 				Node n0=vertexes.next();
 				if(vertex.equals(n0._name)) {
@@ -96,6 +114,10 @@ public class Ex4_Auto extends Thread{
 				}	
 			}
 			gui.rotate((int)(n.inPixel.x()),(int)(n.inPixel.y()));
+//			Point3D p1=gui.player.get_p();
+//			if(n._point.x()==p1.x()&&n._point.y()==p1.x()) {
+//				D.path.remove(1);
+//			}
 			}
 			else {
 				try {

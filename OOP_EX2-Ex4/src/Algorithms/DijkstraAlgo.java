@@ -13,30 +13,30 @@ import graph.Graph_Algo;
 
 public class DijkstraAlgo{
 	Game _game;
-	public ConnectedGraph  conGraph;
 	Map map;public Fruit fruit;
 	public ArrayList<String>path;
 	ArrayList<GIS_element>fruits;
 	double distance;
-	public DijkstraAlgo(Game game) {
+	ConnectedGraph C;
+	public DijkstraAlgo(Game game, ConnectedGraph C) {
 		this._game = game;
 		path=new ArrayList<String>();
 		fruits=new ArrayList<GIS_element>();
 		this.fruits.addAll(game.fruits);
 		map=new Map(1386,642);
 		distance=Integer.MAX_VALUE;
+		this.C=C;
 		runAlgo();
 	}
 
 	public void runAlgo() {
-		ConnectedGraph  conGraph = new ConnectedGraph(this._game);
 		Iterator<GIS_element>it=fruits.iterator();
-		int index=0;
+
 		while(it.hasNext()) {
 		Fruit f_target=(Fruit) it.next();
 		Graph G = new Graph(); 
 		String source = "a";String target="b";
-		Iterator <Node> vertexes=conGraph.vertexes.iterator();
+		Iterator <Node> vertexes=C.vertexes.iterator();
 		while(vertexes.hasNext()) {
 		Node vertex=vertexes.next();
 		graph.Node d=new graph.Node(vertex._name);
@@ -51,7 +51,7 @@ public class DijkstraAlgo{
 			graph.Node d=new graph.Node("b");
 			G.add(d);
 			Node b=new Node(f_target.get_p(),new Point3D(arr[0],arr[1]),"b");
-			conGraph.checkNeighbors(conGraph.vertexes,b);
+			C.checkNeighbors(C.vertexes,b);
 			Iterator<Node>neighbors=b._neighbors.iterator();
 			while(neighbors.hasNext()) {
 				Node neighbor=neighbors.next();

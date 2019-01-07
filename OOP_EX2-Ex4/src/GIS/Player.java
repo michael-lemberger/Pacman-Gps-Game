@@ -32,7 +32,7 @@ public class Player extends Pacman {
 		
 		
 		/*couldn't use my azimuth function of MyCoords, 
-		 * the board is too different from normal x,y coordinates   */
+		  the board is too different from normal x,y coordinates   */
 		double lon1=super.get_p().x();
 		double lat1=super.get_p().y();
 		double longDiff= lat-lat1;
