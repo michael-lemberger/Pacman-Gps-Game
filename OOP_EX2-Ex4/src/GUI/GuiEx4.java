@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import Algorithms.ConnectedGraph;
 import File_format.CsvGameWriter;
 import File_format.Path2KML;
 import GIS.Block;
@@ -364,6 +365,11 @@ public class GuiEx4 extends JFrame implements MouseListener{
 		if(status==0)
 		try {
 			setInitLocation(x,y);
+			double[] arr = map.pixelToGps(x, y);
+			Point3D p = new Point3D(arr[0], arr[1]);
+			Image img=null;
+			this.game.player=new Player(p, 1, 2, 2, img);
+			
 		} catch (Exception e1) {
 			
 		}

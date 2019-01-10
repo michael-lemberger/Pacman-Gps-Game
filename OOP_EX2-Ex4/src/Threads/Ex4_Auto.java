@@ -15,9 +15,11 @@ public class Ex4_Auto extends Thread{
 	GuiEx4 gui;
 	boolean play=true;
 	DijkstraAlgo D;
-	ConnectedGraph C;
+	static ConnectedGraph C;
+	boolean flag;
 	public Ex4_Auto(GuiEx4 guiex4) {
 		this.gui= guiex4;
+		flag=false;
 		}
 		public void run() {
 			while(play) {
@@ -29,7 +31,7 @@ public class Ex4_Auto extends Thread{
 			
 			// 3)Get the GPS coordinates of the "arena"
 			String map_data = play1.getBoundingBox();
-//			System.out.println("Bounding Box info: "+map_data);
+			System.out.println("Bounding Box info: "+map_data);
 			
 			// 4) get the game-board data
 			ArrayList<String> board_data = play1.getBoard();
@@ -49,8 +51,12 @@ public class Ex4_Auto extends Thread{
 //			for(int i=0;i<10;i++) {
 			int i=0;
 				while(play1.isRuning()) {
+					if(!flag) {
+						 C=new ConnectedGraph(gui.game) ;
+						 System.out.println(C.toString());
+						 flag=true;
+					}
 					try {
-					ConnectedGraph  C = new ConnectedGraph(gui.game);
 					D=new DijkstraAlgo(gui.game,C);
 					}
 					catch (Exception e) {
@@ -66,15 +72,10 @@ public class Ex4_Auto extends Thread{
 			// 7.3) get the game-board current state
 				board_data = play1.getBoard();
 				gui.game=new Game(board_data);
-//				D= new DijkstraAlgo(gui.game);
-				try {
+				
+				if(i>1)
 				rotate(); 
-				}
-				catch (Exception e) {
-//					rotate_null();
-					System.out.println("error!!!");
-					
-				}
+
 				gui.repaint();
 				try {
 				sleep(100);
@@ -84,7 +85,8 @@ public class Ex4_Auto extends Thread{
 //				for(int a=0;a<board_data.size();a++) {
 //					System.out.println(board_data.get(a));
 //				}
-				System.out.println();
+				
+//				System.out.println();
 			}
 			// 8) stop the server - not needed in the real implementation.
 			//play1.stop();
@@ -99,32 +101,39 @@ public class Ex4_Auto extends Thread{
 		
 		private void rotate() {
 			String vertex="";
+			int counter=0;
 			for(String s:D.path) {
-				System.out.print(s+", ");
+				counter++;
 			}
-			if(D.path.size()>=2) {
-			vertex=D.path.get(1);
-			System.out.println(D);
+			String [] vertex1=new String[counter];
+			counter=0;
+			for(String s:D.path) {
+				vertex1[counter++]=s;
+			}	
+			if(counter>=2) {
 			Node n=null;
 			Iterator<Node>vertexes=C.vertexes.iterator();
+			counter=1;
 			while(vertexes.hasNext()) {
 				Node n0=vertexes.next();
-				if(vertex.equals(n0._name)) {
+				if(vertex1[1].equals(n0._name)) {
 					n=n0;
 				}	
 			}
+			counter++;
+			System.out.println("the dest: "+n.inPixel.x()+" ,"+ n.inPixel.y());
 			gui.rotate((int)(n.inPixel.x()),(int)(n.inPixel.y()));
-//			Point3D p1=gui.player.get_p();
-//			if(n._point.x()==p1.x()&&n._point.y()==p1.x()) {
-//				D.path.remove(1);
-//			}
+			Point3D p1=gui.player.get_p();
+			if(n._point.x()==p1.x()&&n._point.y()==p1.x()) {
+				vertex1[1]=vertex1[counter];
+			}
 			}
 			else {
 				try {
 				Point3D p=D.fruit.get_p();
-				System.out.println(p.x()+","+p.y());
+//				System.out.println(p.x()+","+p.y());
 				int arr[]=gui.map.gpsToPixel(p.x(),p.y());
-				System.out.println(arr[0]+","+arr[1]);
+				System.out.println("dt2: "+arr[0]+","+arr[1]);
 				gui.rotate(arr[0],arr[1]);
 				}
 				catch (Exception e) {

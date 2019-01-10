@@ -4,15 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import GIS.Block;
-import GIS.Fruit;
-import GIS.GIS_element;
 import GIS.Game;
 import GIS.Map;
 import GIS.Node;
-import GIS.Pacman;
-import GIS.Path;
-import GIS.Player;
-import GIS.PointDis;
 import Geom.Line;
 import Geom.Point3D;
 
@@ -50,9 +44,7 @@ public class ConnectedGraph {
 				Iterator<Line>lines_cut=lines.iterator();
 				while(lines_cut.hasNext()&&!cutting){
 					Line line=lines_cut.next();
-					if(is_neighbor.isCutting(line)==true) {
-						cutting=true;
-					}
+					cutting=is_neighbor.isCutting(line);
 				}
 				if(!cutting) {
 					vertex._neighbors.add(neighbor);
@@ -69,10 +61,10 @@ public class ConnectedGraph {
 				int point0[]=map.gpsToPixel(b.point0.x(),b.point0.y());
 				int point1[]=map.gpsToPixel(b.point1.x(),b.point1.y());
 				int end[]=map.gpsToPixel(b.end.x(),b.end.y());
-				lines.add(new Line(new Point3D(point0[0],point0[1]),new Point3D(start[0],start[1])));
+				lines.add(new Line(new Point3D(start[0],start[1]),new Point3D(point0[0],point0[1])));
 				lines.add(new Line(new Point3D(start[0],start[1]),new Point3D(point1[0],point1[1])));
 				lines.add(new Line(new Point3D(point0[0],point0[1]),new Point3D(end[0],end[1])));
-				lines.add(new Line(new Point3D(end[0],end[1]),new Point3D(point1[0],point1[1])));
+				lines.add(new Line(new Point3D(point1[0],point1[1]),new Point3D(end[0],end[1])));
 			}
 		}
 		//
@@ -96,5 +88,16 @@ public class ConnectedGraph {
 				  vertexes.add(new Node(b_vertex.end,new Point3D(arr[0],arr[1]),""+(counter+3)));
 				counter+=4;
 		}
+		}
+
+		@Override
+		public String toString() {
+			Iterator<Node>vertexim=vertexes.iterator();
+			ArrayList<ArrayList<Node>>names=new ArrayList<ArrayList<Node>>();
+			while(vertexim.hasNext()) {
+				Node n=vertexim.next();
+				names.add(n._neighbors);
+			}
+			return names.toString();
 		}
 		}

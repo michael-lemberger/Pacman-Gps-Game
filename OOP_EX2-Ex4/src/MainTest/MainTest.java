@@ -9,31 +9,57 @@ import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 
+import Algorithms.ConnectedGraph;
 import Algorithms.DijkstraAlgo;
 import GIS.Game;
 import GIS.Node;
 import GIS.Player;
 import Geom.Point3D;
+import Robot.Play;
 
 public class MainTest {
 	public static void main (String[]args) throws Exception {
-		Game game=new Game("data\\Ex4_OOP_example5.csv");
+		Game game=new Game("data\\Ex4_OOP_example3.csv");
 		Image img=new ImageIcon("res\\pacman1.gif").getImage();;
-		game.player=new Player(new Point3D(32.10486356386293,35.21019224455733,0.0),1,2.0,1.0,img);
-		DijkstraAlgo D=new DijkstraAlgo(game);
+		game.player=new Player(new Point3D(35.21073425108225,32.10380415576324,0.0),1,2.0,1.0,img);
+		ConnectedGraph c = new ConnectedGraph(game);
+		DijkstraAlgo D=new DijkstraAlgo(game,c);
 		String vertex="";
-		if(D.path.size()>=2) {
-		vertex=D.path.get(1);
+		for (int i = 0; i < D.path.size(); i++) {
+			System.out.print(D.path.get(i)+" ,");
 		}
-		System.out.println(D);
-		Node n=null;
-		Iterator<Node>vertexes=D.conGraph.vertexes.iterator();
-		while(vertexes.hasNext()) {
-			Node n0=vertexes.next();
-			if(vertex.equals(n0._name)) {
-				n=n0;
-			}
+		
+
+		ArrayList<String> board_data = new ArrayList<>();
+		
+		game = new Game(board_data);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		if(D.path.size()>=2) {
+//		vertex=D.path.get(1);
+//		System.out.println(vertex);
+//		}
+//		System.out.println(D);
+//		Node n=null;
+//		Iterator<Node>vertexes=D.C.vertexes.iterator();
+//		while(vertexes.hasNext()) {
+//			Node n0=vertexes.next();
+//			if(vertex.equals(n0._name)) {
+//				n=n0;
+//			}
 			
-		}
+//		}
 	}
 }

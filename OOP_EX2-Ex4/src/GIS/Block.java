@@ -11,8 +11,8 @@ public class Block  {
 		this.end = end;
 		this.id = id;
 		this.radius = radius;
-		this.point0=new Point3D (start.x(),end.y());
-		this.point1=new Point3D (end.x(),start.y());
+		this.point1=new Point3D (start.x(),end.y());
+		this.point0=new Point3D (end.x(),start.y());
 	}
 	
 	public int[] setDimension(Map map) {

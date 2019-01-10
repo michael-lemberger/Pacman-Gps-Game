@@ -15,55 +15,53 @@ public class DijkstraAlgo{
 	Game _game;
 	Map map;public Fruit fruit;
 	public ArrayList<String>path;
-	ArrayList<GIS_element>fruits;
 	double distance;
-	ConnectedGraph C;
-	public DijkstraAlgo(Game game, ConnectedGraph C) {
+	public Cgraph C;
+	public Graph graph;
+	
+	public DijkstraAlgo(Game game,Cgraph C) {
 		this._game = game;
 		path=new ArrayList<String>();
-		fruits=new ArrayList<GIS_element>();
-		this.fruits.addAll(game.fruits);
 		map=new Map(1386,642);
 		distance=Integer.MAX_VALUE;
 		this.C=C;
+		graph=new Graph();
 		runAlgo();
 	}
 
 	public void runAlgo() {
-		Iterator<GIS_element>it=fruits.iterator();
-
-		while(it.hasNext()) {
-		Fruit f_target=(Fruit) it.next();
-		Graph G = new Graph(); 
-		String source = "a";String target="b";
-		Iterator <Node> vertexes=C.vertexes.iterator();
-		while(vertexes.hasNext()) {
-		Node vertex=vertexes.next();
-		graph.Node d=new graph.Node(vertex._name);
-		G.add(d);
-		Iterator<Node>neighbors=vertex._neighbors.iterator();
-		while(neighbors.hasNext()) {
-		Node neighbor=neighbors.next();	
-		G.addEdge(vertex._name,neighbor._name,vertex._point.distance2D(neighbor._point));
-		}
-		}
-			int arr[]=map.gpsToPixel(f_target.get_p().x(),f_target.get_p().y());
-			graph.Node d=new graph.Node("b");
-			G.add(d);
-			Node b=new Node(f_target.get_p(),new Point3D(arr[0],arr[1]),"b");
-			C.checkNeighbors(C.vertexes,b);
-			Iterator<Node>neighbors=b._neighbors.iterator();
-			while(neighbors.hasNext()) {
-				Node neighbor=neighbors.next();
-				G.addEdge(neighbor._name,b._name,neighbor._point.distance2D(b._point));
+		String source="a";String target="b";
+		Iterator<GIS_element> fruits=_game.fruits.iterator();
+		while(fruits.hasNext()) {
+			Fruit f=(Fruit) fruits.next();
+			int[]arr=map.gpsToPixel(f.get_p().x(),f.get_p().y());
+			Node targeted=new Node(f.get_p(),new Point3D(arr[0],arr[1]),"b");
+			CopyGraph();
+			graph.Node node=new graph.Node("b");
+			graph.add(node);
+			C.IsConnected(targeted,C.nodes);
+			for(Node n:targeted._neighbors) {
+			graph.addEdge(n._name, targeted._name, n._point.distance2D(targeted._point));
 			}
-			Graph_Algo.dijkstra(G, source);
-		graph.Node targeted= G.getNodeByName(target);
-		if(targeted.getDist()<distance) {
-		distance=targeted.getDist();
-		path=targeted.getPath();
-		fruit=f_target;
+			Graph_Algo.dijkstra(graph,source);
+			graph.Node d=graph.getNodeByName(target);
+			double dis=d.getDist();
+			if(dis<=distance) {
+				distance=dis;
+				this.path=d.getPath();
+				this.fruit=f;
+			}
 		}
-		}	
 	}
+	
+	public void CopyGraph(){
+		this.graph=new Graph();
+		for(Node n:C.nodes) {
+			graph.Node d=new graph.Node(n._name);
+			this.graph.add(d);
+			for(Node n1:n._neighbors) {
+				this.graph.addEdge(n._name, n1._name, n._point.distance2D(n1._point));
+			}
+		}
 	}
+}
