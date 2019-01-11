@@ -13,11 +13,11 @@ import graph.Graph;
 
 
 public class Cgraph {
-	Game game = new Game();
+	public Game game = new Game();
 	public ArrayList<Node> nodes = new ArrayList<>();
-	ArrayList<Line> lines = new ArrayList<>();
-	Map map=new Map(1386,642);
-	Graph graph;
+	public ArrayList<Line> lines = new ArrayList<>();
+	public Map map=new Map(1386,642);
+	public Graph graph;
 	public Cgraph(Game game) {
 		this.game = game;
 		this.graph=new Graph();
@@ -52,22 +52,22 @@ public class Cgraph {
 			Block block = block_it.next();
 
 			pixels = map.gpsToPixel(block.start.x(), block.start.y());
-			inpixel = new Point3D(pixels[0]-1, pixels[1]+1);
+			inpixel = new Point3D(pixels[0]-30, pixels[1]+30);
 			Node block_LU_Corner = new Node(block.start, inpixel, ""+counter++);
 			this.nodes.add(block_LU_Corner);
 
 			pixels = map.gpsToPixel(block.point0.x(), block.point0.y());
-			inpixel = new Point3D(pixels[0]+1, pixels[1]+1);
+			inpixel = new Point3D(pixels[0]+30, pixels[1]+30);
 			Node block_RU_Corner = new Node(block.point0, inpixel, ""+counter++);
 			this.nodes.add(block_RU_Corner);
 
 			pixels = map.gpsToPixel(block.point1.x(), block.point1.y());
-			inpixel = new Point3D(pixels[0]-1, pixels[1]-1);
+			inpixel = new Point3D(pixels[0]-30, pixels[1]-30);
 			Node block_LD_Corner = new Node(block.point1, inpixel, ""+counter++);
 			this.nodes.add(block_LD_Corner);
 
 			pixels = map.gpsToPixel(block.end.x(), block.end.y());
-			inpixel = new Point3D(pixels[0]+1, pixels[1]-1);
+			inpixel = new Point3D(pixels[0]+30, pixels[1]-30);
 			Node block_RD_Corner = new Node(block.end, inpixel, ""+counter++);
 			this.nodes.add(block_RD_Corner);
 

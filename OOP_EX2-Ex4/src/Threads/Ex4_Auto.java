@@ -3,6 +3,7 @@ package Threads;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Algorithms.Cgraph;
 import Algorithms.ConnectedGraph;
 import Algorithms.DijkstraAlgo;
 import GIS.Game;
@@ -15,11 +16,14 @@ public class Ex4_Auto extends Thread{
 	GuiEx4 gui;
 	boolean play=true;
 	DijkstraAlgo D;
-	static ConnectedGraph C;
+	static Cgraph C;
 	boolean flag;
+	int counter=1;
+	Point3D position;
 	public Ex4_Auto(GuiEx4 guiex4) {
 		this.gui= guiex4;
 		flag=false;
+		position= new Point3D(0,0,0);
 		}
 		public void run() {
 			while(play) {
@@ -52,7 +56,7 @@ public class Ex4_Auto extends Thread{
 			int i=0;
 				while(play1.isRuning()) {
 					if(!flag) {
-						 C=new ConnectedGraph(gui.game) ;
+						 C=new Cgraph(gui.game) ;
 						 System.out.println(C.toString());
 						 flag=true;
 					}
@@ -65,6 +69,7 @@ public class Ex4_Auto extends Thread{
 					i++;
 			// 7.1) this is the main command to the player (on the server side)	
 				System.out.println("***** "+i+"******");
+				
 				rotate_null(); 
 			// 7.2) get the current score of the game
 				String info = play1.getStatistics();
@@ -100,50 +105,43 @@ public class Ex4_Auto extends Thread{
 		}
 		
 		private void rotate() {
-			String vertex="";
-			int counter=0;
-			for(String s:D.path) {
+			ArrayList<String> path=D.path;
+			Node n=null;
+			if(counter<path.size()) {
+			String s=path.get(counter);
+			for(Node n1:C.nodes) {
+				if(n1._name.equals(s)) {
+					n=n1;
+					break;
+				}
+			}
+			System.out.print(n._name+", ");
+			gui.rotate((int)(n.inPixel.x()),(int)(n.inPixel.y()));
+			Point3D p=gui.game.player._p;
+			int [] arr=gui.map.gpsToPixel(p.x(), p.y());
+			Point3D inPixel=new Point3D(arr[0],arr[1]);
+			if((inPixel.x()==n.inPixel.x())&&(inPixel.y()==n.inPixel.y())) {
 				counter++;
 			}
-			String [] vertex1=new String[counter];
-			counter=0;
-			for(String s:D.path) {
-				vertex1[counter++]=s;
-			}	
-			if(counter>=2) {
-			Node n=null;
-			Iterator<Node>vertexes=C.vertexes.iterator();
-			counter=1;
-			while(vertexes.hasNext()) {
-				Node n0=vertexes.next();
-				if(vertex1[1].equals(n0._name)) {
-					n=n0;
-				}	
-			}
-			counter++;
-			System.out.println("the dest: "+n.inPixel.x()+" ,"+ n.inPixel.y());
-			gui.rotate((int)(n.inPixel.x()),(int)(n.inPixel.y()));
-			Point3D p1=gui.player.get_p();
-			if(n._point.x()==p1.x()&&n._point.y()==p1.x()) {
-				vertex1[1]=vertex1[counter];
-			}
+			System.out.println("counter="+counter);
 			}
 			else {
-				try {
-				Point3D p=D.fruit.get_p();
-//				System.out.println(p.x()+","+p.y());
-				int arr[]=gui.map.gpsToPixel(p.x(),p.y());
-				System.out.println("dt2: "+arr[0]+","+arr[1]);
-				gui.rotate(arr[0],arr[1]);
+				Point3D p=new Point3D(D.fruit.get_p().x(),D.fruit.get_p().y());
+				int [] arr=gui.map.gpsToPixel(p.x(),p.y());
+				Node fruit=new Node(p,new Point3D (arr[0],arr[1]),"b");
+				gui.rotate((int)(fruit.inPixel.x()),(int)(fruit.inPixel.y()));
+				p=gui.game.player._p;
+				if((position.x()==p.x())&&(position.y()==p.y())) {
+					counter=1;
+					flag=false;
 				}
-				catch (Exception e) {
-					// TODO: handle exception
-				}
+				position=p;
+				System.out.println("pos:"+position);
+				System.out.println("p"+p);
+				System.out.println(counter);
 			}
-			double degree= gui.azimute;
-			gui.GamePlayer.rotate(degree);
 			}
-		
+
 		private void rotate_null() {
 			double degree= gui.azimute;
 			gui.GamePlayer.rotate(degree);

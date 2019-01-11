@@ -29,14 +29,14 @@ class LineTest {
 //		assertEquals(true,l1.isCutting(l2));
 		Game game=null;
 		try {
-			game = new Game("data\\Ex4_OOP_example3.csv");
+			game = new Game("data\\Ex4_OOP_example7.csv");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Image img=new ImageIcon("res\\pacman1.gif").getImage();
 		Map map=new Map(1386,642);
-		Point3D p=new Point3D(35.210147088744584,32.10433727725857,0.0);
+		Point3D p=new Point3D(35.20245598701298,32.10510278504673,0.0);
 		int [] arr=map.gpsToPixel(p.x(),p.y());
 		game.player=new Player(p,1,2.0,1.0,img);
 		Cgraph C=new Cgraph(game);

@@ -7,6 +7,7 @@ import GIS.GIS_element;
 import GIS.Game;
 import GIS.Map;
 import GIS.Node;
+import Geom.Line;
 import Geom.Point3D;
 import graph.Graph;
 import graph.Graph_Algo;
@@ -53,7 +54,6 @@ public class DijkstraAlgo{
 			}
 		}
 	}
-	
 	public void CopyGraph(){
 		this.graph=new Graph();
 		for(Node n:C.nodes) {
