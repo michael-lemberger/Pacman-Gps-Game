@@ -67,10 +67,13 @@ Save a file as a csv by adding ".csv" to the file name's suffix.
 4.b.II: Game- contains:
 
 4.b.II.A: New game- reset the game
+
 4.b.II.B: Play- runs the game leads  the player by the mouse clicks
+
 4.b.II.C: hands free- runs the game automaticly 
 
 4.b.III.A:Best Score Ever- Displays the top 5 best score among other players
+
 4.b.III.B:My best score- Displays my top 5 best scores 
 
 5: **Threads**
@@ -84,7 +87,9 @@ Save a file as a csv by adding ".csv" to the file name's suffix.
 6: **DB**
 
 6.a: DataBase- connects to the web server of the game.
+
 6.a.I:BestScoreEver- Gets the top 10 scores from the data base,among all the players.
+
 6.a.II:MyBestScore - Gets the top 3 personal recodes.
 
 
