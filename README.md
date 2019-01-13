@@ -3,7 +3,7 @@ This Github project is an educational example for using git & github as part of 
 
 Project content:
 
-1.GIS-
+1: *GIS-*
 
 1.a: Game Class- Hold 2 lists of Objects, “Fruit”(1.b) and “Pacman”(1.c). Constructed by receiving a String of an csv file address or by adding objects manually. This class is the main class holding all the information about the game.
 
@@ -19,11 +19,11 @@ Project content:
 
 1.l: Map class- This class represents a map of a game board. The map has dimensions of the frame. These dimensions are represented by an Range objects, each map have ranges of coordinates and ranges of image pixels.The class has the following functionality: •	gpsToPixel function - converts two pixels to coordinates on the map. •	pixelToGps function - converts two coordinates to pixels on the map.
 
-2: Algorithm
+2: *Algorithm*
 
 2.a: ShortestPathAlgo class- The main algorithm. greedy algorithm, that computes the path every pacman should travel on. first we choose every pacman the closest fruit to him (we save this information inside a “PointDis” object). Next step is comparing the time that takes every pacman to get to his fruit (considering the time getting to the point he is at previous to eating the next fruit[calc_distance function inside “Path” class(1.d)]), the fastest one will eat his fruit. So a new Point is added to this Pacman’s “Path” object. Than we remove the fruit from the list of fruits. (Fruit list copied from “Game” class (1.a)) This process will occur recursively until the list of fruits is empty.
 
-3: file_frormat:
+3: *file_frormat:*
 
 3.a: CsvGameReader class- This class gets a path of a csv file in the computer, read it and convert it to an 2d array of strings using the csvmaker function. This array will be translated into a game with pacmans and fruits.
 
@@ -59,9 +59,9 @@ Save a file as a csv by adding ".csv" to the file name's suffix.
 
 5: *Threads*
 
-5.a: playThread class- runs a ShortestPathAlgo object and afterword calls multiple SinglePacmans threads
+5.a: Ex4Thread- Runs the game, leads the player by mouse clicks 
 
-5.b: SinglePacmans class - shows the the path of any pacman on the screen in real time and delete any fruit that was eaten from the screen.
+5.b: Ex4_Auto - Runs the game automaticlly, uses the Dijkstra algorithm.
 
 5.c: SimplePlayer – plays the background music
 
