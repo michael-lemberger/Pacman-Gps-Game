@@ -1,10 +1,23 @@
 package Geom;
 
-
+/**
+ * Line class:
+ * creats a line equastion between two points.
+ * ax-b or Y(if y=a) or X (if x=a).
+ * MMX/MMY the range of y or x.
+ * @author Liron arad,Maoz grossman,Michael lemberger
+ *
+ */
 public class Line {
 	Point3D inPixel1,inPixel2;
 	public double ax,b,Y,X;
 	double [] MMY,MMX;
+	/**
+	 * Constructor.
+	 * calculates the equation and the range. 
+	 * @param inPixel1
+	 * @param inPixel2
+	 */
 	public Line(Point3D inPixel1,Point3D inPixel2) {
 		this.inPixel2=inPixel2;
 		this.inPixel1=inPixel1;
@@ -31,12 +44,11 @@ public class Line {
 		b=ax*(-(inPixel1.x()))+(inPixel1.y());//y-y0=ax(x-x0)=>y=(ax*x)-(ax*x0)+y0
 	}
 	
-
-	@Override
-	public String toString() {
-		return "Line [inPixel1=" + inPixel1 + ", inPixel2=" + inPixel2 + ", Y=" + Y + ", X=" + X + "]";
-	}
-
+	/**
+	 * Calculates if two lines cut each other inside a certain range.
+	 * @param line
+	 * @return boolean 
+	 */
 	public boolean isCutting(Line line) {
 		double result=0;
 		if(line.X!=0) {//y=ax*x+b
@@ -55,7 +67,12 @@ public class Line {
 		}
 		return false;
 	}
-	
+	/**
+	 * Finds the range.
+	 * @param a
+	 * @param b
+	 * @return range
+	 */
 	private double [] MinMax(double a,double b) {
 		double [] arr= new double [2];
 		if(a>b) {
@@ -68,4 +85,10 @@ public class Line {
 		}
 		return arr;
 	}
+	
+	@Override
+	public String toString() {
+		return "Line [inPixel1=" + inPixel1 + ", inPixel2=" + inPixel2 + ", Y=" + Y + ", X=" + X + "]";
+	}
 }
+

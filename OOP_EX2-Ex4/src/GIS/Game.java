@@ -102,4 +102,14 @@ public class Game{
 		}
 		return null;
 	}
+	public boolean contains(Fruit f) {
+		Iterator<GIS_element>it=fruits.iterator();
+		while(it.hasNext()) {
+			Fruit fruit=(Fruit) it.next();
+			if((fruit.get_p().x()==f.get_p().x())&&(fruit.get_p().y()==f.get_p().y())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

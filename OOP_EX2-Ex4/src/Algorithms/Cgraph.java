@@ -10,20 +10,29 @@ import GIS.Node;
 import Geom.Line;
 import Geom.Point3D;
 import graph.Graph;
-
+/**
+ * Crates a New ArrayList of GIS.Nodes
+ * Every Node is a vertex.
+ * Algorithm Calculates the neighbors of every vertex,
+ * considering the blocks(Uses line class,every line is an edge).
+ * At the end adds all the edges to graph.Graph 
+ * @author Maoz grossman, Michael lemberger, Liron Arad
+ */
 
 public class Cgraph {
 	public Game game = new Game();
 	public ArrayList<Node> nodes = new ArrayList<>();
 	public ArrayList<Line> lines = new ArrayList<>();
-	public Map map=new Map(1386,642);
+	public Map map;
 	public Graph graph;
-	public Cgraph(Game game) {
+	
+	public Cgraph(Game game,Map map) {
 		this.game = game;
 		this.graph=new Graph();
+		this.map=map;
 		buildGraph();
 	}
-
+	
 	private void buildGraph() {
 		buildNodes();
 		buildLines();
@@ -37,7 +46,9 @@ public class Cgraph {
 		IsConnected(vertex,this.nodes);
 		}
 	}
-
+	/**
+	 * Add the vertexes to the ArrayList.
+	 */
 	private void buildNodes() {
 		//add the player node
 		int[] pixels = map.gpsToPixel(game.player._p.x(), game.player._p.y());
@@ -52,22 +63,22 @@ public class Cgraph {
 			Block block = block_it.next();
 
 			pixels = map.gpsToPixel(block.start.x(), block.start.y());
-			inpixel = new Point3D(pixels[0]-30, pixels[1]+30);
+			inpixel = new Point3D(pixels[0]-40, pixels[1]+40);
 			Node block_LU_Corner = new Node(block.start, inpixel, ""+counter++);
 			this.nodes.add(block_LU_Corner);
 
 			pixels = map.gpsToPixel(block.point0.x(), block.point0.y());
-			inpixel = new Point3D(pixels[0]+30, pixels[1]+30);
+			inpixel = new Point3D(pixels[0]+40, pixels[1]+40);
 			Node block_RU_Corner = new Node(block.point0, inpixel, ""+counter++);
 			this.nodes.add(block_RU_Corner);
 
 			pixels = map.gpsToPixel(block.point1.x(), block.point1.y());
-			inpixel = new Point3D(pixels[0]-30, pixels[1]-30);
+			inpixel = new Point3D(pixels[0]-40, pixels[1]-40);
 			Node block_LD_Corner = new Node(block.point1, inpixel, ""+counter++);
 			this.nodes.add(block_LD_Corner);
 
 			pixels = map.gpsToPixel(block.end.x(), block.end.y());
-			inpixel = new Point3D(pixels[0]+30, pixels[1]-30);
+			inpixel = new Point3D(pixels[0]+40, pixels[1]-40);
 			Node block_RD_Corner = new Node(block.end, inpixel, ""+counter++);
 			this.nodes.add(block_RD_Corner);
 
@@ -75,7 +86,9 @@ public class Cgraph {
 
 
 	}
-
+	/**
+	 * Build the edges of the blocks.
+	 */
 	private void buildLines() {
 		Iterator<Block> BlockLines= game.blocks.iterator();
 		while(BlockLines.hasNext()) {
@@ -94,7 +107,16 @@ public class Cgraph {
 		lines.add(line4);
 		}
 	}
-	
+	/**
+	 * Finds all the neighbors.
+	 * If two points edge is cutting
+	 * one of the block edges we than 
+	 * know that those two points arr'nt
+	 * connected.
+	 * Uses line class,every line is an edge.
+	 * @param vertex
+	 * @param nodes
+	 */
 	public void IsConnected(Node vertex,ArrayList<Node> nodes) {
 			Iterator<Node>other=nodes.iterator();
 			while(other.hasNext()) {

@@ -7,35 +7,45 @@ import GIS.GIS_element;
 import GIS.Game;
 import GIS.Map;
 import GIS.Node;
-import Geom.Line;
 import Geom.Point3D;
 import graph.Graph;
 import graph.Graph_Algo;
-
+/**
+ * Dijakstra Algo class-
+ * Iterate over the list of fruits using the Dijkstra algorithm:
+ * 1. finds the closest fruit.
+ * 2. updates the graph.
+ * @author Maoz Grossman, Liron Arad, Michael Lemberger
+ */
 public class DijkstraAlgo{
-	Game _game;
-	Map map;public Fruit fruit;
+	Game _game;public Fruit fruit;
 	public ArrayList<String>path;
 	double distance;
-	public Cgraph C;
-	public Graph graph;
-	
+	public Cgraph C;public Graph graph;
+	/**
+	 * constructor
+	 * @param game
+	 * @param C
+	 */
 	public DijkstraAlgo(Game game,Cgraph C) {
 		this._game = game;
 		path=new ArrayList<String>();
-		map=new Map(1386,642);
 		distance=Integer.MAX_VALUE;
 		this.C=C;
 		graph=new Graph();
 		runAlgo();
 	}
-
+	
+	/**
+	 * main use of algorithm.
+	 * iterates over the fruits. 
+	 */
 	public void runAlgo() {
 		String source="a";String target="b";
 		Iterator<GIS_element> fruits=_game.fruits.iterator();
 		while(fruits.hasNext()) {
 			Fruit f=(Fruit) fruits.next();
-			int[]arr=map.gpsToPixel(f.get_p().x(),f.get_p().y());
+			int[]arr=C.map.gpsToPixel(f.get_p().x(),f.get_p().y());
 			Node targeted=new Node(f.get_p(),new Point3D(arr[0],arr[1]),"b");
 			CopyGraph();
 			graph.Node node=new graph.Node("b");
@@ -54,6 +64,9 @@ public class DijkstraAlgo{
 			}
 		}
 	}
+	/**
+	 * The graph + a fruit.
+	 */
 	public void CopyGraph(){
 		this.graph=new Graph();
 		for(Node n:C.nodes) {

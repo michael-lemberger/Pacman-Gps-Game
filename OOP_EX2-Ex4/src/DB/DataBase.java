@@ -7,12 +7,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
-
+/**
+ * This class connects to the web server of the game.
+ * @author Liron Arad,Maoz Grossman,Michael Lemberger
+ *
+ */
 public class DataBase {
+	/**
+	 * Gets the top 10 scores from the data base,among all the players.
+	 */
 	public  void BestScoreEver() {
 		String best = "SELECT * FROM logs  ORDER BY logs.Point DESC LIMIT "+ 10;
 		getData(best);
 	}
+	 /**
+	  *  Gets the top 3 personal recodes.
+	  */
 	public  void MyBestScore() {
 		String best ="SELECT * FROM logs WHERE FirstID="+
 				308214105+ " ORDER BY logs.Point DESC LIMIT "+ 5;

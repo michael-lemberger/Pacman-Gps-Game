@@ -1,17 +1,23 @@
 package Threads;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import Algorithms.Cgraph;
-import Algorithms.ConnectedGraph;
 import Algorithms.DijkstraAlgo;
 import GIS.Game;
 import GIS.Node;
 import GUI.GuiEx4;
 import Geom.Point3D;
 import Robot.Play;
-
+/**
+ * The main Thread, Based on the thread we got from
+ * boaz.
+ * we added the usage of DijakstraAlgo and Cgraph.
+ * we added the rotate function Iterating over the path
+ * and giving the general direction.
+ * @author Michael Lemberger,Liron Arad,Maoz Grossman.
+ *
+ */
 public class Ex4_Auto extends Thread{
 	GuiEx4 gui;
 	boolean play=true;
@@ -68,8 +74,8 @@ public class Ex4_Auto extends Thread{
 				gui.game=new Game(board_data);
 				
 				if(!flag) {
-					 C=new Cgraph(gui.game) ;
-					 System.out.println(C.toString());
+					 C=new Cgraph(gui.game,gui.map) ;
+					 System.out.println("new graph");
 					 flag=true;
 				}
 				try {
@@ -79,7 +85,7 @@ public class Ex4_Auto extends Thread{
 					// TODO: handle exception
 				}
 				
-				if(i>1)
+				
 				rotate(); 
 
 				gui.repaint();
@@ -104,12 +110,13 @@ public class Ex4_Auto extends Thread{
 			play=false;
 			}
 		}
-		
+		/**
+		 * Finds the target
+		 * gets the general direction.
+		 */
 		private void rotate() {
 			ArrayList<String> path=new ArrayList<String>();
 			path.addAll(D.path);
-			System.out.println("Path:"+path.toString());
-			System.out.println("fruit:"+D.fruit);
 			Node n=null;
 			if(counter<path.size()) {
 			String s=path.get(counter);
@@ -123,7 +130,7 @@ public class Ex4_Auto extends Thread{
 			Point3D p=gui.game.player._p;
 			int [] arr=gui.map.gpsToPixel(p.x(), p.y());
 			Point3D inPixel=new Point3D(arr[0],arr[1]);
-			if((inPixel.x()==n.inPixel.x())&&(inPixel.y()==n.inPixel.y())) {
+			if(inPixel.equalsXY(n.inPixel)) {
 				counter++;
 			}
 			}
@@ -133,9 +140,10 @@ public class Ex4_Auto extends Thread{
 				int [] arr=gui.map.gpsToPixel(p.x(),p.y());
 				Node fruit=new Node(p,new Point3D (arr[0],arr[1]),"b");
 				gui.rotate((int)(fruit.inPixel.x()),(int)(fruit.inPixel.y()));
-				p=gui.game.player._p;
-				if((position.x()==p.x())&&(position.y()==p.y())) {
+				if(!gui.game.contains(D.fruit)) {
 					counter=1;
+					for(int i=0;i<100;i++)
+					System.out.println(counter);
 					flag=false;
 				}
 				position=p;
