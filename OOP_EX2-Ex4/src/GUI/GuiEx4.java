@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import Algorithms.ConnectedGraph;
+import DB.DataBase;
 import File_format.CsvGameWriter;
 import File_format.Path2KML;
 import GIS.Block;
@@ -60,15 +61,19 @@ public class GuiEx4 extends JFrame implements MouseListener{
 	public GuiEx4() {
 		/***********************menu bar ******************************/
 		MenuBar menubar = new MenuBar();
-		Menu menu=new Menu("file");
-		MenuItem open =new MenuItem("open");
-		MenuItem save =new MenuItem("save");
-		Menu menu2=new Menu("game");
-		MenuItem pacman =new MenuItem("add pacman");
-		MenuItem fruit =new MenuItem("add fruit");
-		MenuItem nully =new MenuItem("new game");
-		MenuItem play =new MenuItem("play");
-		MenuItem handsfree =new MenuItem("hands-free");
+		Menu menu=new Menu("File");
+		MenuItem open =new MenuItem("Open");
+		MenuItem save =new MenuItem("Save");
+		Menu menu2=new Menu("Game");
+		Menu menu3=new Menu("Score");
+		MenuItem pacman =new MenuItem("Add pacman");
+		MenuItem fruit =new MenuItem("Add fruit");
+		MenuItem nully =new MenuItem("New game");
+		MenuItem play =new MenuItem("Play");
+		MenuItem handsfree =new MenuItem("Hands-free");
+		MenuItem BestScoreEver =new MenuItem("Best score ever");
+		MenuItem MyBestScore =new MenuItem("My best score");
+		
 		/*******************Labels and buttons******************************************/
 		/*open label */
 		open.addActionListener(new ActionListener() {
@@ -183,7 +188,25 @@ public class GuiEx4 extends JFrame implements MouseListener{
 			}
 		});
 
-
+		BestScoreEver.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DataBase DB =new DataBase();
+				DB.BestScoreEver();
+				
+			}
+		});
+		
+MyBestScore.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DataBase DB =new DataBase();
+				DB.MyBestScore();
+				
+			}
+		});
 
 
 		/************************additions******************************/
@@ -194,8 +217,13 @@ public class GuiEx4 extends JFrame implements MouseListener{
 		menu2.add(nully);
 		menu2.add(play);
 		menu2.add(handsfree);
+		//
+		menu3.add(BestScoreEver);
+		menu3.add(MyBestScore);
+		//
 		menubar.add(menu);
 		menubar.add(menu2);
+		menubar.add(menu3);
 		setMenuBar(menubar);
 
 		/*****************************image methods****************************/

@@ -31,7 +31,7 @@ public class Ex4_Auto extends Thread{
 			Play play1 = gui.GamePlayer;
 			
 			// 2) Set your ID's - of all the group members
-			play1.setIDs(1111,2222,3333);
+			play1.setIDs(308214105,204577514,203668116);
 			
 			// 3)Get the GPS coordinates of the "arena"
 			String map_data = play1.getBoundingBox();
@@ -55,17 +55,6 @@ public class Ex4_Auto extends Thread{
 //			for(int i=0;i<10;i++) {
 			int i=0;
 				while(play1.isRuning()) {
-					if(!flag) {
-						 C=new Cgraph(gui.game) ;
-						 System.out.println(C.toString());
-						 flag=true;
-					}
-					try {
-					D=new DijkstraAlgo(gui.game,C);
-					}
-					catch (Exception e) {
-						// TODO: handle exception
-					}
 					i++;
 			// 7.1) this is the main command to the player (on the server side)	
 				System.out.println("***** "+i+"******");
@@ -73,10 +62,22 @@ public class Ex4_Auto extends Thread{
 				rotate_null(); 
 			// 7.2) get the current score of the game
 				String info = play1.getStatistics();
-//				System.out.println(info);
+				System.out.println(info);
 			// 7.3) get the game-board current state
 				board_data = play1.getBoard();
 				gui.game=new Game(board_data);
+				
+				if(!flag) {
+					 C=new Cgraph(gui.game) ;
+					 System.out.println(C.toString());
+					 flag=true;
+				}
+				try {
+				D=new DijkstraAlgo(gui.game,C);
+				}
+				catch (Exception e) {
+					// TODO: handle exception
+				}
 				
 				if(i>1)
 				rotate(); 
@@ -87,16 +88,16 @@ public class Ex4_Auto extends Thread{
 				}
 				catch (Exception e) {
 				}
-//				for(int a=0;a<board_data.size();a++) {
-//					System.out.println(board_data.get(a));
-//				}
+				for(int a=0;a<board_data.size();a++) {
+					System.out.println(board_data.get(a));
+				}
 				
-//				System.out.println();
+				System.out.println();
 			}
 			// 8) stop the server - not needed in the real implementation.
-			//play1.stop();
-//			System.out.println("**** Done Game (user stop) ****");
-			
+			play1.stop();
+			System.out.println("**** Done Game (user stop) ****");
+//			
 			// 9) print the data & save to the course DB
 			String info = play1.getStatistics();
 			System.out.println(info);
@@ -105,7 +106,10 @@ public class Ex4_Auto extends Thread{
 		}
 		
 		private void rotate() {
-			ArrayList<String> path=D.path;
+			ArrayList<String> path=new ArrayList<String>();
+			path.addAll(D.path);
+			System.out.println("Path:"+path.toString());
+			System.out.println("fruit:"+D.fruit);
 			Node n=null;
 			if(counter<path.size()) {
 			String s=path.get(counter);
@@ -115,7 +119,6 @@ public class Ex4_Auto extends Thread{
 					break;
 				}
 			}
-			System.out.print(n._name+", ");
 			gui.rotate((int)(n.inPixel.x()),(int)(n.inPixel.y()));
 			Point3D p=gui.game.player._p;
 			int [] arr=gui.map.gpsToPixel(p.x(), p.y());
@@ -123,9 +126,9 @@ public class Ex4_Auto extends Thread{
 			if((inPixel.x()==n.inPixel.x())&&(inPixel.y()==n.inPixel.y())) {
 				counter++;
 			}
-			System.out.println("counter="+counter);
 			}
 			else {
+				if(D.fruit!=null) {
 				Point3D p=new Point3D(D.fruit.get_p().x(),D.fruit.get_p().y());
 				int [] arr=gui.map.gpsToPixel(p.x(),p.y());
 				Node fruit=new Node(p,new Point3D (arr[0],arr[1]),"b");
@@ -136,9 +139,7 @@ public class Ex4_Auto extends Thread{
 					flag=false;
 				}
 				position=p;
-				System.out.println("pos:"+position);
-				System.out.println("p"+p);
-				System.out.println(counter);
+			}
 			}
 			}
 
