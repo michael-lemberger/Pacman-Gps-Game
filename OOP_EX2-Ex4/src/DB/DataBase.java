@@ -25,7 +25,7 @@ public class DataBase {
 	  */
 	public  void MyBestScore() {
 		String best ="SELECT * FROM logs WHERE FirstID="+
-				308214105+ " ORDER BY logs.Point DESC LIMIT "+ 5;
+				"<id_number>"+ " ORDER BY logs.Point DESC LIMIT "+ 5;
 		getData(best);
 	}
 	private  void getData(String allCustomersQuery )
